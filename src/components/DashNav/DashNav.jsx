@@ -25,7 +25,7 @@ const DashNav = () => {
     <div>
       <div
         className={`hidden lg:flex fixed justify-between bg-purple-200 min-h-screen flex-col transition-all duration-300 ${
-          isClicked ? "w-20" : "w-64"
+          isClicked ? "w-20" : "w-72"
         }`}
       >
         <div
@@ -65,11 +65,19 @@ const DashNav = () => {
             </Link>
           )}
 
+
+          <Link href={"/dashboard/create"} className="flex justify-center items-center">
+            <button className="btn glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
+              <FaPlus />
+              {isClicked ? "" : "Create"}
+            </button>
+
 <Link href={"/dashboard/create"}>
           <button className="btn  glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
             <FaPlus />
             {isClicked ? "" : "Create"}
           </button>
+
 
           </Link>
 

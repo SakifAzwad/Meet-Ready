@@ -15,10 +15,10 @@ const CardPrice = ({dolar, popularity, learn, amount, time, svg}) => {
                       {/* Price  */}
                       <div className="absolute top-8 left-7 text-white text-xl font-semibold flex flex-col">
                           <span>
-                              <sub className="font-normal text-sm hover:text-white">{dolar}</sub>
-                              <span>{amount}</span>
+                              <sub className="font-normal text-xl hover:text-white">{dolar}</sub>
+                              <span className="text-2xl">{amount}</span>
                           </span>
-                          <span className="text-xs font-normal hover:text-white">/{time}</span>
+                          <span className="text-sm font-normal hover:text-white">/{time}</span>
                       </div>
                   </div>
               </div>
