@@ -43,4 +43,4 @@ const PlanPrice = () => {
     )
 }
 
-export default PlanPrice
+export default PlanPrice;
