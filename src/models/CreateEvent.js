@@ -4,7 +4,7 @@ const {Schema} = mongoose;
 
 const createEventSchema = new Schema(
   { 
-    eventName:{
+    eventTitle:{
     type: String,
     required:true,
   },
@@ -12,19 +12,31 @@ const createEventSchema = new Schema(
     type: String,
     required:true,
   },
-    duration:{
+    eventDuration:{
     type: String,
     required:true,
   },
-    location:{
+    eventLocation:{
       type: String,
       required: true, 
     },
-    schedule: {
+    eventDate: {
       type: String,
       required: true,
     },
-    link: {
+    eventDay: {
+      type: String,
+      required: true,
+    },
+    fromTime: {
+      type: String,
+      required: true,
+    },
+    toTime: {
+      type: String,
+      required: true,
+    },
+    meetingLink: {
       type: String,
       required: true,
     },
