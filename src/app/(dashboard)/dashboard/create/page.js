@@ -11,7 +11,7 @@ const CreateEvent = () => {
             <div className="md:w-[300px] w-full border-2 border-blue-500 h-[330px] p-6 rounded-md space-y-8">
               
                 <h1 className="text-xl font-semibold text-center my-4 text-black">One-on-One</h1>
-               <p>Help clients and colleagues find a time to book with me. Good for sales executives, realtors, HR consultants</p>
+               <p className="h-[80px]">Help clients and colleagues find a time to book with me. Good for sales executives, realtors, HR consultants</p>
 
                <div className="text-center ">
                 <Link href={'/dashboard/createNewEvent'}>
@@ -23,8 +23,8 @@ const CreateEvent = () => {
 
 
             <div className="md:w-[300px] w-full border-2 border-blue-500 h-[330px] p-6 rounded-md space-y-8">
-                <h1 className="text-xl font-semibold text-center my-4 text-black">Group Sessions</h1>
-               <p>Help clients book a seat in one of the upcoming sessions. Good for yoga classes, virtual events.</p>
+                <h1 className="text-xl font-semibold text-center mt-4 text-black">Group Sessions</h1>
+               <p className="h-[80px]">Help clients book a seat in one of the upcoming sessions. Good for yoga classes, virtual events.</p>
 
                <div className="text-center ">
                 <Link href={'/dashboard/teamEvent'}>
