@@ -10,9 +10,11 @@ import {
   FaTrash,
 } from "react-icons/fa6";
 
-const EventCard = () => {
+const EventCard = ({event}) => {
+  console.log(event)
+  const {eventTitle, eventDuration, fromTime, eventDate } = event
   const meetLinkRef = useRef(null);
-
+  
   const copyToClipboard = () => {
     if (meetLinkRef.current) {
       meetLinkRef.current.select();
@@ -58,9 +60,9 @@ const EventCard = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-xl font-medium">This is meeting Title</h1>
-          <h1 className="text-base font-extralight">45min, One-on-One</h1>
-          <h1 className="text-base font-extralight">10:00am, 27-01-2024</h1>
+        <h1 className="text-xl font-medium">{eventTitle}</h1>
+          <h1 className="text-base font-extralight">{eventDuration}, One-on-One</h1>
+          <h1 className="text-base font-extralight">{fromTime}, {eventDate}</h1>
           <h1 className="text-base font-extralight">
             <span className="font-semibold">Status</span>: Pending
           </h1>
