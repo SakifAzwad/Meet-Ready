@@ -65,11 +65,20 @@ const DashNav = () => {
             </Link>
           )}
 
+
           <Link href={"/dashboard/create"} className="flex justify-center items-center">
             <button className="btn glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
               <FaPlus />
               {isClicked ? "" : "Create"}
             </button>
+
+<Link href={"/dashboard/create"}>
+          <button className="btn  glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
+            <FaPlus />
+            {isClicked ? "" : "Create"}
+          </button>
+
+
           </Link>
 
           <Link href={"/dashboard/events"}>
