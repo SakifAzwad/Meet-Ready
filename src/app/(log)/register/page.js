@@ -1,10 +1,13 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import React from "react";
 
 const Register = () => {
+
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -31,6 +34,7 @@ const Register = () => {
       }
       if(res.status === 200) {
        console.log('Registration successful')
+       router.push('/')
       }
     } catch (error) {
       console.log(error)
@@ -41,11 +45,11 @@ const Register = () => {
     <>
       <section class="flex flex-col md:flex-row h-screen items-center">
         <div
-          class="bg-purple-100 w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+          class="bg-purple-100 w-full md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
         flex items-center justify-center"
         >
           <div class="w-full h-100">
-            <Image src='https://i.ibb.co/T24b18g/meet-Ready-Logo.png' alt="register-image" className="px-12" width={500} height={700}/>
+            <Image src='https://i.ibb.co/T24b18g/meet-Ready-Logo.png' alt="register-image" className="px-12" width={500} height={800}/>
             {/* <img
               src="https://i.ibb.co/T24b18g/meet-Ready-Logo.png"
               class="px-12"
@@ -137,7 +141,7 @@ const Register = () => {
           </div>
         </div>
         <div class="bg-purple-300 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
-          <Image height={100} width={100} className="object-cover w-full h-full py-12" alt="second-image" src="https://i.ibb.co/nLK1vKw/12146011-Wavy-Gen-01-Single-07.png"/>
+          <Image height={600} width={600} className="object-cover w-full h-full py-12" alt="second-image" src="https://i.ibb.co/nLK1vKw/12146011-Wavy-Gen-01-Single-07.png"/>
           {/* <img
             src="https://i.ibb.co/nLK1vKw/12146011-Wavy-Gen-01-Single-07.png"
             alt=""

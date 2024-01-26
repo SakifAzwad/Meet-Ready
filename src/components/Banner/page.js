@@ -10,6 +10,13 @@ import "swiper/css/pagination";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
 import Image from "next/image";
 
+const imageList = [
+  'https://i.ibb.co/19mXW8C/laptops-593296-1280.jpg',
+  'https://i.ibb.co/YTV9VX3/austin-distel-g-UIJ0-Ysz-Pig-unsplash.jpg',
+  'https://i.ibb.co/YTV9VX3/austin-distel-g-UIJ0-Ysz-Pig-unsplash.jpg'
+]
+
+
 const page = () => {
   return (
   
@@ -25,12 +32,27 @@ const page = () => {
           modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
           className="mySwiper"
         >
-          <SwiperSlide>
+          {
+            imageList.map(image => (
+              <SwiperSlide key={image}>
+              <Image
+              loading = 'lazy'
+              quality={100}
+                src={image}
+                width={1200}
+                height={500}
+                alt="logo"
+                className="w-full"
+              />
+            </SwiperSlide>
+            ))
+          }
+          {/* <SwiperSlide>
             <Image
             loading = 'lazy'
             quality={100}
               src="https://i.ibb.co/19mXW8C/laptops-593296-1280.jpg"
-              width={1000}
+              width={1200}
               height={500}
               alt="logo"
             />
@@ -40,7 +62,7 @@ const page = () => {
             loading = 'lazy'
                quality={100}
               src="https://i.ibb.co/r2gm0yY/headway-5-Qg-Iuu-Bx-Kw-M-unsplash.jpg"
-              width={1000}
+              width={1200}
               height={500}
               alt="logo"
             />
@@ -50,11 +72,11 @@ const page = () => {
             loading = 'lazy'
                quality={100}
               src="https://i.ibb.co/YTV9VX3/austin-distel-g-UIJ0-Ysz-Pig-unsplash.jpg"
-              width={1000}
+              width={1200}
               height={500}
               alt="logo"
             />
-          </SwiperSlide>
+          </SwiperSlide> */}
           
         </Swiper>
       </section>
@@ -66,53 +88,3 @@ const page = () => {
 
 export default page;
 
-{/* <SwiperSlide>
-            <Image
-            
-              layout="responsive"
-              src="https://i.ibb.co/zGWV9GW/alesia-kaz-VWc-Plb-Hgl-Yc-unsplash.jpg"
-              width={500}
-              height={500}
-              alt="logo"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              
-              layout="responsive"
-              src="https://i.ibb.co/qDVGHTR/calendar-1990453-1280.jpg"
-              width={500}
-              height={500}
-              alt="logo"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              
-              layout="responsive"
-              src="https://i.ibb.co/CH8ww26/job-5382501-1280.jpg"
-              width={500}
-              height={500}
-              alt="logo"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-             
-              layout="responsive"
-              src="https://i.ibb.co/hmh3kLc/pexels-canva-studio-3153201.jpg"
-              width={500}
-              height={500}
-              alt="logo"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-             
-              layout="responsive"
-              src="https://i.ibb.co/fvgqpzY/pexels-sora-shimazaki-5673488.jpg"
-              width={500}
-              height={500}
-              alt="logo"
-            />
-          </SwiperSlide> */}

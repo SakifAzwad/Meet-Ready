@@ -1,9 +1,14 @@
+'use client'
 import Link from 'next/link'
 import React from 'react'
 import { signIn, useSession } from "next-auth/react"
 import logo from "@/assets/meetReadyLogo.png"
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 const LoginForm = () => {
+  const router = useRouter()
+
   const handleSubmit = async(e) => {
     e.preventDefault()
     const email = e.target.email.value
@@ -18,22 +23,30 @@ const LoginForm = () => {
     if (response?.error){
       console.log(error)
     }
+    router.replace('/')
   }
   return (
     <section className="flex flex-col md:flex-row h-screen items-center">
 
   <div className="bg-purple-300 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
-    <img src="https://i.ibb.co/nLK1vKw/12146011-Wavy-Gen-01-Single-07.png" alt="" className=" w-full h-full object-cover py-12"/>
+    <Image src="https://i.ibb.co/nLK1vKw/12146011-Wavy-Gen-01-Single-07.png" alt='login-image' height={700} width={500} className=" w-full h-full object-cover py-12"/>
+
+    {/* <img src="https://i.ibb.co/nLK1vKw/12146011-Wavy-Gen-01-Single-07.png" alt="" className=" w-full h-full object-cover py-12"/> */}
   </div>
 
   
 
-  <div className="bg-purple-100 w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12   flex items-center justify-center">
+  <div className="bg-purple-100 w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12   flex items-center justify-center">
 
 
     <div className="w-full h-100">
 
-    <img src="https://i.ibb.co/T24b18g/meet-Ready-Logo.png" className="px-12"/>
+    <Image src="https://i.ibb.co/T24b18g/meet-Ready-Logo.png" className="px-12" height={200} width={400} alt='logo'/>
+
+{/* 
+    <img src="https://i.ibb.co/T24b18g/meet-Ready-Logo.png" className="px-12" alt='logo'/> */}
+
+
       <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center">Log in to your account</h1>
 
       <form className="mt-6" onSubmit={handleSubmit}>
@@ -56,7 +69,9 @@ const LoginForm = () => {
 
       <hr className="my-6 border-gray-300 w-full"/>
 
-      <button type="button" className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300">
+      <button 
+      onClick={() => signIn('google')}
+      type="button" className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300">
             <div className="flex items-center justify-center">
             <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +102,7 @@ const LoginForm = () => {
             </div>
           </button>
 
-      <p className="mt-8">Need an account?<Link
+      <p className="mt-8">Need an account? <Link
        href="/register" className="text-purple-500 hover:text-purple-700 font-semibold">Create an
               account</Link></p>
 

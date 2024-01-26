@@ -9,11 +9,6 @@ const session = await getServerSession(authOptions)
 
 if(session) redirect("/")
 
-  // console.log(session)
-  // console.log(sessionStatus)
-
-
-
   return (
         <>
         

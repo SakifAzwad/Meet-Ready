@@ -9,6 +9,7 @@ import userLogo from "@/assets/userLogo.png";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { signOut } from "next-auth/react";
+import Logout from "../Logout/Logout";
 
 const Navbar = async () => {
   // const user = false;
@@ -42,7 +43,7 @@ const Navbar = async () => {
         {/* user avatar */}
         {user ? (
           <>
-            <div className="dropdown dropdown-end hidden lg:flex">
+            <div className="dropdown dropdown-end hidden lg:flex z-50">
               <div
                 tabIndex={0}
                 role="button"
@@ -62,19 +63,21 @@ const Navbar = async () => {
                 className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 "
               >
                 <li>
-                  <a className="font-semibold">{user?.name}</a>
+                  <a className="font-semibold z-50">{user?.name}</a>
                 </li>
                 <li>
-                  <a className="font-semibold">{user?.email}</a>
+                  <a className="font-semibold z-50">{user?.email}</a>
                 </li>
                 <hr />
                 <li>
                   <Link href={"/editProfile"}>Edit Profile</Link>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  {/* <a>Logout</a> */}
+                  <Logout/>
                 </li>
               </ul>
+              
             </div>
           </>
         ) : (
@@ -144,7 +147,8 @@ const Navbar = async () => {
                     <Link href={"/editProfile"}>Edit Profile</Link>
                   </li>
                   <li className="border-b">
-                    <a >Logout</a>
+                    {/* <a >Logout</a> */}
+                    <Logout/>
                   </li>
                 </>
               ) : (

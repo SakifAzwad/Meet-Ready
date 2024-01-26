@@ -12,11 +12,9 @@ export const metadata = {
 };
 
 export default  async function RootLayout({ children }) {
-  const session = await getServerSession()
   return (
     <html lang="en" data-theme='light'>
       <body className="">
-       
        <main className="flex flex-col bg-purple-100">
           <Navbar />
           <div className="flex flex-row">
@@ -26,7 +24,6 @@ export default  async function RootLayout({ children }) {
           <BottomBar/>
           <Footer />
         </main>
-      
       </body>
     </html>
   );
