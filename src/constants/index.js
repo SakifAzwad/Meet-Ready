@@ -1,4 +1,4 @@
-import { FaAddressBook, FaHouseChimney, FaBlog } from "react-icons/fa6";
+import { FaAddressBook, FaHouseChimney, FaBlog, FaDollarSign } from "react-icons/fa6";
 
 
 
@@ -17,5 +17,10 @@ export const sideLinks =[
         icon: <FaBlog/>,
         route: "/blog",
         label: "Blog",
+      },
+      {
+        icon: <FaDollarSign/>,
+        route: "/pricing",
+        label: "Pricing",
       },
 ]

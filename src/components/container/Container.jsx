@@ -26,6 +26,7 @@ const Container = () => {
     // </div>
     <div className='max-w-7xl mx-auto xl:px-40' style={{ width: isSmallScreen ? '100%' : 'calc(100% - 300px)' }}>
       <Banner />
+      
     </div>
   );
 };
