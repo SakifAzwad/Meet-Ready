@@ -1,14 +1,21 @@
 'use client'
 import EventCard from "@/components/EventCard/EventCard";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Events = () => {
   const [eventData, setEventData] = useState([])
   const [singleEventData, setSingleEventData] = useState([])
+
+  
+  const session = useSession()
+
+  console.log(session)
+ const email = session?.data?.user?.email
+console.log(email)
  
   const getEvent = async()=> {
-    const  email = 'r4pido3@gmail.com'
 
    try {
      const res = await fetch(`/api/createEvent?email=${email}`,{

@@ -1,16 +1,21 @@
 "use client";
 
 import { set } from "mongoose";
+import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 
 const TwoPersonEvent = () => {
   const [next1, setNext1] = useState(false);
-  const [location, setLocaion] = useState("");
+  const [location, setLocation] = useState("");
 
+  const session = useSession()
+
+  console.log(session)
+ const email = session?.data?.user?.email
+console.log(email)
   const formHandler = async(e) => {
     e.preventDefault();
 
-    const email = 'r4pido3@gmail.com'
     const eventTitle=e.target.title.value
     const eventSlug=e.target.slug.value
     const eventDuration=e.target.duration.value
