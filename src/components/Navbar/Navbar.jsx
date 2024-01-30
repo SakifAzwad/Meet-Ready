@@ -12,7 +12,14 @@ import { signOut } from "next-auth/react";
 import Logout from "../Logout/Logout";
 
 
-const Navbar = ()=> {
+const Navbar = async ()=> {
+  
+  const session = await getServerSession(authOptions)
+
+  console.log('session in navbar', session)
+
+  const user = session?.user
+  console.log(user)
   // const currentPath = window.location.pathname;
   
   // const [isSticky, setIsSticky] = useState(false);
@@ -50,7 +57,7 @@ const Navbar = ()=> {
         isSticky ? "fixed top-0 w-full" : ""
       } transition-colors duration-300 ease-in-out`}
     >
-      <div className={`flex items-center justify-between lg: `}>
+      <div className={`flex items-center justify-between `}>
         <div className="flex space-x-6 items-center">
           <Image
             className="py-4 ml-12 mr-4"
@@ -94,6 +101,7 @@ const Navbar = ()=> {
                 About Us
               </Link>
             </li>
+            <li>{user?.name}</li>
           </ul>
         </div>
 
@@ -125,12 +133,20 @@ const Navbar = ()=> {
             </button>
           </div>
           <div>
-            <Link
-              className=" ml-4 mr-12 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
-              href="/login"
-            >
-              Login
-            </Link>
+          {
+              user ? (
+                <Logout/>
+             
+              ) : (
+                <Link
+                className=" mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
+                href="/login"
+              >
+                Login
+              </Link>
+             
+              )
+            }
           </div>
         </div>
         <button
@@ -171,6 +187,9 @@ const Navbar = ()=> {
         </button>
       </div>
 
+
+
+{/* small screen design */}
       {isSidebarOpen && (
         <div className="lg:hidden mt-4 ">
           {/* Your sidebar content goes here */}
@@ -238,12 +257,19 @@ const Navbar = ()=> {
             </button>
           </div>
           <div className="pb-2">
-            <a
-              className=" mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
-              href="/login"
-            >
-              Login
-            </a>
+            {
+              user ? (
+              
+<Logout />
+              ) : (
+                <Link
+                className=" mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
+                href="/login"
+              >
+                Login
+              </Link>
+              )
+            }
           </div>
         </div>
         </div>

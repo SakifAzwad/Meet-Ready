@@ -3,9 +3,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm/LoginForm";
 
-const Login = async () => {
-
-
+const Login = () => {
 
   return (
         <>

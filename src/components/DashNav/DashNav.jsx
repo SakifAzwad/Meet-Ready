@@ -15,6 +15,7 @@ import { usePathname } from "next/navigation";
 import userLogo from "@/assets/userLogo.png";
 import mobileLogo from "@/assets/meetReadyLogoMobile.png";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 const DashNav = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -105,8 +106,10 @@ const DashNav = () => {
         </div>
 
         <div className="p-5">
-          <button className="w-full glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
-            <FaArrowRightFromBracket /> {isClicked ? "" : "Log Out"}
+          <button 
+          onClick={() => signOut()}
+          className="w-full glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
+            <FaArrowRightFromBracket /> Log Out
           </button>
         </div>
       </div>
@@ -163,8 +166,10 @@ const DashNav = () => {
             </Link>
 
             <hr />
-            <button className="glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
-              <FaArrowRightFromBracket /> {isClicked ? "" : "Log Out"}
+            <button 
+            onClick={() => signOut()}
+            className="glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
+              <FaArrowRightFromBracket /> Log Out
             </button>
           </ul>
         </div>
