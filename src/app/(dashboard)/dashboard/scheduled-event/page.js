@@ -1,7 +1,10 @@
 import EventCard from "@/components/EventCard/EventCard";
+import Link from "next/link";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
-const page = () => {
+const page = ({okk}) => {
+
+
   return (
     <div className="flex flex-col justify-start mt-16 space-y-5">
       <h1 className="text-2xl font-semibold pl-2 border-l-2 border-purple-500">
@@ -11,6 +14,8 @@ const page = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {/* <EventCard  /> */}
         
+             
+
       </div>
     </div>
   );
