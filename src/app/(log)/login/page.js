@@ -5,9 +5,7 @@ import LoginForm from "@/components/LoginForm/LoginForm";
 
 const Login = async () => {
 
-const session = await getServerSession(authOptions)
 
-if(session) redirect("/dashboard")
 
   return (
         <>

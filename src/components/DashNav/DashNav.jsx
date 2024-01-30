@@ -50,7 +50,7 @@ const DashNav = () => {
           )}
 
           {isClicked ? (
-            <Link href={"/dashboard"}>
+            <Link href={"/"}>
               <Image
                 src={mobileLogo}
                 width={"40"}
@@ -60,7 +60,7 @@ const DashNav = () => {
               />
             </Link>
           ) : (
-            <Link href={"/dashboard"}>
+            <Link href={"/"}>
               <Image src={logo} width={"200"} height={"150"} alt="logo" />
             </Link>
           )}
@@ -131,7 +131,7 @@ const DashNav = () => {
           ></label>
           <ul className="menu p-4 space-y-2 w-72 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            <Link href={"/dashboard"}>
+            <Link href={"/"}>
               <Image src={logo} width={"200"} height={"150"} alt="logo" />
             </Link>
 
