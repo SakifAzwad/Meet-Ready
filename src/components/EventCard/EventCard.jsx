@@ -16,7 +16,6 @@ const EventCard = ({event}) => {
   const meetLinkRef = useRef(null);
   const router = useRouter()
   
-  console.log(_id)
   const copyToClipboard = () => {
     if (meetLinkRef.current) {
       meetLinkRef.current.select();
@@ -29,9 +28,8 @@ const EventCard = ({event}) => {
 // Delete functionality
 
 const handleDelete = async (id) => {
-  console.log(
-    'delete button clicked', id)
-    const res = await fetch(`/api/createEvent/${id}`, {
+  // Todo a alert should be shown that the user is sure something like that
+     const res = await fetch(`/api/createEvent/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type":"application/json"
@@ -40,11 +38,38 @@ const handleDelete = async (id) => {
     console.log(res.status)
     if(res.status === 200){
       console.log("Event Successfully Deleted")
+      // Todo replace clg with toast
       // router.push('/dashboard/events')
       window.location.reload()
       // TODO refetch data after delete not reload
+    }else{
+      console.log("An error occurred.")
+      // Todo replace clg with toast
     }
   
+}
+
+// Finish functionality
+
+const handleFinish = async (id) => {
+  const eventStatus = 'Finished'
+  // Todo a alert should be shown that the user is sure something like that
+  const res = await fetch(`/api/createEvent/${id}`,{
+    method: 'PATCH',
+    headers: {
+      "Content-type":"application/json"
+    },
+    body: JSON.stringify(eventStatus)
+  })
+  if(res.status === 200){
+    console.log('Status updated')
+    // Todo replace clg with toast
+    window.location.reload()
+    // TODO refetch data after it not reload
+  }else{
+    console.log("An error occurred.")
+    // Todo replace clg with toast
+  }
 }
 
 
@@ -73,10 +98,12 @@ const handleDelete = async (id) => {
               </li>
               {/* finished button */}
               <li>
-                <p className="flex text-green-800 font-semibold justify-center items-center gap-2">
+                <button
+                onClick={()=>handleFinish(_id)}
+                className="flex text-green-800 font-semibold justify-center items-center gap-2">
                   <FaCheck />
                   Finished
-                </p>
+                </button>
               </li>
               {/* delete button */}
               <li>

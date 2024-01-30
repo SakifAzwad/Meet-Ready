@@ -32,9 +32,27 @@ export const DELETE = async(request, {params}) => {
   }
 }
 
+// Change status of event route
+
+export const PATCH = async(request, {params}) => {
+  const { id } = params;
+  const  eventStatus  = await request.json()
+  console.log(eventStatus)
+  await connect()
+  try {
+    const res = await CreateEvent.findByIdAndUpdate(id,{eventStatus})
+    return NextResponse.json("Item Deleted", {status: 200})
+  } catch (error) {
+    
+  } console.log(error)
+  return new NextResponse("Internal Server Error", { status: 500 });
+}
+
+
 // edit event put route
 export const PUT = async (request, { params }) => {
   const { id } = params;
+  console.log(id)
   const { editedEventInfo } = await request.json();
   console.log(editedEventInfo);
   const eventTitle = editedEventInfo.eventTitle;
