@@ -1,17 +1,37 @@
-"use client";
+'use client'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
-import { useSession } from "next-auth/react";
-import React, { useState } from "react";
-
-const TwoPersonEvent = () => {
-  const [next1, setNext1] = useState(false);
+const EditEvent = ({params}) => {
+  const id = params.id
+  const [singleEventData, setSingleEventData] = useState(null)
   const [location, setLocation] = useState("");
+  const [next1, setNext1] = useState(false);
+  const session = useSession()
+  const router = useRouter()
 
-  const session = useSession();
+  const email = session?.data?.data?.user?.email
 
-  const email = session?.data?.user?.email;
+  const getSingleEvent = async(id)=> {
+    try {
+      const res = await fetch(`/api/createEvent/${id}`,{
+        cache: 'no-store'
+      })
+  
+      const singleEvent = await res.json()
+      setSingleEventData(singleEvent.singleEvent)
+  
+    } catch (error) {
+      console.log(error)
+    }
+   }
 
-  const formHandler = async (e) => {
+   useEffect(()=> {
+    getSingleEvent(id)
+   },[id])
+
+   const formHandler = async (e) => {
     e.preventDefault();
 
     const eventTitle = e.target.title.value;
@@ -24,7 +44,7 @@ const TwoPersonEvent = () => {
     const meetingLink = e.target.meetingLink.value;
     const eventLocation = e.target.location.value;
 
-    const oneEventInfo = {
+    const editedEventInfo = {
       eventTitle,
       eventSlug,
       eventDuration,
@@ -38,28 +58,31 @@ const TwoPersonEvent = () => {
     };
 
     try {
-      const res = await fetch("/api/createEvent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(`/api/createEvent/${id}`,{
+        method:"PUT",
+        headers:{
+          "Content-type":"application/json"
         },
-        body: JSON.stringify(oneEventInfo),
-      });
+        body: JSON.stringify({editedEventInfo})
+      })
+      if(res.status === 200) {
+        console.log('Event updated successfully.')
+        router.push('/dashboard/events')
+      }else{
+        console.log('An error occurred. Please try again.')
+      }
 
-      if (res.status === 500) {
-        console.log("An error ocurred please try again.");
-      }
-      if (res.status === 200) {
-        console.log("Event successfully created");
-      }
+      console.log('res', res.status)
     } catch (error) {
-      console.log(error);
+      console.log('Error in data put', error)
     }
   };
 
   const eHandle = (event) => {
-    setLocaion(event.target.value);
+    setLocation(event.target.value);
   };
+
+console.log(singleEventData)
 
   return (
     <div className="my-10">
@@ -71,7 +94,9 @@ const TwoPersonEvent = () => {
   <li className="step">Receive Product</li>
 </ul> */}
 
-      <form onSubmit={formHandler}>
+     {
+      singleEventData && (
+        <form onSubmit={formHandler}>
         <div className={`${next1 ? "hidden" : "block"} spacey-y-10`}>
           {/* EVENT TITLE */}
 
@@ -88,6 +113,7 @@ const TwoPersonEvent = () => {
               className="w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
               type="text"
               name="title"
+              defaultValue={singleEventData?.eventTitle}
             />
           </div>
 
@@ -104,6 +130,7 @@ const TwoPersonEvent = () => {
               className="w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
               type="text"
               name="slug"
+              defaultValue={singleEventData?.eventSlug}
             />
             <p>http://localhost:3000/dashboard/events</p>
           </div>
@@ -125,9 +152,10 @@ const TwoPersonEvent = () => {
               meetings.
             </p>
             <select
-              defaultValue="default"
+              // defaultValue="default"
               name="duration"
               className="select select-bordered w-full "
+              defaultValue={singleEventData?.eventDuration}
             >
               <option disabled value="default">
                 Select Duration
@@ -156,14 +184,15 @@ const TwoPersonEvent = () => {
 
           <div className="flex gap-3">
             <div className="space-y-4">
-              {/* slect bar */}
+              {/* select bar */}
 
               <select
                 className="select select-bordered select-xs w-[100px] my-3 max-w-xs"
                 name="days"
-                defaultValue="default"
+                // defaultValue="default"
+                defaultValue={singleEventData?.eventDay}
               >
-                <option disabled value="default" selected>
+                <option disabled value="default" >
                   Select Day
                 </option>
                 <option value="saturday">Saturday</option>
@@ -182,9 +211,10 @@ const TwoPersonEvent = () => {
               <select
                 className="select select-bordered select-xs w-[105px] my-3 max-w-xs"
                 name="fromTime"
-                defaultValue="default"
+                // defaultValue="default"
+                defaultValue={singleEventData?.fromTime}
               >
-                <option disabled value="default" selected>
+                <option disabled >
                   From
                 </option>
                 <option value="6:00 AM">6:00 AM</option>
@@ -232,9 +262,9 @@ const TwoPersonEvent = () => {
               <select
                 className="select select-bordered select-xs w-[105px] my-3 max-w-xs"
                 name="toTime"
-                defaultValue="default"
+                defaultValue={singleEventData?.toTime}
               >
-                <option disabled value="default" selected>
+                <option disabled value="default" >
                   To
                 </option>
                 <option value="6:00 AM">6:00 AM</option>
@@ -289,6 +319,7 @@ const TwoPersonEvent = () => {
               className="w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
               type="date"
               name="date"
+              defaultValue={singleEventData?.eventDate}
             />
           </div>
 
@@ -298,7 +329,8 @@ const TwoPersonEvent = () => {
               onChange={eHandle}
               name="location"
               value={location}
-              defaultValue="default"
+              // defaultValue="default"
+              defaultValue={singleEventData?.eventLocation}
             >
               <option disabled value="default" selected>
                 Select Your Location
@@ -320,6 +352,7 @@ const TwoPersonEvent = () => {
                 className="w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
                 type="text"
                 name="meetingLink"
+                defaultValue={singleEventData?.meetingLink}
               />
               {location === "zoom" ? (
                 <a
@@ -354,8 +387,10 @@ const TwoPersonEvent = () => {
           </button>
         </div>
       </form>
+      )
+     }
     </div>
-  );
-};
+  )
+}
 
-export default TwoPersonEvent;
+export default EditEvent

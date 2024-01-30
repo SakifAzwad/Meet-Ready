@@ -37,11 +37,12 @@ const EventCard = ({event}) => {
               className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box"
             >
               <li>
-                <Link href={"/"}>
-                  <p className="flex font-semibold justify-center items-center gap-2">
+                <Link href={`/dashboard/editEvent/${event._id}`}>
+                  <button 
+                  className="flex font-semibold justify-center items-center gap-2">
                     <FaPencil />
                     Edit
-                  </p>
+                  </button>
                 </Link>
               </li>
               <li>

@@ -89,6 +89,8 @@ console.log(email)
       },
       body: JSON.stringify({editedData})
     })
+
+    console.log(res)
   } catch (error) {
     
   }
