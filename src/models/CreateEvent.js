@@ -40,6 +40,10 @@ const createEventSchema = new Schema(
       type: String,
       required: true,
     },
+    eventStatus: {
+      type: String,
+      required: false,
+    },
     email: {
       type: String,
       required: true,

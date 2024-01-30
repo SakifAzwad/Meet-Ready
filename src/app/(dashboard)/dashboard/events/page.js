@@ -71,30 +71,6 @@ console.log(email)
   }
  }
 
- const editEvent = async(id) => {
-  const editedData = {
-    eventName:'Enayet1',
-    eventSlug:'enayet-monday',
-    duration:'2',
-    location:'zoom',
-    schedule:'tue, 10-18',
-    link:'zoom.com/enayet-monday',
-    email:'infoicpasyl@gmail.com',
-  }
-  try {
-    const res = await fetch(`/api/createEvent/${id}`,{
-      method:"PUT",
-      headers:{
-        "Content-type":"application/json"
-      },
-      body: JSON.stringify({editedData})
-    })
-
-    console.log(res)
-  } catch (error) {
-    
-  }
- }
 
 console.log('get data based on email', eventData)
 console.log('get single data based on id', singleEventData)

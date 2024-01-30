@@ -1,12 +1,14 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const TwoPersonEvent = () => {
   const [next1, setNext1] = useState(false);
   const [location, setLocation] = useState("");
-
+  const router = useRouter()
   const session = useSession();
 
   const email = session?.data?.user?.email;
@@ -23,7 +25,7 @@ const TwoPersonEvent = () => {
     const eventDate = e.target.date.value;
     const meetingLink = e.target.meetingLink.value;
     const eventLocation = e.target.location.value;
-
+    const eventStatus = 'Pending'
     const oneEventInfo = {
       eventTitle,
       eventSlug,
@@ -35,8 +37,9 @@ const TwoPersonEvent = () => {
       meetingLink,
       eventLocation,
       email,
+      eventStatus
     };
-
+console.log(oneEventInfo)
     try {
       const res = await fetch("/api/createEvent", {
         method: "POST",
@@ -51,6 +54,7 @@ const TwoPersonEvent = () => {
       }
       if (res.status === 200) {
         console.log("Event successfully created");
+        router.push('/dashboard/events')
       }
     } catch (error) {
       console.log(error);
@@ -58,7 +62,7 @@ const TwoPersonEvent = () => {
   };
 
   const eHandle = (event) => {
-    setLocaion(event.target.value);
+    setLocation(event.target.value);
   };
 
   return (
@@ -322,25 +326,25 @@ const TwoPersonEvent = () => {
                 name="meetingLink"
               />
               {location === "zoom" ? (
-                <a
+                <Link
                   className="btn bg-blue-500 hover:bg-blue-400 hover:text-white"
                   href="https://zoom.us/"
                   target="_blank"
                 >
                   Create Zoom Link
-                </a>
+                </Link>
               ) : (
                 ""
               )}
 
               {location === "meet" ? (
-                <a
+                <Link
                   className="btn bg-blue-500 hover:bg-blue-400 hover:text-white"
                   href="https://meet.google.com/ "
                   target="_blank"
                 >
                   Create Meet Link
-                </a>
+                </Link>
               ) : (
                 ""
               )}

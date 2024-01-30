@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import {
   FaCheck,
@@ -11,10 +12,11 @@ import {
 } from "react-icons/fa6";
 
 const EventCard = ({event}) => {
-  console.log(event)
-  const {eventTitle, eventDuration, fromTime, eventDate } = event
+  const {eventTitle, eventDuration, fromTime, eventDate, eventStatus, _id} = event
   const meetLinkRef = useRef(null);
+  const router = useRouter()
   
+  console.log(_id)
   const copyToClipboard = () => {
     if (meetLinkRef.current) {
       meetLinkRef.current.select();
@@ -24,6 +26,28 @@ const EventCard = ({event}) => {
     }
   };
 
+// Delete functionality
+
+const handleDelete = async (id) => {
+  console.log(
+    'delete button clicked', id)
+    const res = await fetch(`/api/createEvent/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type":"application/json"
+      }
+    })
+    console.log(res.status)
+    if(res.status === 200){
+      console.log("Event Successfully Deleted")
+      // router.push('/dashboard/events')
+      window.location.reload()
+      // TODO refetch data after delete not reload
+    }
+  
+}
+
+
   return (
     <div>
       <div className="border-t-2 w-72 relative border-purple-500 bg-white p-5 rounded-md space-y-3">
@@ -32,10 +56,12 @@ const EventCard = ({event}) => {
             <div tabIndex={0} role="button" className="btn m-1 btn-sm ">
               <FaGear />
             </div>
+            {/* edit, delete and complete icon  */}
             <ul
               tabIndex={0}
               className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box"
             >
+              {/* edit button */}
               <li>
                 <Link href={`/dashboard/editEvent/${event._id}`}>
                   <button 
@@ -45,30 +71,37 @@ const EventCard = ({event}) => {
                   </button>
                 </Link>
               </li>
+              {/* finished button */}
               <li>
                 <p className="flex text-green-800 font-semibold justify-center items-center gap-2">
                   <FaCheck />
                   Finished
                 </p>
               </li>
+              {/* delete button */}
               <li>
-                <p className="flex text-red-500 font-semibold justify-center items-center gap-2">
+                <button 
+                onClick={()=>handleDelete(_id)}
+                className="flex text-red-500 font-semibold justify-center items-center gap-2">
                   <FaTrash />
                   Delete
-                </p>
+                </button>
               </li>
             </ul>
           </div>
         </div>
+        {/* Card body */}
         <div>
         <h1 className="text-xl font-medium">{eventTitle}</h1>
           <h1 className="text-base font-extralight">{eventDuration}, One-on-One</h1>
           <h1 className="text-base font-extralight">{fromTime}, {eventDate}</h1>
           <h1 className="text-base font-extralight">
-            <span className="font-semibold">Status</span>: Pending
+            <span className="font-semibold">Status</span>: {eventStatus}
           </h1>
         </div>
         <hr />
+
+        {/* Open button */}
         <div className="flex justify-between">
           <a
             target="_blank"
@@ -99,7 +132,7 @@ const EventCard = ({event}) => {
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full"
-              defaultValue={"https://meet.google.com/qpi-uwjh-rkk"}
+              defaultValue={event.meetingLink}
               readOnly
               ref={meetLinkRef}
             />

@@ -139,10 +139,12 @@ const DashNav = () => {
             </Link>
 
             <hr />
-            <button className="btn glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
+          <Link href={"/dashboard/createNewEvent"}>
+          <button className="btn glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
               <FaPlus />
               Create
             </button>
+          </Link>
 
             <hr />
             <Link href={"/dashboard/events"}>

@@ -1,18 +1,17 @@
+import CreateEvent from "@/models/CreateEvent";
 import connect from "@/utils/db";
 import { NextResponse } from "next/server";
-import CreateEvent from "@/models/CreateEvent";
-import { trace } from "next/dist/trace";
 
 
 export const POST = async (request) =>{
   try {
     const newEventData = await request.json();
   
-    console.log(newEventData)
+    console.log('data from frontend',newEventData)
     await connect();
   
     const newEvent = new CreateEvent(newEventData)
-  
+  console.log('new event', newEvent)
    try {
       await newEvent.save()
       return new NextResponse("Event is Created", {status: 200})

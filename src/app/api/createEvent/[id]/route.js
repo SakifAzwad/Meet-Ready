@@ -2,6 +2,8 @@ import CreateEvent from "@/models/CreateEvent";
 import connect from "@/utils/db";
 import { NextResponse } from "next/server";
 
+
+// single event get route
 export const GET = async (request, { params }) => {
   const { id } = params;
   await connect();
@@ -15,6 +17,22 @@ export const GET = async (request, { params }) => {
   }
 };
 
+
+// event delete route
+
+export const DELETE = async(request, {params}) => {
+  const {id} = params
+  await connect()
+  try {
+    const deleteEvent = await CreateEvent.findByIdAndDelete(id)
+    return NextResponse.json("Item Deleted", {status: 200})
+  } catch (error) {
+    console.log(error)
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
+}
+
+// edit event put route
 export const PUT = async (request, { params }) => {
   const { id } = params;
   const { editedEventInfo } = await request.json();
@@ -30,18 +48,7 @@ export const PUT = async (request, { params }) => {
   const toTime = editedEventInfo.toTime
   const eventDate = editedEventInfo.eventDate
 
-  // console.log(
-  //   eventTitle,
-  //   eventSlug,
-  //   eventDuration,
-  //   eventLocation,
-  //   schedule,
-  //   meetingLink,
-  //   email,eventDay,
-  //   fromTime,
-  //   toTime,
-  //   eventDate
-  // );
+
   await connect();
   try {
     const res = await CreateEvent.findByIdAndUpdate(id, { eventTitle,

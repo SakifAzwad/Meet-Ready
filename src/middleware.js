@@ -6,9 +6,9 @@ export function middleware(request){
   
   const isPublicPath = path === "/login" || path === "/register"
   
-  console.log('path', path)
+  // console.log('path', path)
   const token = request.cookies.get('next-auth.session-token')?.value || ''
-console.log('token', token)
+// console.log('token', token)
   if(isPublicPath && token){
     return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
   }
