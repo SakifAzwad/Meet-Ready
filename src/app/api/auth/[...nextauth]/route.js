@@ -51,9 +51,8 @@ export const authOptions = {
         try {
           await connect()
           const userExist = await User.findOne({email})
-       
           if(!userExist){
-            const res = await fetch('http://localhost:3000/api/register', {
+            const res = await fetch('https://meet-ready-git-auth2-sakif-azwads-projects.vercel.app/api/register', {
               method:"POST",
               headers: {
                 "Content-Type": 'application/json'
