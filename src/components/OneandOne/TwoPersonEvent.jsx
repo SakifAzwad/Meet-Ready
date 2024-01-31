@@ -35,10 +35,10 @@ const TwoPersonEvent = () => {
     const eventTitle = e.target.title.value;
     const eventSlug = e.target.slug.value;
     const eventDuration = e.target.duration.value;
-    const eventDay = e.target.days.value;
+    // const eventDay = e.target.days.value;
     const fromTime = e.target.fromTime.value;
     const toTime = e.target.toTime.value;
-    const eventDate = e.target.date.value;
+    // const eventDate = e.target.date.value;
     const meetingLink = e.target.meetingLink.value;
     const eventLocation = e.target.location.value;
     const eventStatus = 'Pending'
@@ -46,14 +46,19 @@ const TwoPersonEvent = () => {
       eventTitle,
       eventSlug,
       eventDuration,
-      eventDay,
+      // eventDay,
       fromTime,
       toTime,
-      eventDate,
+      // eventDate,
       meetingLink,
       eventLocation,
       email,
-      eventStatus
+      eventStatus,
+      fromTime1,
+      toTime1,
+      selectedDay,
+      timeSlots,
+      checkboxValues
     };
 console.log(oneEventInfo)
     try {
