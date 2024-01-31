@@ -1,5 +1,6 @@
 'use client'
 import EventCard from "@/components/EventCard/EventCard";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
@@ -90,6 +91,38 @@ const Events = () => {
 console.log('get data based on email', eventData)
 console.log('get single data based on id', singleEventData)
 
+
+
+// for experiment
+const firstCard={
+  id:1,
+  Name:'Tanjil',
+  age:20,
+  birth:2004
+  
+ }
+
+
+
+ const firstCard1={
+  id:2,
+  Name:'fazil',
+  age:20,
+  birth:2004
+  
+ }
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="flex flex-col justify-start mt-16 space-y-5">
       <div className="flex justify-center items-center relative border-2">
@@ -132,7 +165,32 @@ console.log('get single data based on id', singleEventData)
         
       </div>
 
+       {/* for expeiment */}
+         
+         
+       <div className="">
+
+<div className="">
+        <p>Name:{firstCard.Name}</p>
+        <Link className="btn" href={`/slug/${firstCard.id}`}>Preview</Link>
       
+
+        </div>
+
+
+
+        <div className="">
+        <p>Name:{firstCard1.Name}</p>
+        <Link className="btn" href={`/slug/${firstCard1.id}`}>Preview</Link>
+      
+
+        </div>
+
+
+
+</div>
+         
+         
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { set } from "mongoose";
 import React, { useState } from "react";
 
 const TwoPersonEvent = () => {
-  const [next1, setNext1] = useState(false);
+  
   const [location, setLocaion] = useState("");
   const [isChecked, setIsChecked] = useState([]);
   const[fromTime1,setFromTime1]=useState('')
@@ -23,16 +23,16 @@ const TwoPersonEvent = () => {
     const eventTitle=e.target.title.value
     const eventSlug=e.target.slug.value
     const eventDuration=e.target.duration.value
-    const eventDay=e.target.days.value
-    const eventTime=[{timeSlots}]
-    const eventDateFrom=e.target.date1.value
-    const eventDateTo=e.target.date2.value
+
+    const eventTimes=timeSlots
+    const eventDateFrom=e.target.fromDate.value
+    const eventDateTo=e.target.toDate.value
 
     const meetingLink=e.target.meetingLink.value
     const eventLocation=e.target.location.value
     
-    const oneEventInfo={eventTitle,eventSlug,eventDuration,eventDay,eventTime,eventDateFrom,eventDateTo,meetingLink,eventLocation, email}
-    
+    const oneEventInfo={eventTitle,eventSlug,eventDuration,eventTimes,eventDateFrom,eventDateTo,meetingLink,eventLocation, email}
+    console.log(oneEventInfo)
   //   try {
   //     const res = await fetch("/api/createEvent", {
   //       method: "POST",
@@ -103,7 +103,7 @@ const time={selectedDay,fromTime1,toTime1}
     
 
       <form onSubmit={formHandler}>
-        <div className={`${next1 ? "hidden" : "block"} spacey-y-10`}>
+        <div className={`spacey-y-10`}>
           {/* EVENT TITLE */}
 
           <div className="">
@@ -353,7 +353,7 @@ const time={selectedDay,fromTime1,toTime1}
             <input
               className="w-[230px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
               type="date"
-              name="Date"
+              name="toDate"
             />
           </div>
 
@@ -438,7 +438,7 @@ const time={selectedDay,fromTime1,toTime1}
         </div>
 
         <div className="">
-          <button className="border-2 text-xl text-sky-700 w-[230px] rounded-md h-[45px] border-sky-700 hover:before:bg-sky-700 before:w-full before:h-0 hover:before:h-full hover:before:-z-10 hover:before:absolute before:absolute relative before:top-0 hover:before:left-0 before:duration-500 hover:text-white transform origin-top before:block">
+          <button type="submit" className="border-2 text-xl text-sky-700 w-[230px] rounded-md h-[45px] border-sky-700 hover:before:bg-sky-700 before:w-full before:h-0 hover:before:h-full hover:before:-z-10 hover:before:absolute before:absolute relative before:top-0 hover:before:left-0 before:duration-500 hover:text-white transform origin-top before:block">
             Confrim Event
           </button>
         </div>

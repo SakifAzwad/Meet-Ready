@@ -24,6 +24,26 @@ const EventCard = ({event}) => {
     }
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div>
       <div className="border-t-2 w-72 relative border-purple-500 bg-white p-5 rounded-md space-y-3">
@@ -118,6 +138,24 @@ const EventCard = ({event}) => {
           </div>
         </div>
       </dialog>
+
+        
+         
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
   );
 };
