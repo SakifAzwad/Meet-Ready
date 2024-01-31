@@ -23,15 +23,16 @@ const TwoPersonEvent = () => {
     const eventTitle=e.target.title.value
     const eventSlug=e.target.slug.value
     const eventDuration=e.target.duration.value
-
-    const eventTimes=timeSlots
+    const fromTime=fromTime1
+    const toTime=toTime1
+    const avaiableDays=selectedDay
     const eventDateFrom=e.target.fromDate.value
     const eventDateTo=e.target.toDate.value
 
     const meetingLink=e.target.meetingLink.value
     const eventLocation=e.target.location.value
     
-    const oneEventInfo={eventTitle,eventSlug,eventDuration,eventTimes,eventDateFrom,eventDateTo,meetingLink,eventLocation, email}
+    const oneEventInfo={eventTitle,eventSlug,eventDuration,fromTime,toTime,avaiableDays,eventDateFrom,eventDateTo,meetingLink,eventLocation, email}
     console.log(oneEventInfo)
   //   try {
   //     const res = await fetch("/api/createEvent", {
