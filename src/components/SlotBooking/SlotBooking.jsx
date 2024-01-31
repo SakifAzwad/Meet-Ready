@@ -6,7 +6,7 @@ const SlotBooking = ({params}) => {
             <p>this is :{params.id}</p>
 
 
-            
+
         </div>
     );
 };

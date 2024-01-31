@@ -93,24 +93,6 @@ console.log('get single data based on id', singleEventData)
 
 
 
-// for experiment
-const firstCard={
-  id:1,
-  Name:'Tanjil',
-  age:20,
-  birth:2004
-  
- }
-
-
-
- const firstCard1={
-  id:2,
-  Name:'fazil',
-  age:20,
-  birth:2004
-  
- }
 
 
 
@@ -165,30 +147,7 @@ const firstCard={
         
       </div>
 
-       {/* for expeiment */}
-         
-         
-       <div className="">
-
-<div className="">
-        <p>Name:{firstCard.Name}</p>
-        <Link className="btn" href={`/slug/${firstCard.id}`}>Preview</Link>
-      
-
-        </div>
-
-
-
-        <div className="">
-        <p>Name:{firstCard1.Name}</p>
-        <Link className="btn" href={`/slug/${firstCard1.id}`}>Preview</Link>
-      
-
-        </div>
-
-
-
-</div>
+     
          
          
     </div>
