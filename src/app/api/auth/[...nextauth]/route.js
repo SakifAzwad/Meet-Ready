@@ -52,9 +52,10 @@ export const authOptions = {
           await connect()
           const userExist = await User.findOne({email})
           if(!userExist){
-           //Todo use this when active live site https://meet-ready.vercel.app/
+           //Todo use this when active live site https://localhost:3000/
+           
 
-           const res = await fetch('https://localhost:3000/api/register', {
+           const res = await fetch('https://meet-ready.vercel.app/api/register', {
               method:"POST",
               headers: {
                 "Content-Type": 'application/json'
