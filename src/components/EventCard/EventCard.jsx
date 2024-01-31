@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import {
   FaCheck,
@@ -11,9 +12,9 @@ import {
 } from "react-icons/fa6";
 
 const EventCard = ({event}) => {
-  console.log(event)
-  const {eventTitle, eventDuration, fromTime, eventDate } = event
+  const {eventTitle, eventDuration, fromTime, eventDate, eventStatus, _id, meetingLink} = event
   const meetLinkRef = useRef(null);
+  const router = useRouter()
   
   const copyToClipboard = () => {
     if (meetLinkRef.current) {
@@ -24,6 +25,54 @@ const EventCard = ({event}) => {
     }
   };
 
+// Delete functionality
+
+const handleDelete = async (id) => {
+  // Todo a alert should be shown that the user is sure something like that
+     const res = await fetch(`/api/createEvent/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type":"application/json"
+      }
+    })
+    console.log(res.status)
+    if(res.status === 200){
+      console.log("Event Successfully Deleted")
+      // Todo replace clg with toast
+      // router.push('/dashboard/events')
+      window.location.reload()
+      // TODO refetch data after delete not reload
+    }else{
+      console.log("An error occurred.")
+      // Todo replace clg with toast
+    }
+  
+}
+
+// Finish functionality
+
+const handleFinish = async (id) => {
+  const eventStatus = 'Finished'
+  // Todo a alert should be shown that the user is sure something like that
+  const res = await fetch(`/api/createEvent/${id}`,{
+    method: 'PATCH',
+    headers: {
+      "Content-type":"application/json"
+    },
+    body: JSON.stringify(eventStatus)
+  })
+  if(res.status === 200){
+    console.log('Status updated')
+    // Todo replace clg with toast
+    window.location.reload()
+    // TODO refetch data after it not reload
+  }else{
+    console.log("An error occurred.")
+    // Todo replace clg with toast
+  }
+}
+
+
   return (
     <div>
       <div className="border-t-2 w-72 relative border-purple-500 bg-white p-5 rounded-md space-y-3">
@@ -32,52 +81,66 @@ const EventCard = ({event}) => {
             <div tabIndex={0} role="button" className="btn m-1 btn-sm ">
               <FaGear />
             </div>
+            {/* edit, delete and complete icon  */}
             <ul
               tabIndex={0}
               className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box"
             >
+              {/* edit button */}
               <li>
-                <Link href={"/"}>
-                  <p className="flex font-semibold justify-center items-center gap-2">
+                <Link href={`/dashboard/editEvent/${event._id}`}>
+                  <button 
+                  className="flex font-semibold justify-center items-center gap-2">
                     <FaPencil />
                     Edit
-                  </p>
+                  </button>
                 </Link>
               </li>
+              {/* finished button */}
               <li>
-                <p className="flex text-green-800 font-semibold justify-center items-center gap-2">
+                <button
+                onClick={()=>handleFinish(_id)}
+                className="flex text-green-800 font-semibold justify-center items-center gap-2">
                   <FaCheck />
                   Finished
-                </p>
+                </button>
               </li>
+              {/* delete button */}
               <li>
-                <p className="flex text-red-500 font-semibold justify-center items-center gap-2">
+                <button 
+                onClick={()=>handleDelete(_id)}
+                className="flex text-red-500 font-semibold justify-center items-center gap-2">
                   <FaTrash />
                   Delete
-                </p>
+                </button>
               </li>
             </ul>
           </div>
         </div>
+        {/* Card body */}
         <div>
         <h1 className="text-xl font-medium">{eventTitle}</h1>
           <h1 className="text-base font-extralight">{eventDuration}, One-on-One</h1>
           <h1 className="text-base font-extralight">{fromTime}, {eventDate}</h1>
           <h1 className="text-base font-extralight">
-            <span className="font-semibold">Status</span>: Pending
+            <span className="font-semibold">Status</span>: {eventStatus}
           </h1>
         </div>
         <hr />
+
+        {/* open and share button */}
         <div className="flex justify-between">
-          <a
+          {/* open button */}
+          <Link
             target="_blank"
-            href="https://meet.google.com/qpi-uwjh-rkk"
+            href={meetingLink}
             className="btn btn-sm flex justify-center items-center gap-2 border border-purple-500"
           >
             Open
-          </a>
+          </Link>
+          {/* share button */}
           <button
-            onClick={() => document.getElementById("my_modal_5").showModal()}
+            onClick={() => document.getElementById(`my_modal_${_id}`).showModal()}
             className="btn btn-sm flex justify-center items-center gap-2 border border-sky-500 "
           >
             <FaShare /> Share
@@ -86,9 +149,9 @@ const EventCard = ({event}) => {
       </div>
 
       {/* MODAL  */}
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+      <dialog id={`my_modal_${_id}`} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">This is meeting Title!</h3>
+          <h3 className="font-bold text-lg">{eventTitle}</h3>
 
           <p className="text-kg font-semibold mt-3">
             Copy and paste your scheduling link into a message
@@ -98,7 +161,7 @@ const EventCard = ({event}) => {
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full"
-              defaultValue={"https://meet.google.com/qpi-uwjh-rkk"}
+              defaultValue={meetingLink}
               readOnly
               ref={meetLinkRef}
             />

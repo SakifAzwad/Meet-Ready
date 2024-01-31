@@ -13,7 +13,7 @@ const LoginForm = () => {
     e.preventDefault()
     const email = e.target.email.value
     const password = e.target.password.value
-    console.log(email, password)
+console.log(email, password)
     const response = await signIn("credentials", {
       redirect: false,
       email,
@@ -23,7 +23,7 @@ const LoginForm = () => {
     if (response?.error){
       console.log(error)
     }
-    router.replace('/')
+    router.push('/dashboard')
   }
   return (
     <section className="flex flex-col md:flex-row h-screen items-center">

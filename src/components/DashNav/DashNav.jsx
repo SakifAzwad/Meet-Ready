@@ -15,6 +15,7 @@ import { usePathname } from "next/navigation";
 import userLogo from "@/assets/userLogo.png";
 import mobileLogo from "@/assets/meetReadyLogoMobile.png";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 const DashNav = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -50,7 +51,7 @@ const DashNav = () => {
           )}
 
           {isClicked ? (
-            <Link href={"/dashboard"}>
+            <Link href={"/"}>
               <Image
                 src={mobileLogo}
                 width={"40"}
@@ -60,7 +61,7 @@ const DashNav = () => {
               />
             </Link>
           ) : (
-            <Link href={"/dashboard"}>
+            <Link href={"/"}>
               <Image src={logo} width={"200"} height={"150"} alt="logo" />
             </Link>
           )}
@@ -105,8 +106,10 @@ const DashNav = () => {
         </div>
 
         <div className="p-5">
-          <button className="w-full glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
-            <FaArrowRightFromBracket /> {isClicked ? "" : "Log Out"}
+          <button 
+          onClick={() => signOut()}
+          className="w-full glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
+            <FaArrowRightFromBracket /> Log Out
           </button>
         </div>
       </div>
@@ -131,15 +134,17 @@ const DashNav = () => {
           ></label>
           <ul className="menu p-4 space-y-2 w-72 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            <Link href={"/dashboard"}>
+            <Link href={"/"}>
               <Image src={logo} width={"200"} height={"150"} alt="logo" />
             </Link>
 
             <hr />
-            <button className="btn glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
+          <Link href={"/dashboard/createNewEvent"}>
+          <button className="btn glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
               <FaPlus />
               Create
             </button>
+          </Link>
 
             <hr />
             <Link href={"/dashboard/events"}>
@@ -163,8 +168,10 @@ const DashNav = () => {
             </Link>
 
             <hr />
-            <button className="glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
-              <FaArrowRightFromBracket /> {isClicked ? "" : "Log Out"}
+            <button 
+            onClick={() => signOut()}
+            className="glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
+              <FaArrowRightFromBracket /> Log Out
             </button>
           </ul>
         </div>

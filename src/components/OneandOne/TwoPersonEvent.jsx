@@ -1,11 +1,16 @@
 "use client";
 
-import { set } from "mongoose";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const TwoPersonEvent = () => {
   const [next1, setNext1] = useState(false);
-  const [location, setLocaion] = useState("");
+  const [location, setLocation] = useState("");
+  const router = useRouter()
+  const session = useSession();
+  const email = session?.data?.user?.email;
   const [isChecked, setIsChecked] = useState([]);
   const [fromTime1, setFromTime1] = useState("");
   const [toTime1, setToTime1] = useState("");
@@ -27,55 +32,53 @@ const TwoPersonEvent = () => {
   const formHandler = async (e) => {
     e.preventDefault();
 
-    const email = "r4pido3@gmail.com";
     const eventTitle = e.target.title.value;
     const eventSlug = e.target.slug.value;
     const eventDuration = e.target.duration.value;
     const eventDay = e.target.days.value;
-    const eventTime = [{ timeSlots }];
-    const eventDateFrom = e.target.date1.value;
-    const eventDateTo = e.target.date2.value;
-
+    const fromTime = e.target.fromTime.value;
+    const toTime = e.target.toTime.value;
+    const eventDate = e.target.date.value;
     const meetingLink = e.target.meetingLink.value;
     const eventLocation = e.target.location.value;
-
+    const eventStatus = 'Pending'
     const oneEventInfo = {
       eventTitle,
       eventSlug,
       eventDuration,
       eventDay,
-      eventTime,
-      eventDateFrom,
-      eventDateTo,
+      fromTime,
+      toTime,
+      eventDate,
       meetingLink,
       eventLocation,
       email,
+      eventStatus
     };
+console.log(oneEventInfo)
+    try {
+      const res = await fetch("/api/createEvent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(oneEventInfo),
+      });
 
-    //   try {
-    //     const res = await fetch("/api/createEvent", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(
-    //         oneEventInfo
-    //       )
-    //     })
-
-    //     if(res.status === 500 ){
-    //       console.log("An error ocurred please try again.")
-    //     }
-    //     if(res.status === 200) {
-    //      console.log('Event successfully created')
-    //      }
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
+      if (res.status === 500) {
+        console.log("An error ocurred please try again.");
+      }
+      if (res.status === 200) {
+        console.log("Event successfully created");
+        router.push('/dashboard/events')
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+    
   const eHandle = (event) => {
-    setLocaion(event.target.value);
+    setLocation(event.target.value);
   };
 
   const handleCheckboxChange = (day) => {
@@ -374,25 +377,25 @@ const TwoPersonEvent = () => {
                 name="meetingLink"
               />
               {location === "zoom" ? (
-                <a
+                <Link
                   className="btn bg-blue-500 hover:bg-blue-400 hover:text-white"
                   href="https://zoom.us/"
                   target="_blank"
                 >
                   Create Zoom Link
-                </a>
+                </Link>
               ) : (
                 ""
               )}
 
               {location === "meet" ? (
-                <a
+                <Link
                   className="btn bg-blue-500 hover:bg-blue-400 hover:text-white"
                   href="https://meet.google.com/ "
                   target="_blank"
                 >
                   Create Meet Link
-                </a>
+                </Link>
               ) : (
                 ""
               )}
@@ -402,7 +405,7 @@ const TwoPersonEvent = () => {
 
         <div className="">
           <button className="border-2 text-xl text-sky-700 w-[230px] rounded-md h-[45px] border-sky-700 hover:before:bg-sky-700 before:w-full before:h-0 hover:before:h-full hover:before:-z-10 hover:before:absolute before:absolute relative before:top-0 hover:before:left-0 before:duration-500 hover:text-white transform origin-top before:block">
-            Confrim Event
+            Confirm Event
           </button>
         </div>
       </form>

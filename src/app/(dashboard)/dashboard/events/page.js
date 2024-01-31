@@ -1,14 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import EventCard from "@/components/EventCard/EventCard";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Events = () => {
   const [eventData, setEventData] = useState([])
   const [singleEventData, setSingleEventData] = useState([])
+
+  
+  const session = useSession()
+
+  console.log(session)
+ const email = session?.data?.user?.email
+console.log(email)
  
   const getEvent = async()=> {
-    const  email = 'r4pido3@gmail.com'
 
    try {
      const res = await fetch(`/api/createEvent?email=${email}`,{
@@ -64,28 +72,6 @@ const Events = () => {
   }
  }
 
- const editEvent = async(id) => {
-  const editedData = {
-    eventName:'Enayet1',
-    eventSlug:'enayet-monday',
-    duration:'2',
-    location:'zoom',
-    schedule:'tue, 10-18',
-    link:'zoom.com/enayet-monday',
-    email:'infoicpasyl@gmail.com',
-  }
-  try {
-    const res = await fetch(`/api/createEvent/${id}`,{
-      method:"PUT",
-      headers:{
-        "Content-type":"application/json"
-      },
-      body: JSON.stringify({editedData})
-    })
-  } catch (error) {
-    
-  }
- }
 
 console.log('get data based on email', eventData)
 console.log('get single data based on id', singleEventData)
