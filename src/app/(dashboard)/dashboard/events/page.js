@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import EventCard from "@/components/EventCard/EventCard";
 import { useSession } from "next-auth/react";

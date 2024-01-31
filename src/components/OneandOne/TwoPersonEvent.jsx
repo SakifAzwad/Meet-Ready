@@ -76,27 +76,6 @@ console.log(oneEventInfo)
       console.log(error);
     }
   };
-
-    const eventTime = [{ timeSlots }];
-    const eventDateFrom = e.target.date1.value;
-    const eventDateTo = e.target.date2.value;
-
-    const meetingLink = e.target.meetingLink.value;
-    const eventLocation = e.target.location.value;
-
-    const oneEventInfo = {
-      eventTitle,
-      eventSlug,
-      eventDuration,
-      eventDay,
-      eventTime,
-      eventDateFrom,
-      eventDateTo,
-      meetingLink,
-      eventLocation,
-      email,
-    };
-
     
   const eHandle = (event) => {
     setLocation(event.target.value);
