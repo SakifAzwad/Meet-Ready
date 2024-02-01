@@ -89,7 +89,7 @@ const TwoPersonEvent = () => {
     // console.log(selectedDays)
 
     const oneEventInfo = {
-      eventTitle, eventDuration, availableDays, fromDate, toDate, meetingLocation, meetingLink, eventStatus
+      eventTitle, eventDuration, availableDays, fromDate, toDate, meetingLocation, meetingLink, eventStatus, email
     };
 console.log(oneEventInfo)
     try {

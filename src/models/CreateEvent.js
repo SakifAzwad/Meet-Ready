@@ -1,7 +1,6 @@
-import mongoose, { models } from "mongoose"
+import mongoose, { models } from "mongoose";
 
-const {Schema} = mongoose;
-
+const { Schema } = mongoose;
 
 const availableDaySchema = new mongoose.Schema({
   fromTime: { type: String, required: true },
@@ -28,10 +27,11 @@ const createEventSchema = new mongoose.Schema({
     },
     required: true,
   },
+  email: { type: String, required: true },
 });
 
 // const createEventSchema = new Schema(
-//   { 
+//   {
 //     eventTitle:{
 //     type: String,
 //     required:true,
@@ -46,7 +46,7 @@ const createEventSchema = new mongoose.Schema({
 //   },
 //     eventLocation:{
 //       type: String,
-//       required: true, 
+//       required: true,
 //     },
 //     eventDate: {
 //       type: String,
@@ -80,6 +80,6 @@ const createEventSchema = new mongoose.Schema({
 //   {timestamps: true}
 // )
 
-
-const CreateEvent = models.CreateEvent || mongoose.model("CreateEvent", createEventSchema)
-export default CreateEvent
+const CreateEvent =
+  models.CreateEvent || mongoose.model("CreateEvent", createEventSchema);
+export default CreateEvent;
