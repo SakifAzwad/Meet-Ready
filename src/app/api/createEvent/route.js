@@ -11,6 +11,8 @@ export const POST = async (request) =>{
     await connect();
   
     const newEvent = new CreateEvent(newEventData)
+
+
   console.log('new event', newEvent)
    try {
       await newEvent.save()
