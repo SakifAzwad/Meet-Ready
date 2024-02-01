@@ -15,8 +15,7 @@ const Register = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    const formData = {name, email, password}
-    console.log(formData)
+    
 
     try {
       const res = await fetch("/api/register", {
@@ -34,7 +33,7 @@ const Register = () => {
       }
       if(res.status === 200) {
        console.log('Registration successful')
-       router.push('/')
+       router.push('/login')
       }
     } catch (error) {
       console.log(error)
@@ -50,10 +49,7 @@ const Register = () => {
         >
           <div class="w-full h-100">
             <Image src='https://i.ibb.co/T24b18g/meet-Ready-Logo.png' alt="register-image" className="px-12" width={500} height={800}/>
-            {/* <img
-              src="https://i.ibb.co/T24b18g/meet-Ready-Logo.png"
-              class="px-12"
-            /> */}
+           
             <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12 text-center">
               Sign Up to get Started
             </h1>
@@ -142,11 +138,7 @@ const Register = () => {
         </div>
         <div class="bg-purple-300 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
           <Image height={600} width={600} className="object-cover w-full h-full py-12" alt="second-image" src="https://i.ibb.co/nLK1vKw/12146011-Wavy-Gen-01-Single-07.png"/>
-          {/* <img
-            src="https://i.ibb.co/nLK1vKw/12146011-Wavy-Gen-01-Single-07.png"
-            alt=""
-            class=" w-full h-full object-cover py-12"
-          /> */}
+        
         </div>
       </section>
     </>

@@ -1,95 +1,86 @@
-'use client'
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 import EventCard from "@/components/EventCard/EventCard";
+
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Events = () => {
-  const [eventData, setEventData] = useState([])
-  const [singleEventData, setSingleEventData] = useState([])
- 
-  const getEvent = async()=> {
-    const  email = 'r4pido3@gmail.com'
+  // Stater for storing all event data of a user
+  const [eventData, setEventData] = useState([]);
+  const [singleEventData, setSingleEventData] = useState([]);
+  console.log(eventData);
+  // Creating event share page
+  const updatedEventData = eventData.map((event) => ({
+    ...event,
+    shareableLink: `http://localhost:3000/event/${event._id}`,
+  }));
 
-   try {
-     const res = await fetch(`/api/createEvent?email=${email}`,{
-       cache: 'no-store'
-     })
-  
-     if(res.status === 500 ){
-       console.log("An error ocurred please try again.")
-     }
-  
-     const eventData = await res.json()
-     
-     setEventData(eventData.myEvent)
-   } catch (error) {
-     console.log(error)
-   }
-  }
-  useEffect(()=>{
-    getEvent()
-  },[])
+  console.log(updatedEventData);
+  // Getting user email from session so that event information can be called based on email
+  const session = useSession();
+  const email = session?.data?.user?.email;
 
-//  const getEvent = async()=> {
-//    const  email = 'infoicpasyl@gmail.com'
-//    console.log('eimail', email)
-//   try {
-//     const res = await fetch(`/api/createEvent?email=${email}`,{
-//       cache: 'no-store'
-//     })
+  // Getting event data from server based on user email
+  const getEvent = async () => {
+    try {
+      const res = await fetch(`/api/createEvent?email=${email}`, {
+        cache: "no-store",
+      });
 
-//     if(res.status === 500 ){
-//       console.log("An error ocurred please try again.")
-//     }
+      if (res.status === 500) {
+        console.log("An error ocurred please try again.");
+      }
 
-//     const eventData = await res.json()
-    
-//     setEventData(eventData.myEvent)
-//   } catch (error) {
-//     console.log(error)
-//   }
-//  }
+      const eventData = await res.json();
 
- const getSingleEvent = async(id)=> {
-  try {
-    const res = await fetch(`/api/createEvent/${id}`,{
-      cache: 'no-store'
-    })
+      setEventData(eventData.myEvent);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    const singleEvent = await res.json()
-    setSingleEventData(singleEvent)
+  // Calling getEvent function on page load
+  useEffect(() => {
+    getEvent();
+  }, []);
 
-  } catch (error) {
-    console.log(error)
-  }
- }
+  //  const getEvent = async()=> {
+  //    const  email = 'infoicpasyl@gmail.com'
+  //    console.log('eimail', email)
+  //   try {
+  //     const res = await fetch(`/api/createEvent?email=${email}`,{
+  //       cache: 'no-store'
+  //     })
 
- const editEvent = async(id) => {
-  const editedData = {
-    eventName:'Enayet1',
-    eventSlug:'enayet-monday',
-    duration:'2',
-    location:'zoom',
-    schedule:'tue, 10-18',
-    link:'zoom.com/enayet-monday',
-    email:'infoicpasyl@gmail.com',
-  }
-  try {
-    const res = await fetch(`/api/createEvent/${id}`,{
-      method:"PUT",
-      headers:{
-        "Content-type":"application/json"
-      },
-      body: JSON.stringify({editedData})
-    })
-  } catch (error) {
-    
-  }
- }
+  //     if(res.status === 500 ){
+  //       console.log("An error ocurred please try again.")
+  //     }
 
-console.log('get data based on email', eventData)
-console.log('get single data based on id', singleEventData)
+  //     const eventData = await res.json()
+
+  //     setEventData(eventData.myEvent)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  //  }
+
+  const getSingleEvent = async (id) => {
+    try {
+      const res = await fetch(`/api/createEvent/${id}`, {
+        cache: "no-store",
+      });
+
+      const singleEvent = await res.json();
+      setSingleEventData(singleEvent);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("get single data based on id", singleEventData);
 
 
 
@@ -108,7 +99,6 @@ console.log('get single data based on id', singleEventData)
   return (
     <div className="flex flex-col justify-start mt-16 space-y-5">
       <div className="flex justify-center items-center relative border-2">
-       
         <FaMagnifyingGlass className="text-xl absolute left-2 text-gray-600" />
         <input
           type="text"
@@ -133,23 +123,16 @@ console.log('get single data based on id', singleEventData)
       onClick={() => editEvent('65b277695b8bef36e2bc0b60')}
       className="btn btn-primary">Edit Single Event</button> */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      {
-          eventData ? (
-            eventData?.map(event => <EventCard key={event._id} event={event}/>)
-          ) : (
-            <p>No data to show</p>
-          )
-        }
+        {updatedEventData ? (
+          updatedEventData?.map((event) => <EventCard key={event._id} event={event} />)
+        ) : (
+          <p>No data to show</p>
+        )}
         {/* <EventCard/>
         <EventCard/>
         <EventCard/>
         <EventCard/> */}
-        
       </div>
-
-     
-         
-         
     </div>
   );
 };

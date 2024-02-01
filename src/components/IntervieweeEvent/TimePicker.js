@@ -1,0 +1,35 @@
+// TimePicker.js
+import React from 'react';
+import Select from 'react-select';
+
+const TimePicker = ({ onSelectTime }) => {
+  const timeOptions = [
+    { value: '9:00 AM', label: '9:00 AM' },
+    { value: '10:00 AM', label: '10:00 AM' },
+    { value: '11:00 AM', label: '11:00 AM' },
+    { value: '12:00 AM', label: '12:00 AM' },
+    // Add more time options as needed
+  ];
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      width: '100%',
+      marginTop: '8px',
+      borderRadius: '25px'
+      
+    }),
+  };
+
+  return (
+    <Select
+     className='rounded-xl'
+      options={timeOptions}
+      styles={customStyles}
+      onChange={(selectedOption) => onSelectTime(selectedOption.value)}
+      placeholder="Select Time"
+    />
+  );
+};
+
+export default TimePicker;
