@@ -9,6 +9,7 @@ const availableDaySchema = new mongoose.Schema({
 
 const createEventSchema = new mongoose.Schema({
   eventTitle: { type: String, required: true },
+  userName: { type: String, required: true },
   eventDuration: { type: String, required: true },
   eventStatus: { type: String, required: true },
   fromDate: { type: Date, required: true },
