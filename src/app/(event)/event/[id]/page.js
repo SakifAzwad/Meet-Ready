@@ -15,7 +15,7 @@ const Event = ({params}) => {
   // Storing event data
   const [singleEventData, setSingleEventData] = useState(null)
 
-  console.log(singleEventData.email)
+  console.log(singleEventData?.email)
   // Getting event data from server
   const getSingleEvent = async(id)=> {
     try {
@@ -113,15 +113,15 @@ const Event = ({params}) => {
               d="M.5 5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 1 0-9 0Z"
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></path>
             <path
               d="M5 3.269V5l1.759 2.052"
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></path>
           </svg>
           <h1 className="text-gray-500"> 30 Min</h1>
