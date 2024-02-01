@@ -13,7 +13,7 @@ const Events = () => {
   // Creating event share page
   const updatedEventData = eventData.map((event) => ({
     ...event,
-    shareableLink: `/dashboard/event/${event._id}`,
+    shareableLink: `http://localhost:3000/event/${event._id}`,
   }));
 
   console.log(updatedEventData);

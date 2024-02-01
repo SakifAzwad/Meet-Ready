@@ -3,11 +3,39 @@
 import MyCalendar from "@/components/IntervieweeEvent/Calendar";
 import InputSection from "@/components/IntervieweeEvent/InputSection";
 import TimePicker from "@/components/IntervieweeEvent/TimePicker";
-import React, { useState } from "react";
-
 import 'react-calendar/dist/Calendar.css';
+import React, { useEffect, useState } from "react";
 
-const Event = () => {
+
+const Event = ({params}) => {
+  // Getting id of the meeting
+  const id = params.id
+  console.log(id)
+
+  // Storing event data
+  const [singleEventData, setSingleEventData] = useState(null)
+
+  console.log(singleEventData.email)
+  // Getting event data from server
+  const getSingleEvent = async(id)=> {
+    try {
+      const res = await fetch(`/api/createEvent/${id}`,{
+        cache: 'no-store'
+      })
+  
+      const singleEvent = await res.json()
+      setSingleEventData(singleEvent.singleEvent)
+  
+    } catch (error) {
+      console.log(error)
+    }
+   }
+// Calling getSingleEvent function at the time of component load
+   useEffect(()=> {
+    getSingleEvent(id)
+   },[id])
+
+
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [formData, setFormData] = useState({
@@ -31,16 +59,38 @@ const Event = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const bookingData = {
       selectedDate,
       selectedTime,
-      email: formData.email,
+      intervieweeEmail: formData.email,
       name: formData.name,
+      userEmail: singleEventData.email,
     };
     console.log(bookingData);
     // Perform actions with bookingData, such as sending it to a backend server
+
+    try {
+      const res = await fetch('/api/event', {
+        method: "POST",
+        headers:{
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(bookingData)
+      })
+      if(res.status === 200){
+        //todo add toast or alert
+        console.log('Booking Successful')
+      }
+      if(res.status === 500){
+        //todo add toast or alert
+        console.log('Error in booking. Please try again.')
+      }
+    } catch (error) {
+      // todo add toast or alert
+      console.log(error, 'Error occurred in send data to server. Please try again later.')
+    }
   };
 
   return (

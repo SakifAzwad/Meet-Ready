@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa6";
 
 const EventCard = ({event}) => {
-  const {eventTitle, eventDuration, fromTime, eventDate, eventStatus, _id, meetingLink} = event
+  const {eventTitle, eventDuration, fromTime, eventDate, eventStatus, _id, meetingLink, shareableLink} = event
 
   console.log('event card', event)
   const meetLinkRef = useRef(null);
@@ -163,7 +163,7 @@ const handleFinish = async (id) => {
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full"
-              defaultValue={meetingLink}
+              defaultValue={shareableLink}
               readOnly
               ref={meetLinkRef}
             />
