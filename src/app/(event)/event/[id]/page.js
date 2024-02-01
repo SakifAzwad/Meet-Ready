@@ -15,7 +15,7 @@ const Event = ({params}) => {
   // Storing event data
   const [singleEventData, setSingleEventData] = useState(null)
 
-  console.log(singleEventData.email)
+  console.log(singleEventData)
   // Getting event data from server
   const getSingleEvent = async(id)=> {
     try {

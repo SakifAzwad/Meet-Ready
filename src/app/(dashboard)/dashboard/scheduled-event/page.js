@@ -9,6 +9,8 @@ const ScheduledEvent = () => {
   // Getting user email from session
   const session = useSession()
   const email = session?.data?.user?.email
+  const name = session?.data?.user?.name
+  console.log(name)
 
   console.log(email)
   // State for storing event

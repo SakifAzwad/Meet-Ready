@@ -52,7 +52,7 @@ const TwoPersonEvent = () => {
   const router = useRouter()
   const session = useSession();
   const email = session?.data?.user?.email;
- 
+  const name = session?.data?.user?.name
 
   const [selectedDays, setSelectedDays] = useState({});
 
@@ -84,12 +84,13 @@ const TwoPersonEvent = () => {
     const toDate = form.toDate.value;
     const meetingLocation = location;
     const meetingLink = form.meetingLink.value;
-    const eventStatus = 'Pending'
+    const eventStatus = 'Pending';
+    const userName = name;
 
     // console.log(selectedDays)
 
     const oneEventInfo = {
-      eventTitle, eventDuration, availableDays, fromDate, toDate, meetingLocation, meetingLink, eventStatus, email
+      eventTitle, eventDuration, availableDays, fromDate, toDate, meetingLocation, meetingLink, eventStatus, email, userName
     };
 console.log(oneEventInfo)
     try {
