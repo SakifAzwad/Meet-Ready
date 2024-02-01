@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
 // single event get route
 export const GET = async (request, { params }) => {
   const { id } = params;
+  // console.log(id)
   await connect();
   try {
     const singleEvent = await CreateEvent.findById(id);
