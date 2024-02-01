@@ -67,6 +67,7 @@ const Event = ({params}) => {
       intervieweeEmail: formData.email,
       name: formData.name,
       userEmail: singleEventData.email,
+      userName: singleEventData.userName,
     };
     console.log(bookingData);
     // Perform actions with bookingData, such as sending it to a backend server
