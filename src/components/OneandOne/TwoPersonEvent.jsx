@@ -1,7 +1,8 @@
-"use client";
+ "use client";
 
 import { set } from "mongoose";
-import React, { useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
 
 const TwoPersonEvent = () => {
   
@@ -9,30 +10,48 @@ const TwoPersonEvent = () => {
   const [isChecked, setIsChecked] = useState([]);
   const[fromTime1,setFromTime1]=useState('')
   const[toTime1,setToTime1]=useState('')
-  
+  const [timeSlotsHistory, setTimeSlotsHistory] = useState([]);
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const [selectedDay, setSelectedDay] = useState(null);
   // const [checkboxValues, setCheckboxValues] = useState(daysOfWeek.map(() => false));
   const [checkboxValues, setCheckboxValues] = useState([])
-  const[timeSlots,setTimeSlots]=useState('')
+  const[iniTime,setIniTime]=useState([])
+  const[timeSlots,setTimeSlots]=useState(iniTime)
+
+useEffect(()=>{
+
+  const initialTimeSlots=[
+    {
+      selectedDay,fromTime1,toTime1
+    },
+   ]
+   setIniTime(initialTimeSlots)
+  
+
+
+},[fromTime1,toTime1,selectedDay])
+
+
+ const session = useSession()
+ console.log(session)
+ const email = session?.data?.user?.email
+ console.log(email)
 
   const formHandler = async(e) => {
     e.preventDefault();
 
-    const email = 'r4pido3@gmail.com'
+  const email = email
     const eventTitle=e.target.title.value
     const eventSlug=e.target.slug.value
     const eventDuration=e.target.duration.value
-    const fromTime=fromTime1
-    const toTime=toTime1
-    const avaiableDays=selectedDay
+   const eventTimeSlots=timeSlots
     const eventDateFrom=e.target.fromDate.value
     const eventDateTo=e.target.toDate.value
 
     const meetingLink=e.target.meetingLink.value
     const eventLocation=e.target.location.value
     
-    const oneEventInfo={eventTitle,eventSlug,eventDuration,fromTime,toTime,avaiableDays,eventDateFrom,eventDateTo,meetingLink,eventLocation, email}
+    const oneEventInfo={eventTitle,eventSlug,eventDuration,timeSlots,eventDateFrom,eventDateTo,meetingLink,eventLocation}
     console.log(oneEventInfo)
   //   try {
   //     const res = await fetch("/api/createEvent", {
@@ -80,22 +99,70 @@ const handleCheckboxChange = (day) => {
 
     setCheckboxValues(newCheckboxValues);
     setIsChecked(newIsChecked);
-    setSelectedDay(newCheckboxValues[indexs] ? day : null);
-    
-const time={selectedDay,fromTime1,toTime1}
-    setTimeSlots(time)
 
-  console.log(timeSlots)
+
+
+    if (newCheckboxValues[indexs]) {
+      setSelectedDay(day);
+    } else {
+      setSelectedDay(null);
+      // Clear time slots for the unselected day
+      //setIniTime((prevTime) => prevTime.filter((slot) => slot.selectedDay !== day));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // setSelectedDay(newCheckboxValues[indexs] ? day : null);
+    
+
+   
+
+
+
+
 };
 
 
 
 
 
+useEffect(() => {
+
+  if (selectedDay) {
+    setTimeSlots((prevTimeSlots) => ({
+      ...prevTimeSlots,
+      [selectedDay]: iniTime.filter((slot) => slot.selectedDay === selectedDay),
+    }));
+  }
 
 
 
 
+
+
+  //const updatedTimeSlots = iniTime.filter((slot) => slot.selectedDay === selectedDay);
+  //setTimeSlots(updatedTimeSlots);
+
+  //setTimeSlotsHistory((prevHistory) => [...prevHistory, updatedTimeSlots]);
+
+}, [iniTime, selectedDay]);
+
+// const currentDayTimeSlots = timeSlots[selectedDay] || [];
+// const historyForSelectedDay = timeSlots[selectedDay] || [];
+
+console.log(timeSlots)
 
 
 
@@ -104,7 +171,7 @@ const time={selectedDay,fromTime1,toTime1}
     
 
       <form onSubmit={formHandler}>
-        <div className={`spacey-y-10`}>
+        <div className={`space-y-10`}>
           {/* EVENT TITLE */}
 
           <div className="">
@@ -254,7 +321,7 @@ const time={selectedDay,fromTime1,toTime1}
      <select
      className="select select-bordered select-xs w-[105px] my-3 max-w-xs"
      name="toTime"
-     value={toTime1}
+     
      disabled={!isChecked[index]}
      onChange={(event)=>setToTime1(event.target.value)}
     defaultValue="default"
