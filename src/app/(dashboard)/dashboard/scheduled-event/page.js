@@ -83,13 +83,13 @@ if(loading){
             </div>
 
             <div className="text-center mt-5">
-              {/* <Link
+              <Link
                 className="btn bg-purple-300 text-white"
-                href={event?.meetingLink}
+                href={`event?.meetingLink`}
                 target="_blank"
               >
                 LINK
-              </Link> */}
+              </Link>
             </div>
           </div>
         </div>
