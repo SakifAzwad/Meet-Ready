@@ -8,8 +8,12 @@ import 'react-calendar/dist/Calendar.css';
 const MyCalendar = ({ onClickedDate, startDate, endDate }) => {
     const tileDisabled = ({ date, view }) => {
       if (view === 'month') {
-        return date < startDate || date > endDate;
-      }
+        // Convert the date to a formatted string
+        const formattedDate = date.toLocaleDateString('en-US');
+            
+        // Check if the date is outside the specified range
+        return formattedDate < startDate.toLocaleDateString('en-US') || formattedDate > endDate.toLocaleDateString('en-US');
+    }
     };
   
     return (
