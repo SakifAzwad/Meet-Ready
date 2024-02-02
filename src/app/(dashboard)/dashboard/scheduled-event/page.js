@@ -80,16 +80,17 @@ if(loading){
               </p>
               <p className="text-slate-600">Interviewee Email: {event?.intervieweeEmail}</p>
               <p className="text-slate-600 capitalize">Meeting Location: {event?.meetingLocation}</p>
+              <p className="text-slate-600">Meeting Link: {event?.meetingLink}</p>
             </div>
 
             <div className="text-center mt-5">
-              <Link
+              {/* <Link
                 className="btn bg-purple-300 text-white"
-                href={event && event.meetingLink}
+                href={event?.meetingLink}
                 target="_blank"
               >
                 LINK
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
