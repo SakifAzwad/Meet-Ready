@@ -21,7 +21,7 @@ console.log(email, password)
     })
 
     if (response?.error){
-      console.log(error)
+      console.log(response?.error)
     }
     router.push('/dashboard')
   }
