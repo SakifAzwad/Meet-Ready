@@ -94,7 +94,7 @@ const DashNav = () => {
 
           <Link href={"/dashboard/scheduled-event"}>
             <p
-              className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  ${
+              className={` hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  ${
                 isClicked && "btn glass"
               } ${
                 pathname === "/dashboard/scheduled-event" && "bg-purple-500"

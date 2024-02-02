@@ -15,7 +15,7 @@ const CreateEvent = () => {
 
                <div className="text-center ">
                 <Link href={'/dashboard/createNewEvent'}>
-                <button className="text-xl w-[105px] h-[40px] rounded-lg before:block before:absolute hover:before:bg-sky-700 before:w-0 before:h-0 hover:before:h-20 hover:before:w-40 before:-bottom-2 before:-right-2 before:duration-500 before:rounded-xl before:-z-10 relative inline-block transform hover:text-white text-sky-700 bg-transparent border-2 overflow-hidden border-sky-700 duration-500">Visit Page</button>
+                <button className="text-xl w-[105px] h-[40px] rounded-lg before:block before:absolute hover:before:bg-pink-300 before:w-0 before:h-0 hover:before:h-20 hover:before:w-40 before:-bottom-2 before:-right-2 before:duration-500 before:rounded-xl before:-z-10 relative inline-block transform hover:text-white text-sky-700 bg-transparent border-2 overflow-hidden border-pink-300 duration-500">Visit Page</button>
                 </Link>
                </div>
 
@@ -28,7 +28,7 @@ const CreateEvent = () => {
 
                <div className="text-center ">
                 <Link href={'/dashboard/teamEvent'}>
-                <button className="text-xl w-[105px] h-[40px] rounded-lg before:block before:absolute hover:before:bg-sky-700 before:w-0 before:h-0 hover:before:h-20 hover:before:w-40 before:-bottom-2 before:-right-2 before:duration-500 before:rounded-xl before:-z-10 relative inline-block transform hover:text-white text-sky-700 bg-transparent border-2 overflow-hidden border-sky-700 duration-500">Visit Page</button>
+                <button className="text-xl w-[105px] h-[40px] rounded-lg before:block before:absolute hover:before:bg-pink-300 before:w-0 before:h-0 hover:before:h-20 hover:before:w-40 before:-bottom-2 before:-right-2 before:duration-500 before:rounded-xl before:-z-10 relative inline-block transform hover:text-white text-sky-700 bg-transparent border-2 overflow-hidden border-pink-300 duration-500">Visit Page</button>
                 </Link>
                </div>
 
