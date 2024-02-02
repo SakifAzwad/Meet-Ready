@@ -85,7 +85,7 @@ if(loading){
             <div className="text-center mt-5">
               <Link
                 className="btn bg-purple-300 text-white"
-                href={`event?.meetingLink`}
+                href={event && event.meetingLink}
                 target="_blank"
               >
                 LINK
