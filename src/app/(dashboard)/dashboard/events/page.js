@@ -106,16 +106,13 @@ const Events = () => {
       <button 
       onClick={() => editEvent('65b277695b8bef36e2bc0b60')}
       className="btn btn-primary">Edit Single Event</button> */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
         {updatedEventData ? (
           updatedEventData?.map((event) => <EventCard key={event._id} event={event} />)
         ) : (
           <p>No data to show</p>
         )}
-        {/* <EventCard/>
-        <EventCard/>
-        <EventCard/>
-        <EventCard/> */}
+       
       </div>
     </div>
   );
