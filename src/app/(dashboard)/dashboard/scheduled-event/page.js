@@ -5,6 +5,8 @@
 // import { useEffect, useState } from "react";
 // import { FaMagnifyingGlass } from "react-icons/fa6";
 
+import ScheduleEvents from "@/components/ScheduledEvents/ScheduledEvent";
+
 // const ScheduledEvent = () => {
 //   // Getting user email from session
 //   const session = useSession()
@@ -59,7 +61,6 @@
 // export default ScheduledEvent;
 
 
-import ScheduleEvents from "@/components/ScheduleEvents/ScheduleEvents";
 
 
 const ScheduledEvent = () => {
