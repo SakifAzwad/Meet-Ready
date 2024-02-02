@@ -1,11 +1,12 @@
-// "use client"
+"use client"
 // import EventCard from "@/components/EventCard/EventCard";
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 // import Link from "next/link";
 // import { useEffect, useState } from "react";
 // import { FaMagnifyingGlass } from "react-icons/fa6";
 
 import ScheduleEvents from "@/components/ScheduledEvents/ScheduledEvent";
+import { useEffect, useState } from "react";
 
 // const ScheduledEvent = () => {
 //   // Getting user email from session
@@ -65,38 +66,38 @@ import ScheduleEvents from "@/components/ScheduledEvents/ScheduledEvent";
 
 const ScheduledEvent = () => {
   // Getting user email from session
-  // const session = useSession()
-  // const email = session?.data?.user?.email
-  // const name = session?.data?.user?.name
-  // console.log(name)
+  const session = useSession()
+  const email = session?.data?.user?.email
+  const name = session?.data?.user?.name
+  console.log(name)
 
-  // console.log(email)
+  console.log(email)
   // State for storing event
-  // const [eventData, setEventData] = useState(null)
+  const [eventData, setEventData] = useState(null)
 
-  // const getScheduledEvent = async() => {
-  //   console.log(email)
-  //   try {
-  //   const res = await fetch (`/api/event?email=${email}`, {
-  //     cache: "no-store", 
-  //   })
-  //   if (res.status === 500) {
-  //     console.log("An error ocurred please try again.");
-  //   }
+  const getScheduledEvent = async() => {
+    console.log(email)
+    try {
+    const res = await fetch (`/api/event?email=${email}`, {
+      cache: "no-store", 
+    })
+    if (res.status === 500) {
+      console.log("An error ocurred please try again.");
+    }
 
-  //   const eventData = await res.json();
-  //   console.log(eventData)
-  //   setEventData(eventData?.scheduledEvent);
-  //   } catch (error) {
+    const eventData = await res.json();
+    console.log(eventData)
+    setEventData(eventData?.scheduledEvent);
+    } catch (error) {
       
-  //   }
-  // }
+    }
+  }
 
-  // useEffect(() => {
-  //   getScheduledEvent()
-  // }, [getScheduledEvent])
+  useEffect(() => {
+    getScheduledEvent()
+  }, [email])
 
-  // console.log(eventData)
+  console.log(eventData)
 
 
 
@@ -108,7 +109,7 @@ const ScheduledEvent = () => {
       </h1>
 
     <div className="my-8">
-    <ScheduleEvents></ScheduleEvents>
+    <ScheduleEvents events={eventData}></ScheduleEvents>
     </div>
 
      

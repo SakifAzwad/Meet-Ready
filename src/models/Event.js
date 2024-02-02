@@ -27,6 +27,18 @@ const eventSchema = new mongoose.Schema({
     type: String, 
     required: true,
   },
+  eventTitle:{
+    type: String, 
+    required: true,
+  },
+  meetingLink:{
+    type: String, 
+    required: true,
+  },
+  meetingLocation:{
+    type: String, 
+    required: true,
+  },
 })
 
 

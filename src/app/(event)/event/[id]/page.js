@@ -22,14 +22,15 @@ const Event = ({params}) => {
   });
   const [loading, setLoading] = useState(false)
 
-  const {userName, fromDate, toDate, eventDuration, dateAndTimeArray} = singleEventData
+  const {userName, fromDate, toDate, eventDuration, dateAndTimeArray, eventTitle, meetingLink, meetingLocation
+  } = singleEventData
 
   const startDate = new Date(fromDate);
   const endDate = new Date(toDate);
 
   console.log(singleEventData)
   
-
+  console.log(userName, meetingLink, meetingLocation)
   // Getting event data from server
   const getSingleEvent = async(id)=> {
     setLoading(true)
@@ -76,6 +77,8 @@ const Event = ({params}) => {
       name: formData.name,
       userEmail: singleEventData.email,
       userName: singleEventData.userName,
+      eventTitle,
+      meetingLink, meetingLocation
     };
     console.log(bookingData);
     // Perform actions with bookingData, such as sending it to a backend server
