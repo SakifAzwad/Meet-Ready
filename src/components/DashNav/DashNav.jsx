@@ -75,12 +75,7 @@ const DashNav = () => {
               {isClicked ? "" : "Create"}
             </button>
           </Link>
-          {/* <Link href={"/dashboard/create"}>
-            <button className="btn  glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
-              <FaPlus />
-              {isClicked ? "" : "Create"}
-            </button>
-          </Link> */}
+         
 
           <Link href={"/dashboard/events"}>
             <p
@@ -108,7 +103,7 @@ const DashNav = () => {
         <div className="p-5">
           <button 
           onClick={() => signOut()}
-          className="w-full glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
+          className="w-full glass btn bg-purple-500   text-lg hover:bg-purple-600">
             <FaArrowRightFromBracket /> Log Out
           </button>
         </div>
@@ -170,7 +165,7 @@ const DashNav = () => {
             <hr />
             <button 
             onClick={() => signOut()}
-            className="glass btn bg-red-600 text-white btn-sm hover:bg-red-800">
+            className="glass  bg-purple-500  btn hover:bg-purple-600 text-lg">
               <FaArrowRightFromBracket /> Log Out
             </button>
           </ul>

@@ -55,7 +55,7 @@ export const authOptions = {
            //Todo use this when active live site https://meet-ready.vercel.app/
            //Todo use this when active local site https://localhost:3000/
 
-           const res = await fetch('https://meet-ready.vercel.app/api/register', {
+           const res = await fetch('https://localhost:3000/api/register', {
               method:"POST",
               headers: {
                 "Content-Type": 'application/json'

@@ -116,7 +116,7 @@ const Event = ({params}) => {
         {/* Meeting name */}
         <h1 className="text-3xl text-purple-800 font-bold">Scrum Meeting</h1>
         {/* Interviewer Name */}
-        <h1 className="text-xl text-purple-700 font-semibold">Sakif Azwad</h1>
+        <h1 className="text-xl text-purple-700 font-semibold">{eventTitle}</h1>
         <div className="flex space-x-3 justify-center items-center">
           <svg
             className="h-4  text-gray-500 "
@@ -140,7 +140,7 @@ const Event = ({params}) => {
               strokeLinejoin="round"
             ></path>
           </svg>
-          <h1 className="text-gray-500"> 30 Min</h1>
+          <h1 className="text-gray-500">{eventDuration}</h1>
         </div>
       </div>
       <div className="container mx-auto p-4">
