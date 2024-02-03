@@ -58,4 +58,6 @@
 
 - In the event card component i created handleFinish function that takes the event id on clicking finish button and send patch request to update the status property in the database. 
 
-- In the scheduled events component i fetched 
+- In the scheduledevent page i fetched scheduled event data from server based on email id. Then using data received from server i feet it into the card that display data in the ui.
+
+- In the event page i fetched data from server based on event id and store in the state. 
