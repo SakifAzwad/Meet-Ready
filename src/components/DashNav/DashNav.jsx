@@ -16,6 +16,7 @@ import userLogo from "@/assets/userLogo.png";
 import mobileLogo from "@/assets/meetReadyLogoMobile.png";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
+import ReusableButton from "../ReusableButton/ReusableButton";
 
 const DashNav = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -50,6 +51,10 @@ const DashNav = () => {
             </button>
           )}
 
+{/* <ReusableButton onClick={() => setIsClicked(!isClicked)} className="absolute right-6 top-2">
+  {isClicked ? <FaArrowRight /> : <FaArrowLeft />}
+</ReusableButton> */}
+
           {isClicked ? (
             <Link href={"/"}>
               <Image
@@ -70,10 +75,14 @@ const DashNav = () => {
             href={"/dashboard/create"}
             className="flex justify-center items-center"
           >
-            <button className="btn glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
+            {/* <button className="btn glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
               <FaPlus />
               {isClicked ? "" : "Create"}
-            </button>
+            </button> */}
+            <ReusableButton className="btn glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
+    <FaPlus />
+    {isClicked ? "" : "Create"}
+  </ReusableButton>
           </Link>
           {/* <Link href={"/dashboard/create"}>
             <button className="btn  glass bg-emerald-600 hover:bg-emerald-800 text-white text-lg">
