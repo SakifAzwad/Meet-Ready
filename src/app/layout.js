@@ -1,4 +1,7 @@
+import { QueryProvider } from "@/utils/QueryClientProvider"
 import AuthProvider from "@/utils/SessionProvider"
+
+
 
 export const metadata = {
   title: 'Next.js',
@@ -10,7 +13,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
+<QueryProvider>      
         {children}
+        </QueryProvider> 
         </AuthProvider>
         </body>
     </html>

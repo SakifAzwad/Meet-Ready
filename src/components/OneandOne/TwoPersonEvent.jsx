@@ -1,5 +1,7 @@
 "use client";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -56,6 +58,49 @@ const TwoPersonEvent = () => {
 
   const [selectedDays, setSelectedDays] = useState({});
 
+  const queryClient = useQueryClient();
+
+  // Define the mutation function
+  const addData = async(oneEventInfo)=>{
+try {
+  const res = await axios.post("/api/createEvent", oneEventInfo)
+  return res;
+} catch (error) {
+  console.log(error)
+  throw error;
+}
+  }
+
+const {data, isError, mutateAsync, isPending} = useMutation({
+  mutationFn: addData,
+})
+
+  // const createEventMutation = useMutation(async (oneEventInfo) => {
+  //   const res = await fetch("/api/createEvent", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(oneEventInfo),
+  //   });
+
+  //   if (res.status === 500) {
+  //     throw new Error("An error occurred, please try again.");
+  //   }
+
+  //   if (res.status === 200) {
+  //     return res.json(); // You can return the response if needed
+  //   }
+  // }, {
+  //   onSuccess: () => {
+  //     // Invalidate and refetch data after successful mutation
+  //     // queryClient.invalidateQueries('yourQueryKey');
+  //     router.push('/dashboard/events');
+  //   },
+  // });
+
+
+
   const checkboxHandler = (day, fromTime, toTime) => {
     setSelectedDays((prevSelectedDays) => ({
       ...prevSelectedDays,
@@ -93,25 +138,27 @@ const TwoPersonEvent = () => {
       eventTitle, eventDuration, availableDays, fromDate, toDate, meetingLocation, meetingLink, eventStatus, email, userName
     };
 console.log(oneEventInfo)
-    try {
-      const res = await fetch("/api/createEvent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(oneEventInfo),
-      });
+// Call the mutation function
+mutateAsync(oneEventInfo);
+    // try {
+    //   const res = await fetch("/api/createEvent", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(oneEventInfo),
+    //   });
 
-      if (res.status === 500) {
-        console.log("An error ocurred please try again.");
-      }
-      if (res.status === 200) {
-        console.log("Event successfully created");
-        router.push('/dashboard/events')
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //   if (res.status === 500) {
+    //     console.log("An error ocurred please try again.");
+    //   }
+    //   if (res.status === 200) {
+    //     console.log("Event successfully created");
+    //     router.push('/dashboard/events')
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
     
   const eHandle = (event) => {
