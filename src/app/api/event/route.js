@@ -16,6 +16,15 @@ export const POST = async (request) =>{
   console.log('newBookingData', newBookingData)
    try {
       await newBookingData.save()
+
+      // Send email to the original user who created the event
+      const userEmail = bookingData.userEmail; // Change this based on your data structure
+      const subject = 'Booking Information Received';
+      const text = 'Thank you for receiving booking information.';
+
+      // Call the sendMail function
+      sendMail(userEmail, subject, text);
+
       return new NextResponse("Booking successfully made.", {status: 200})
     } catch (error) {
       console.log(error)
