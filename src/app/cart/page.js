@@ -1,8 +1,7 @@
 'use client'
 import { cartContext } from '@/utils/Cart/CartContext';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 const Cart = () => {
   const {cart, setPrice, price} = useContext(cartContext)
@@ -37,5 +36,4 @@ console.log('cart', cart, price)
   );
 }
 
-export default 
-Cart
+export default Cart
