@@ -72,6 +72,9 @@ const Event = ({params}) => {
       name: formData.name,
       userEmail: singleEventData.email,
       userName: singleEventData.userName,
+      meetingLocation: 'meet',
+      meetingLink: 'www.flasfl.com',
+      eventTitle:'sakif'
     };
     console.log(bookingData);
     // Perform actions with bookingData, such as sending it to a backend server
