@@ -1,6 +1,15 @@
+'use client'
+import { CartProvider, cartContext } from "@/utils/Cart/CartContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 import { FaCheck } from "react-icons/fa6";
 
+
 const CardPrice = ({dolar, popularity, learn, amount, time, svg}) => {
+
+    const{ cart, setCart} = useContext(cartContext)
+
     return (
       <div className="md:w-[300px] mx-auto rounded-lg space-y-8 shadow-xl my-20 relative p-8 bg-purple-300 hover:bg-purple-800 animate-pulse text-white">
         
@@ -44,10 +53,14 @@ const CardPrice = ({dolar, popularity, learn, amount, time, svg}) => {
                   </li>
               </ul>
               <div className="pt-4 flex flex-col justify-center">
-                  <button className="w-full h-16 border-2 border-sky-300 text-sky-800 font-black rounded-full hover:text-white duration-300 relative group">
+                  <Link href={`/cart`}>
+                  <button 
+                  onClick={() => setCart(popularity)}
+                  className="w-full h-16 border-2 border-sky-300 text-sky-800 font-black rounded-full hover:text-white duration-300 relative group">
                       <span className="absolute w-12 group-hover:w-[93%] duration-300 flex group-hover:justify-start rounded-full inset-2 bg-sky-300 group-hover:bg-sky-500 group-hover:duration-500 -z-10"></span>
-                      Get Started For Free
+                      Buy This Plan
                   </button>
+                  </Link>
                   <p className="text-center hover:text-white">No credit card required</p>
               </div>
           </div>
