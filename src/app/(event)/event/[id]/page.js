@@ -13,15 +13,27 @@ const Event = ({params}) => {
   console.log(id)
 
   // Storing event data
-  const [singleEventData, setSingleEventData] = useState(null)
+  const [singleEventData, setSingleEventData] = useState([])
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [formData, setFormData] = useState({
+    email: "",
+    name: "",
+  });
+  const [loading, setLoading] = useState(false)
 
+  const {userName, fromDate, toDate, eventDuration, dateAndTimeArray, eventTitle, meetingLink, meetingLocation
+  } = singleEventData
+
+  const startDate = new Date(fromDate);
+  const endDate = new Date(toDate);
 
   console.log(singleEventData)
-
-  console.log(singleEventData?.email)
-
+  
+  console.log(userName, meetingLink, meetingLocation)
   // Getting event data from server
   const getSingleEvent = async(id)=> {
+    setLoading(true)
     try {
       const res = await fetch(`/api/createEvent/${id}`,{
         cache: 'no-store'
@@ -29,8 +41,9 @@ const Event = ({params}) => {
   
       const singleEvent = await res.json()
       setSingleEventData(singleEvent.singleEvent)
-  
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log(error)
     }
    }
@@ -40,15 +53,7 @@ const Event = ({params}) => {
    },[id])
 
 
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [formData, setFormData] = useState({
-    email: "",
-    name: "",
-  });
-
-  const startDate = new Date("2024-03-10");
-  const endDate = new Date("2024-03-15");
+  
 
   const onClickedDate = (date) => {
     setSelectedDate(date);
@@ -72,6 +77,8 @@ const Event = ({params}) => {
       name: formData.name,
       userEmail: singleEventData.email,
       userName: singleEventData.userName,
+      eventTitle,
+      meetingLink, meetingLocation
     };
     console.log(bookingData);
     // Perform actions with bookingData, such as sending it to a backend server
@@ -98,6 +105,10 @@ const Event = ({params}) => {
     }
   };
 
+  if(loading){
+    return <p>Loading............</p>
+  }
+
   return (
     <main className=" bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF] min-h-screen text-center flex justify-center items-center">
       <div>
@@ -105,7 +116,7 @@ const Event = ({params}) => {
         {/* Meeting name */}
         <h1 className="text-3xl text-purple-800 font-bold">Scrum Meeting</h1>
         {/* Interviewer Name */}
-        <h1 className="text-xl text-purple-700 font-semibold">Sakif Azwad</h1>
+        <h1 className="text-xl text-purple-700 font-semibold">{eventTitle}</h1>
         <div className="flex space-x-3 justify-center items-center">
           <svg
             className="h-4  text-gray-500 "
@@ -129,7 +140,7 @@ const Event = ({params}) => {
               strokeLinejoin="round"
             ></path>
           </svg>
-          <h1 className="text-gray-500"> 30 Min</h1>
+          <h1 className="text-gray-500">{eventDuration}</h1>
         </div>
       </div>
       <div className="container mx-auto p-4">
@@ -145,7 +156,10 @@ const Event = ({params}) => {
                <div className="">
                {selectedDate && (
             <>
-              <TimePicker onSelectTime={handleTimeChange} />
+              <TimePicker onSelectTime={handleTimeChange}
+              selectedDate={selectedDate}
+              timeSlots={singleEventData.dateAndTimeArray}
+              />
               <InputSection onChange={handleInputChange} />
               <button type="submit" className=" mx-auto flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base">Submit</button>
             </>

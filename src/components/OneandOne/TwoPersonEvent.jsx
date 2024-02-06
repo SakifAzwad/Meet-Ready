@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 // Function to generate options for duration select
@@ -12,7 +12,6 @@ const generateDurationOptions = () => {
     "10 minutes",
     "15 minutes",
     "20 minutes",
-    "25 minutes",
     "30 minutes",
     "40 minutes",
     "45 minutes",
@@ -27,23 +26,25 @@ const generateDurationOptions = () => {
   ));
 };
 
-// Function to generate time options
-const generateTimeOptions = () => {
-  const times = [
-    "6:00 AM", "6:30 AM", "7:00 AM", "7:30 AM", "8:00 AM", "8:30 AM",
-    "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
-    "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM",
-    "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM",
-    "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM",
-    "9:00 PM", "9:30 PM", "10:00 PM", "10:30 PM", "11:00 PM", "11:30 PM",
-    "12:00 AM"
-  ];
+// Function to generate time slots based on event duration
+const generateTimeSlots = (duration) => {
+  const totalMinutes = parseInt(duration);
+  const timeSlots = [];
+  
+  for (let i = 0; i < 24 * 60; i += totalMinutes) {
+    const startHour = Math.floor(i / 60);
+    const startMinute = i % 60;
+    
+    const endHour = Math.floor((i + totalMinutes) / 60);
+    const endMinute = (i + totalMinutes) % 60;
+    
+    const startTime = `${startHour.toString().padStart(2, '0')}:${startMinute.toString().padStart(2, '0')}`;
+    const endTime = `${endHour.toString().padStart(2, '0')}:${endMinute.toString().padStart(2, '0')}`;
+    
+    timeSlots.push(`${startTime}-${endTime}`);
+  }
 
-  return times.map((time, index) => (
-    <option key={index} value={time}>
-      {time}
-    </option>
-  ));
+  return timeSlots;
 };
 
 const TwoPersonEvent = () => {
@@ -53,33 +54,40 @@ const TwoPersonEvent = () => {
   const session = useSession();
   const email = session?.data?.user?.email;
   const name = session?.data?.user?.name
+  const [fromDate, setFromDate] = useState([]);
+  const [toDate, setToDate] = useState([]);
+  // State to store selected event duration
+const [eventDuration, setEventDuration] = useState("");
 
-  const [selectedDays, setSelectedDays] = useState({});
 
-  const checkboxHandler = (day, fromTime, toTime) => {
-    setSelectedDays((prevSelectedDays) => ({
-      ...prevSelectedDays,
-      [day]: { fromTime, toTime },
-    }));
-  };
 
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  // Function to generate an array of dates between two dates
+const getDatesInRange = (start, end) => {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const dates = [];
+
+  while (startDate <= endDate) {
+    dates.push(new Date(startDate));
+    startDate.setDate(startDate.getDate() + 1);
+  }
+  return dates;
+};
  
+// Function to get the day of the week
+const getDayOfWeek = (date) => {
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  return daysOfWeek[date.getDay()];
+};
+
+
+
 
   const formHandler = async (e) => {
     e.preventDefault();
     const form = e.target;
     const eventTitle = form.eventTitle.value;
     const eventDuration = form.eventDuration.value;
-    const availableDays = selectedDays;
     const fromDate = form.fromDate.value;
     const toDate = form.toDate.value;
     const meetingLocation = location;
@@ -87,10 +95,22 @@ const TwoPersonEvent = () => {
     const eventStatus = 'Pending';
     const userName = name;
 
-    // console.log(selectedDays)
+
+      // Generating an array of dates between from and to dates
+  const selectedDates = getDatesInRange(fromDate, toDate);
+
+  // Generating an array of time slots based on the selected event duration
+  const selectedTimeSlots = generateTimeSlots(eventDuration);
+
+  // Creating an array to connect date and time slot at each index
+  const dateAndTimeArray = selectedDates.map((date, index) => ({
+    date: date.toLocaleDateString(),
+    dayOfWeek: getDayOfWeek(date),
+    timeSlot: selectedTimeSlots[index % selectedTimeSlots.length], // Loop through time slots
+  }));
 
     const oneEventInfo = {
-      eventTitle, eventDuration, availableDays, fromDate, toDate, meetingLocation, meetingLink, eventStatus, email, userName
+      eventTitle, eventDuration,  fromDate, toDate, meetingLocation, meetingLink, eventStatus, email, userName, dateAndTimeArray
     };
 console.log(oneEventInfo)
     try {
@@ -139,32 +159,13 @@ console.log(oneEventInfo)
               className="md:w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
               type="text"
               name="eventTitle"
+              required
             />
           </div>
 
-          {/* PAGE SLUG */}
-
-          {/* <div className="">
-            <label className="label">
-              <span className="label-text font-semibold text-black text-xl">
-                Page Slug
-              </span>
-            </label>
-            <p className="text-sm">How the URL will look like to the public.</p>
-            <input
-              className="w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
-              type="text"
-              name="slug"
-            />
-            <p>http://localhost:3000/dashboard/events</p>
-          </div> */}
-        </div>
-
-        {/* <button onClick={()=>setNext1(!next1)} className="btn">Next</button> */}
-
-        <div className="">
+         
           {/* EVENT DURATION */}
-
+        <div className="">
           <div className="space-y-3 my-7">
             <label className="label">
               <span className="label-text font-semibold text-black text-xl">
@@ -176,11 +177,14 @@ console.log(oneEventInfo)
               meetings.
             </p>
             <select
-              defaultValue="default"
+              defaultValue=""
               name="eventDuration"
-              className="select select-bordered md:w-[380px] "
+
+              className="select select-bordered w-full  md:w-[380px] "
+              onChange={(e) => setEventDuration(e.target.value)}
+              required
             >
-              <option disabled value="default">
+              <option disabled value="">
                 Select Duration
               </option>
               {generateDurationOptions()}
@@ -201,58 +205,7 @@ console.log(oneEventInfo)
             {/* AVAILABLE DAYS AND TIMES */}
 
             <div className=" ">
-              {daysOfWeek.map((day, index) => (
-                <div
-                  key={index}
-                  className="flex flex-row  gap-4 space-x-3  items-center"
-                >
-                  <input
-                className="checkbox checkbox-xs"
-                type="checkbox"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    checkboxHandler(day, "default", "default");
-                  } else {
-                    const { [day]: _, ...rest } = selectedDays;
-                    setSelectedDays(rest);
-                  }
-                }}
-              />
-                  <label className="label">
-                    <span className="label-text mr-4">{day}</span>
-
-                    <select
-                  className="select select-bordered select-xs w-[105px] my-3 max-w-xs"
-                  name={`fromTime-${day}`}
-                  defaultValue="default"
-                  onChange={(e) => {
-                    checkboxHandler(day, e.target.value, selectedDays[day]?.toTime);
-                  }}
-                >
-                      <option disabled value="default" >
-                        {" "}
-                        From
-                      </option>
-                      {generateTimeOptions()}
-                    </select>
-
-                    <select
-                  className="select select-bordered select-xs w-[105px] my-3 max-w-xs"
-                  name={`toTime-${day}`}
-                  defaultValue="default"
-                  onChange={(e) => {
-                    checkboxHandler(day, selectedDays[day]?.fromTime, e.target.value);
-                  }}
-                >
-                      <option disabled value="default" >
-                        {" "}
-                        To
-                      </option>
-                      {generateTimeOptions()}
-                    </select>
-                  </label>
-                </div>
-              ))}
+             
             </div>
             {/* first time ends */}
           </div>
@@ -271,6 +224,8 @@ console.log(oneEventInfo)
                 className="w-[230px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
                 type="date"
                 name="fromDate"
+                onChange={(e) => setFromDate(e.target.value)}
+                required
               />
             </div>
             {/* FIRST FREE DAY  */}
@@ -287,28 +242,82 @@ console.log(oneEventInfo)
                 className="w-[230px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
                 type="date"
                 name="toDate"
+                onChange={(e) => setToDate(e.target.value)}
+                required
               />
             </div>
 
             {/* SECOND FREE DAY  */}
           </div>
+{/* set time for each day */}
+<div>
+  <label className="label-text font-semibold text-black text-xl">
+    Selected Date Range
+  </label>
+  <div className="text-sm space-y-3 my-3">
+    {fromDate && toDate ? (
+      getDatesInRange(fromDate, toDate).map((date, index) => (
+        <div key={index} className="flex items-center">
+          <p>{`Date: ${date.toLocaleDateString()} (${getDayOfWeek(date)})`}</p>
+          
+          {/* Dropdown for time slots based on selected event duration */}
+          {eventDuration && (
+            <label className="ml-4">
+              <span className="label-text font-semibold text-black text-xl">
+                Select Time Slot
+              </span>
+              <select
+                defaultValue=""
+                name="timeSlot"
+                className="select select-bordered w-full"
+                required
+              >
+                <option disabled value="">
+                  Select Time Slot
+                </option>
+                {generateTimeSlots(eventDuration).map((slot, index) => (
+                  <option key={index} value={slot}>
+                    {slot}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+        </div>
+      ))
+    ) : (
+      'Please select dates'
+    )}
+  </div>
+</div>
+
+
+
+
+{/* location */}
 
           <div className="">
+          <label className="label">
+                <span className="label-text font-semibold text-black text-xl">
+                  Event Location
+                </span>
+              </label>
             <select
               className="select select-bordered select-xl w-[250px] my-3 max-w-xs"
               onChange={eHandle}
               name="location"
               value={location}
+              required
               // defaultValue="default"
             >
-              <option value="default" >
+              <option value="" disabled>
                 Select Your Location
               </option>
               <option value={"meet"}>Google Meet</option>
               <option value={"zoom"}>Zoom</option>
             </select>
           </div>
-
+{/* meeting link */}
           <div className="space-y-5">
             <div className="">
               <label className="label">
@@ -321,6 +330,7 @@ console.log(oneEventInfo)
                 className="w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
                 type="text"
                 name="meetingLink"
+                required
               />
               {location === "zoom" ? (
                 <Link
@@ -348,11 +358,12 @@ console.log(oneEventInfo)
             </div>
           </div>
         </div>
-
+{/* create event button */}
         <div className="">
           <button className="border-2 text-xl text-sky-700 w-[230px] rounded-md h-[45px] border-pink-300 hover:before:bg-pink-300 before:w-full before:h-0 hover:before:h-full hover:before:-z-10 hover:before:absolute before:absolute relative before:top-0 hover:before:left-0 before:duration-500 hover:text-white transform origin-top before:block">
             Confirm Event
           </button>
+        </div>
         </div>
       </form>
     </div>

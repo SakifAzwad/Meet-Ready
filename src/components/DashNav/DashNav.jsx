@@ -81,6 +81,7 @@ const DashNav = () => {
               <FaPlus />
                </DashNavButton>
           </Link>
+
           <Link href={"/dashboard/events"}>
           <DashNavButton  className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
                 isClicked && "btn glass"
@@ -101,8 +102,14 @@ const DashNav = () => {
         </div>
 
         <div className="p-5">
+
+          <button 
+          onClick={() => signOut()}
+          className="w-full glass btn bg-purple-500   text-lg hover:bg-purple-600"/>
+
         <DashNavButton onClick={() => signOut()}
             className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400">
+
             <FaArrowRightFromBracket /> Log Out
             </DashNavButton>
               </div>
@@ -161,11 +168,19 @@ const DashNav = () => {
             </Link>
 
             <hr />
+
+            <button 
+            onClick={() => signOut()}
+            className="glass  bg-purple-500  btn hover:bg-purple-600 text-lg">
+              <FaArrowRightFromBracket /> Log Out
+            </button>
+
             <DashNavButton onClick={() => signOut()}
             className="flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400">
             <FaArrowRightFromBracket /> Log Out
             </DashNavButton>
             
+
           </ul>
         </div>
       </div>
