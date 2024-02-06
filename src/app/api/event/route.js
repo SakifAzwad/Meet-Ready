@@ -1,5 +1,6 @@
 import Event from "@/models/Event";
 import connect from "@/utils/db";
+import { sendMail } from "@/utils/mailer";
 import { NextResponse } from "next/server";
 
 
@@ -16,6 +17,15 @@ export const POST = async (request) =>{
   console.log('newBookingData', newBookingData)
    try {
       await newBookingData.save()
+
+ // Send email to the original user who created the event
+ const userEmail = bookingData.userEmail; // Change this based on your data structure
+ const subject = 'Booking Information Received';
+ const text = 'A new interviewee selected booking slot.';
+
+ // Call the sendMail function
+ sendMail(userEmail, subject, text);
+
       return new NextResponse("Booking successfully made.", {status: 200})
     } catch (error) {
       console.log(error)
