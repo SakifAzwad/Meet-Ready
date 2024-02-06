@@ -1,0 +1,31 @@
+[
+    {
+      "id": 1,
+      "image_url": "https://i.ibb.co/pbvQ77C/compass.jpg"
+    },
+    {
+      "id": 2,
+      "image_url": "https://i.ibb.co/FHGdSwK/zendesk.png"
+    },
+    {
+      "id": 3,
+      "image_url": "https://example.com/image3.jpg"
+    },
+    {
+      "id": 4,
+      "image_url": "https://example.com/image4.jpg"
+    },
+    {
+      "id": 5,
+      "image_url": "https://example.com/image5.jpg"
+    },
+    {
+      "id": 6,
+      "image_url": "https://example.com/image6.jpg"
+    },
+    {
+      "id": 7,
+      "image_url": "https://example.com/image7.jpg"
+    }
+  ]
+  
