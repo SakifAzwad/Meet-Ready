@@ -156,7 +156,7 @@ console.log(oneEventInfo)
               Make A simple Title To Remember Your Event
             </p>
             <input
-              className="w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
+              className="md:w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
               type="text"
               name="eventTitle"
               required
@@ -179,9 +179,13 @@ console.log(oneEventInfo)
             <select
               defaultValue=""
               name="eventDuration"
+
               className="select select-bordered w-full "
               onChange={(e) => setEventDuration(e.target.value)}
               required
+
+              className="select select-bordered md:w-[380px] "
+
             >
               <option disabled value="">
                 Select Duration
@@ -302,7 +306,7 @@ console.log(oneEventInfo)
                 </span>
               </label>
             <select
-              className="select select-bordered select-xl w-[150px] my-3 max-w-xs"
+              className="select select-bordered select-xl w-[250px] my-3 max-w-xs"
               onChange={eHandle}
               name="location"
               value={location}
@@ -359,7 +363,7 @@ console.log(oneEventInfo)
         </div>
 {/* create event button */}
         <div className="">
-          <button className="border-2 text-xl text-sky-700 w-[230px] rounded-md h-[45px] border-sky-700 hover:before:bg-sky-700 before:w-full before:h-0 hover:before:h-full hover:before:-z-10 hover:before:absolute before:absolute relative before:top-0 hover:before:left-0 before:duration-500 hover:text-white transform origin-top before:block">
+          <button className="border-2 text-xl text-sky-700 w-[230px] rounded-md h-[45px] border-pink-300 hover:before:bg-pink-300 before:w-full before:h-0 hover:before:h-full hover:before:-z-10 hover:before:absolute before:absolute relative before:top-0 hover:before:left-0 before:duration-500 hover:text-white transform origin-top before:block">
             Confirm Event
           </button>
         </div>

@@ -1,3 +1,4 @@
+
 "use client"
 // import EventCard from "@/components/EventCard/EventCard";
 import { useSession } from "next-auth/react";
@@ -8,18 +9,19 @@ import Link from "next/link";
 import ScheduleEvents from "@/components/ScheduledEvents/ScheduledEvent";
 import { useEffect, useState } from "react";
 
-
-
 const ScheduledEvent = () => {
   // Getting user email from session
+
   const session = useSession()
   const email = session?.data?.user?.email
   const name = session?.data?.user?.name
   console.log(session)
   console.log(name)
 
-  console.log(email)
+
+  // console.log(email)
   // State for storing event
+
   const [eventData, setEventData] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -43,11 +45,35 @@ const ScheduledEvent = () => {
     }
   }
 
-  useEffect(() => {
-    getScheduledEvent()
-  }, [email])
+  // const [eventData, setEventData] = useState(null)
 
-  console.log(eventData)
+  // const getScheduledEvent = async() => {
+  //   console.log(email)
+  //   try {
+  //   const res = await fetch (`/api/event?email=${email}`, {
+  //     cache: "no-store", 
+  //   })
+  //   if (res.status === 500) {
+  //     console.log("An error ocurred please try again.");
+  //   }
+
+  //   const eventData = await res.json();
+  //   console.log(eventData)
+  //   setEventData(eventData?.scheduledEvent);
+  //   } catch (error) {
+      
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   getScheduledEvent()
+  // }, [getScheduledEvent])
+
+  // console.log(eventData)
+
+
+
+
 
 if(loading){
   return <p>Loading ...............</p>
@@ -61,6 +87,7 @@ if(loading){
       </h1>
 
     <div className="my-8">
+
    {
     loading ? (<p>Wait please. loading...</p>) : ( 
       eventData ? ( eventData?.map((event, idx) => (
@@ -98,6 +125,9 @@ if(loading){
     
     )
    }
+
+    <ScheduleEvents></ScheduleEvents>
+
     </div>
 
      
