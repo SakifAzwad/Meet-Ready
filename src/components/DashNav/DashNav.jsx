@@ -105,7 +105,7 @@ const DashNav = () => {
 
           <button 
           onClick={() => signOut()}
-          className="w-full glass btn bg-purple-500   text-lg hover:bg-purple-600">
+          className="w-full glass btn bg-purple-500   text-lg hover:bg-purple-600"/>
 
         <DashNavButton onClick={() => signOut()}
             className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400">
