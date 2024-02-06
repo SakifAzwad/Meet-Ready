@@ -1,3 +1,4 @@
+import { CartProvider } from "@/utils/Cart/CartContext"
 import AuthProvider from "@/utils/SessionProvider"
 
 export const metadata = {
@@ -10,7 +11,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
+<CartProvider>
         {children}
+</CartProvider>
         </AuthProvider>
         </body>
     </html>
