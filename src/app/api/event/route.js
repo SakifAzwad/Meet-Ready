@@ -1,5 +1,6 @@
 import Event from "@/models/Event";
 import connect from "@/utils/db";
+import { sendMail } from "@/utils/mailer";
 import { NextResponse } from "next/server";
 
 
@@ -11,7 +12,7 @@ export const POST = async (request) =>{
     await connect();
   
     const newBookingData = new Event(bookingData)
-
+    console.log('email', bookingData.userEmail)
 
   console.log('newBookingData', newBookingData)
    try {
