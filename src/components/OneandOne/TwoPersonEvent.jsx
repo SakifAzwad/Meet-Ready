@@ -180,12 +180,9 @@ console.log(oneEventInfo)
               defaultValue=""
               name="eventDuration"
 
-              className="select select-bordered w-full "
+              className="select select-bordered w-full  md:w-[380px] "
               onChange={(e) => setEventDuration(e.target.value)}
               required
-
-              className="select select-bordered md:w-[380px] "
-
             >
               <option disabled value="">
                 Select Duration
