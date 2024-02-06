@@ -37,7 +37,7 @@ const ScheduledEvent = () => {
     }
 
     const eventData = await res.json();
-    console.log(eventData)
+    console.log('event data', eventData)
     setEventData(eventData?.scheduledEvent);
     setLoading(false)
   } catch (error) {
@@ -65,9 +65,9 @@ const ScheduledEvent = () => {
   //   }
   // }
 
-  // useEffect(() => {
-  //   getScheduledEvent()
-  // }, [getScheduledEvent])
+  useEffect(() => {
+    getScheduledEvent()
+  }, [email])
 
   // console.log(eventData)
 
@@ -126,7 +126,7 @@ if(loading){
     )
    }
 
-    <ScheduleEvents></ScheduleEvents>
+    {/* {<ScheduleEvents></ScheduleEvents>} */}
 
     </div>
 
