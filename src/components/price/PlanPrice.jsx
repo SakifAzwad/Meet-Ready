@@ -30,7 +30,7 @@ const PlanPrice = () => {
                     </label>
                 </div>
             </div></div>
-            <div className='flex flex-row items-center'>
+            <div className='grid grid-cols-1 gap-y-4 md:grid-cols-3 gap-4 items-center'>
                 
                 <CardPrice popularity="Free" ></CardPrice>
 
