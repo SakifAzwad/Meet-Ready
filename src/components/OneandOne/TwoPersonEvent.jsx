@@ -1,5 +1,7 @@
 "use client";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -58,7 +60,7 @@ const TwoPersonEvent = () => {
   const [toDate, setToDate] = useState([]);
   // State to store selected event duration
 const [eventDuration, setEventDuration] = useState("");
-
+const queryClient = useQueryClient();
 
 
   // Function to generate an array of dates between two dates
@@ -80,7 +82,22 @@ const getDayOfWeek = (date) => {
   return daysOfWeek[date.getDay()];
 };
 
-
+ // Define the mutation function
+ const addData = async(oneEventInfo)=>{
+  try {
+    const res = await axios.post("/api/createEvent", oneEventInfo)
+    return res;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+    }
+  
+  const {data, isError, mutateAsync, isPending} = useMutation({
+    mutationFn: addData,
+  })
+  
+  
 
 
   const formHandler = async (e) => {
@@ -113,25 +130,8 @@ const getDayOfWeek = (date) => {
       eventTitle, eventDuration,  fromDate, toDate, meetingLocation, meetingLink, eventStatus, email, userName, dateAndTimeArray
     };
 console.log(oneEventInfo)
-    try {
-      const res = await fetch("/api/createEvent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(oneEventInfo),
-      });
-
-      if (res.status === 500) {
-        console.log("An error ocurred please try again.");
-      }
-      if (res.status === 200) {
-        console.log("Event successfully created");
-        router.push('/dashboard/events')
-      }
-    } catch (error) {
-      console.log(error);
-    }
+   // Call the mutation function
+mutateAsync(oneEventInfo);
   };
     
   const eHandle = (event) => {
