@@ -39,30 +39,41 @@ const EventCard = ({ event }) => {
     }
   };
 
-  // Delete functionality
+  // Delete functionality--------
+
+  // Asynchronous function for sending delete request
+
+  const deleteEvent = async (id) => {
+    try {
+      const res = await axios.delete(`/api/createEvent/${id}`)
+      return res.data
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  // Tanstack query is used to call deleteEvent function
+
+  const {mutateAsync: deleteMutateAsync} = useMutation({
+    mutationFn: deleteEvent,
+    onSuccess: (data) => {
+      console.log(data)
+      if(data === 'Item Deleted' ){
+      // Todo toast should be shown
+        queryClient.invalidateQueries(['singleEventDataGet'])
+      }
+    }
+  })
 
   const handleDelete = async (id) => {
     // Todo a alert should be shown that the user is sure something like that
-    const res = await fetch(`/api/createEvent/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
-    console.log(res.status);
-    if (res.status === 200) {
-      console.log("Event Successfully Deleted");
-      // Todo replace clg with toast
-      // router.push('/dashboard/events')
-      window.location.reload();
-      // TODO refetch data after delete not reload
-    } else {
-      console.log("An error occurred.");
-      // Todo replace clg with toast
-    }
+    // calling mutateAsync function
+    deleteMutateAsync(id)
+    
   };
 
-  // Finish functionality
+  // Finish functionality---------
 
   // Creating function to update the status of an event
   const updateEventStatus = async(id) => {
