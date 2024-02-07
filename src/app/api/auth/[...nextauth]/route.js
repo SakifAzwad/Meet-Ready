@@ -47,15 +47,16 @@ export const authOptions = {
     async signIn({user, account}){
       if(account.provider === 'google'){
         const {name, email} = user
-
+        console.log('user name and email', name, email)
         try {
           await connect()
           const userExist = await User.findOne({email})
+          console.log('does user exist',userExist)
           if(!userExist){
            //Todo use this when active live site https://meet-ready.vercel.app/
-           //Todo use this when active local site https://localhost:3000/
+           //Todo use this when active local site http://localhost:3000/
 
-           const res = await fetch('https://localhost:3000/api/register', {
+           const res = await fetch('http://localhost:3000/api/register', {
               method:"POST",
               headers: {
                 "Content-Type": 'application/json'
@@ -65,6 +66,7 @@ export const authOptions = {
                
               })
             })
+            console.log(res)
             if(res.ok){
               return user;
             }
