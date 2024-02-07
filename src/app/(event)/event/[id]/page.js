@@ -23,6 +23,7 @@ const Event = ({params}) => {
     name: "",
   });
   // const [loading, setLoading] = useState(false)
+
  // Function for calling api with axios for getting single event data
 
  const getSingleEventData = async(id) => {
@@ -77,6 +78,9 @@ const startDate = new Date(data?.singleEvent?.fromDate);
 
   const {mutateAsync} = useMutation({
     mutationFn: eventBookingPost,
+    onSuccess: (data) => {
+      console.log('data', data)
+    }
   })
 
   const handleSubmit = async(e) => {
@@ -88,8 +92,9 @@ const startDate = new Date(data?.singleEvent?.fromDate);
       name: formData.name,
       userEmail: data?.singleEvent?.email,
       userName: data?.singleEvent?.userName,
-      eventTitle,
-      meetingLink, meetingLocation
+      eventTitle: data?.singleEvent?.eventTitle,
+      meetingLink: data?.singleEvent?.meetingLink, 
+      meetingLocation: data?.singleEvent?.meetingLocation
     };
     console.log(bookingData);
     // Perform actions with bookingData, such as sending it to a backend server
