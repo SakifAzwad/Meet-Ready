@@ -95,6 +95,15 @@ const getDayOfWeek = (date) => {
   
   const {data, isError, mutateAsync, isPending} = useMutation({
     mutationFn: addData,
+    onSuccess:(data) => {
+      console.log(data)
+      if(data.status === 200){
+        // setLoading(false)
+      // toast.success('Lead successfully updated!');
+      queryClient.invalidateQueries(['singleEventDataGet'])
+      router.push('/dashboard/events')
+      }
+    }
   })
   
   
