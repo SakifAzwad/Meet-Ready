@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { CartProvider } from "@/utils/Cart/CartContext"
+=======
+import { QueryProvider } from "@/utils/QueryClientProvider"
+>>>>>>> tanstack
 import AuthProvider from "@/utils/SessionProvider"
+
+
 
 export const metadata = {
   title: 'Next.js',
@@ -11,9 +17,15 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
+<<<<<<< HEAD
 <CartProvider>
         {children}
 </CartProvider>
+=======
+<QueryProvider>      
+        {children}
+        </QueryProvider> 
+>>>>>>> tanstack
         </AuthProvider>
         </body>
     </html>

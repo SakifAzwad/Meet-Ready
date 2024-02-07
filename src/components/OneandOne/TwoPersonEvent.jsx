@@ -1,5 +1,7 @@
 "use client";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -54,34 +56,69 @@ const TwoPersonEvent = () => {
   const session = useSession();
   const email = session?.data?.user?.email;
   const name = session?.data?.user?.name
-  const [fromDate, setFromDate] = useState([]);
-  const [toDate, setToDate] = useState([]);
-  // State to store selected event duration
-const [eventDuration, setEventDuration] = useState("");
 
+  const [selectedDays, setSelectedDays] = useState({});
 
+  const queryClient = useQueryClient();
 
-  // Function to generate an array of dates between two dates
-const getDatesInRange = (start, end) => {
-  const startDate = new Date(start);
-  const endDate = new Date(end);
-  const dates = [];
-
-  while (startDate <= endDate) {
-    dates.push(new Date(startDate));
-    startDate.setDate(startDate.getDate() + 1);
+  // Define the mutation function
+  const addData = async(oneEventInfo)=>{
+try {
+  const res = await axios.post("/api/createEvent", oneEventInfo)
+  return res;
+} catch (error) {
+  console.log(error)
+  throw error;
+}
   }
-  return dates;
-};
+
+const {data, isError, mutateAsync, isPending} = useMutation({
+  mutationFn: addData,
+})
+
+  // const createEventMutation = useMutation(async (oneEventInfo) => {
+  //   const res = await fetch("/api/createEvent", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(oneEventInfo),
+  //   });
+
+  //   if (res.status === 500) {
+  //     throw new Error("An error occurred, please try again.");
+  //   }
+
+  //   if (res.status === 200) {
+  //     return res.json(); // You can return the response if needed
+  //   }
+  // }, {
+  //   onSuccess: () => {
+  //     // Invalidate and refetch data after successful mutation
+  //     // queryClient.invalidateQueries('yourQueryKey');
+  //     router.push('/dashboard/events');
+  //   },
+  // });
+
+
+
+  const checkboxHandler = (day, fromTime, toTime) => {
+    setSelectedDays((prevSelectedDays) => ({
+      ...prevSelectedDays,
+      [day]: { fromTime, toTime },
+    }));
+  };
+
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
  
-// Function to get the day of the week
-const getDayOfWeek = (date) => {
-  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  return daysOfWeek[date.getDay()];
-};
-
-
-
 
   const formHandler = async (e) => {
     e.preventDefault();
@@ -113,25 +150,27 @@ const getDayOfWeek = (date) => {
       eventTitle, eventDuration,  fromDate, toDate, meetingLocation, meetingLink, eventStatus, email, userName, dateAndTimeArray
     };
 console.log(oneEventInfo)
-    try {
-      const res = await fetch("/api/createEvent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(oneEventInfo),
-      });
+// Call the mutation function
+mutateAsync(oneEventInfo);
+    // try {
+    //   const res = await fetch("/api/createEvent", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(oneEventInfo),
+    //   });
 
-      if (res.status === 500) {
-        console.log("An error ocurred please try again.");
-      }
-      if (res.status === 200) {
-        console.log("Event successfully created");
-        router.push('/dashboard/events')
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //   if (res.status === 500) {
+    //     console.log("An error ocurred please try again.");
+    //   }
+    //   if (res.status === 200) {
+    //     console.log("Event successfully created");
+    //     router.push('/dashboard/events')
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
     
   const eHandle = (event) => {

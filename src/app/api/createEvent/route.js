@@ -8,7 +8,7 @@ export const POST = async (request) =>{
     const newEventData = await request.json();
   
     console.log('data from frontend',newEventData)
-    await connect();
+    // await connect();
   
     const newEvent = new CreateEvent(newEventData)
 
