@@ -76,10 +76,19 @@ const startDate = new Date(data?.singleEvent?.fromDate);
     }
   }
 
+  // Using mutation function to send data
+
   const {mutateAsync} = useMutation({
     mutationFn: eventBookingPost,
     onSuccess: (data) => {
       console.log('data', data)
+      if(data.status === 200) {
+        // todo show toast
+        console.log("Booking successful")
+      } if(res.status === 500){
+        //     //todo add toast or alert
+            console.log('Error in booking. Please try again.')
+          }
     }
   })
 
@@ -98,7 +107,7 @@ const startDate = new Date(data?.singleEvent?.fromDate);
     };
     console.log(bookingData);
     // Perform actions with bookingData, such as sending it to a backend server
-
+    // calling mutateAsync function.
     mutateAsync(bookingData)
 
     // try {
