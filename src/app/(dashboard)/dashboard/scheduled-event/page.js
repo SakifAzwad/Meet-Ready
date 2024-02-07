@@ -15,8 +15,8 @@ const ScheduledEvent = () => {
   const session = useSession()
   const email = session?.data?.user?.email
   const name = session?.data?.user?.name
-  console.log(session)
-  console.log(name)
+  // console.log(session)
+  // console.log(name)
 
 
   // console.log(email)
@@ -26,7 +26,7 @@ const ScheduledEvent = () => {
   const [loading, setLoading] = useState(false)
 
   const getScheduledEvent = async() => {
-    console.log(email)
+    // console.log(email)
     setLoading(true)
     try {
     const res = await fetch (`/api/event?email=${email}`, {
@@ -37,7 +37,7 @@ const ScheduledEvent = () => {
     }
 
     const eventData = await res.json();
-    console.log('event data', eventData)
+    // console.log('event data', eventData)
     setEventData(eventData?.scheduledEvent);
     setLoading(false)
   } catch (error) {

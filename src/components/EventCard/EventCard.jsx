@@ -14,7 +14,7 @@ import {
 const EventCard = ({event}) => {
   const {eventTitle, eventDuration, fromTime, eventDate, eventStatus, _id, meetingLink, shareableLink} = event
 
-  console.log('event card', event)
+  // console.log('event card', event)
   const meetLinkRef = useRef(null);
   const router = useRouter()
   

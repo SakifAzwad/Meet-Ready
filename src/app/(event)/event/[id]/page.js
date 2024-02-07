@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 const Event = ({params}) => {
   // Getting id of the meeting
   const id = params.id
-  console.log(id)
+  // console.log(id)
 
   // Storing event data
   const [singleEventData, setSingleEventData] = useState([])

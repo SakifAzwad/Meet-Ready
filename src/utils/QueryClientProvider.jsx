@@ -1,9 +1,6 @@
 "use client"
 
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
@@ -18,7 +15,7 @@ export const queryContext = createContext()
 export const QueryProvider =({children}) => {
   const [cart, setCart] = useState([])
   const [price, setPrice] = useState(0)
-  console.log(cart)
+  // console.log(cart)
   return (
     <QueryClientProvider client={queryClient}>
     {children}
