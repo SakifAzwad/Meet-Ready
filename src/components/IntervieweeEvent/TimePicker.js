@@ -3,25 +3,17 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 
 const TimePicker = ({ onSelectTime, selectedDate, timeSlots }) => {
-  console.log('time picker 1', onSelectTime)
-  console.log('time picker 2',  selectedDate)
-  console.log('time picker 3', timeSlots)
   const [filteredTimeOptions, setFilteredTimeOptions] = useState([]);
 
-  console.log('time', filteredTimeOptions)
   // Update time options when the selected date changes
   useEffect(() => {
     if (selectedDate) {
       // Filter time slots based on the selected date
       const dateFormatted = selectedDate.toLocaleDateString('en-US');
       
-      console.log('dateFormatted', dateFormatted)
-
       const timeOptions = timeSlots
         .filter((slot) => slot.date === dateFormatted)
         .map((slot) => ({ value: slot.timeSlot, label: slot.timeSlot }));
-
-        console.log('time options', timeOptions)
 
         setFilteredTimeOptions(timeOptions);
     }

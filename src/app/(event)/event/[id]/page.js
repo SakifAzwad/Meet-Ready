@@ -12,17 +12,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 const Event = ({params}) => {
   // Getting id of the meeting
   const id = params.id
-  // console.log(id)
-
-  // Storing event data
-  // const [singleEventData, setSingleEventData] = useState([])
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
     name: "",
   });
-  // const [loading, setLoading] = useState(false)
 
  // Function for calling api with axios for getting single event data
 
@@ -38,7 +33,7 @@ const Event = ({params}) => {
 
 // Using tanstack query and axios calling getSingleEventData function
 
-const {data, isLoading:loading } = useQuery({
+const {data, isLoading } = useQuery({
   queryKey:['singleDataForEventPage'],
   queryFn: () => getSingleEventData(id)
 })
@@ -47,9 +42,6 @@ const {data, isLoading:loading } = useQuery({
 
 const startDate = new Date(data?.singleEvent?.fromDate);
   const endDate = new Date(data?.singleEvent?.toDate);
-
-
-  
 
   const onClickedDate = (date) => {
     setSelectedDate(date);
@@ -85,7 +77,7 @@ const startDate = new Date(data?.singleEvent?.fromDate);
       if(data.status === 200) {
         // todo show toast
         console.log("Booking successful")
-      } if(res.status === 500){
+      } if(data.status === 500){
         //     //todo add toast or alert
             console.log('Error in booking. Please try again.')
           }
@@ -105,39 +97,17 @@ const startDate = new Date(data?.singleEvent?.fromDate);
       meetingLink: data?.singleEvent?.meetingLink, 
       meetingLocation: data?.singleEvent?.meetingLocation
     };
-    console.log(bookingData);
-    // Perform actions with bookingData, such as sending it to a backend server
+
     // calling mutateAsync function.
     mutateAsync(bookingData)
-
-    // try {
-    //   const res = await fetch('/api/event', {
-    //     method: "POST",
-    //     headers:{
-    //       "Content-type": "application/json"
-    //     },
-    //     body: JSON.stringify(bookingData)
-    //   })
-    //   if(res.status === 200){
-    //     //todo add toast or alert
-    //     console.log('Booking Successful')
-    //   }
-    //   if(res.status === 500){
-    //     //todo add toast or alert
-    //     console.log('Error in booking. Please try again.')
-    //   }
-    // } catch (error) {
-    //   // todo add toast or alert
-    //   console.log(error, 'Error occurred in send data to server. Please try again later.')
-    // }
   };
 
-  if(loading){
+  if(isLoading){
     return <p>Loading............</p>
   }
-console.log('time', data?.singleEvent?.dateAndTimeArray)
+// console.log('time', data?.singleEvent?.dateAndTimeArray)
 
-console.log('selected date', selectedDate)
+// console.log('selected date', selectedDate)
 
   return (
     <main className=" bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF] min-h-screen text-center flex justify-center items-center">
