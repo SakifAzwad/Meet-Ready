@@ -37,12 +37,13 @@ export const DELETE = async(request, {params}) => {
 
 export const PATCH = async(request, {params}) => {
   const { id } = params;
-  const  eventStatus  = await request.json()
+  console.log('id',id)
+  const  eventStatus  = "Finished"
   console.log(eventStatus)
   await connect()
   try {
     const res = await CreateEvent.findByIdAndUpdate(id,{eventStatus})
-    return NextResponse.json("Item Deleted", {status: 200})
+    return NextResponse.json("Item Updated", {status: 200})
   } catch (error) {
     
   } console.log(error)
