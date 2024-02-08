@@ -1,4 +1,6 @@
 "use client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
@@ -11,13 +13,23 @@ import {
   FaTrash,
 } from "react-icons/fa6";
 
-const EventCard = ({event}) => {
-  const {eventTitle, eventDuration, fromTime, eventDate, eventStatus, _id, meetingLink, shareableLink} = event
+const EventCard = ({ event }) => {
+  const queryClient = useQueryClient();
+  const {
+    eventTitle,
+    eventDuration,
+    fromTime,
+    eventDate,
+    eventStatus,
+    _id,
+    meetingLink,
+    shareableLink,
+  } = event;
 
-  console.log('event card', event)
+  // console.log('event card', event)
   const meetLinkRef = useRef(null);
-  const router = useRouter()
-  
+  const router = useRouter();
+
   const copyToClipboard = () => {
     if (meetLinkRef.current) {
       meetLinkRef.current.select();
@@ -27,53 +39,70 @@ const EventCard = ({event}) => {
     }
   };
 
-// Delete functionality
+  // Delete functionality--------
 
-const handleDelete = async (id) => {
-  // Todo a alert should be shown that the user is sure something like that
-     const res = await fetch(`/api/createEvent/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-type":"application/json"
-      }
-    })
-    console.log(res.status)
-    if(res.status === 200){
-      console.log("Event Successfully Deleted")
-      // Todo replace clg with toast
-      // router.push('/dashboard/events')
-      window.location.reload()
-      // TODO refetch data after delete not reload
-    }else{
-      console.log("An error occurred.")
-      // Todo replace clg with toast
+  // Asynchronous function for sending delete request
+
+  const deleteEvent = async (id) => {
+    try {
+      const res = await axios.delete(`/api/createEvent/${id}`)
+      return res.data
+    } catch (error) {
+      console.log(error)
+      throw error
     }
-  
-}
-
-// Finish functionality
-
-const handleFinish = async (id) => {
-  const eventStatus = 'Finished'
-  // Todo a alert should be shown that the user is sure something like that
-  const res = await fetch(`/api/createEvent/${id}`,{
-    method: 'PATCH',
-    headers: {
-      "Content-type":"application/json"
-    },
-    body: JSON.stringify(eventStatus)
-  })
-  if(res.status === 200){
-    console.log('Status updated')
-    // Todo replace clg with toast
-    window.location.reload()
-    // TODO refetch data after it not reload
-  }else{
-    console.log("An error occurred.")
-    // Todo replace clg with toast
   }
-}
 
+  // Tanstack query is used to call deleteEvent function
+
+  const {mutateAsync: deleteMutateAsync} = useMutation({
+    mutationFn: deleteEvent,
+    onSuccess: (data) => {
+      console.log(data)
+      if(data === 'Item Deleted' ){
+      // Todo toast should be shown
+        queryClient.invalidateQueries(['singleEventDataGet'])
+      }
+    }
+  })
+
+  const handleDelete = async (id) => {
+    // Todo a alert should be shown that the user is sure something like that
+    // calling mutateAsync function
+    deleteMutateAsync(id)
+    
+  };
+
+  // Finish functionality---------
+
+  // Creating function to update the status of an event
+  const updateEventStatus = async(id) => {
+    try {
+      const res = await axios.patch(`/api/createEvent/${id}`)
+      return res;
+    } catch (error) {
+      console.log(error)
+    throw error;
+    }
+  }
+
+// Using tanstack query and axios to send patch request
+
+const {data, mutateAsync} = useMutation({
+  mutationFn: updateEventStatus,
+  onSuccess: (data) => {
+    if(data.status === 200){
+      // Todo implement toast
+    // toast.success('Lead successfully updated!');
+    queryClient.invalidateQueries(['singleEventDataGet'])
+    }
+  }
+})
+
+// Onclick handler
+  const handleFinish = async (id) => {
+       mutateAsync(id)
+  };
 
   return (
     <div>
@@ -91,8 +120,7 @@ const handleFinish = async (id) => {
               {/* edit button */}
               <li>
                 <Link href={`/dashboard/editEvent/${event._id}`}>
-                  <button 
-                  className="flex font-semibold justify-center items-center gap-2">
+                  <button className="flex font-semibold justify-center items-center gap-2">
                     <FaPencil />
                     Edit
                   </button>
@@ -101,17 +129,19 @@ const handleFinish = async (id) => {
               {/* finished button */}
               <li>
                 <button
-                onClick={()=>handleFinish(_id)}
-                className="flex text-green-800 font-semibold justify-center items-center gap-2">
+                  onClick={() => handleFinish(_id)}
+                  className="flex text-green-800 font-semibold justify-center items-center gap-2"
+                >
                   <FaCheck />
                   Finished
                 </button>
               </li>
               {/* delete button */}
               <li>
-                <button 
-                onClick={()=>handleDelete(_id)}
-                className="flex text-red-500 font-semibold justify-center items-center gap-2">
+                <button
+                  onClick={() => handleDelete(_id)}
+                  className="flex text-red-500 font-semibold justify-center items-center gap-2"
+                >
                   <FaTrash />
                   Delete
                 </button>
@@ -121,9 +151,13 @@ const handleFinish = async (id) => {
         </div>
         {/* Card body */}
         <div>
-        <h1 className="text-xl font-medium">{eventTitle}</h1>
-          <h1 className="text-base font-extralight">{eventDuration}, One-on-One</h1>
-          <h1 className="text-base font-extralight">{fromTime}, {eventDate}</h1>
+          <h1 className="text-xl font-medium">{eventTitle}</h1>
+          <h1 className="text-base font-extralight">
+            {eventDuration}, One-on-One
+          </h1>
+          <h1 className="text-base font-extralight">
+            {fromTime}, {eventDate}
+          </h1>
           <h1 className="text-base font-extralight">
             <span className="font-semibold">Status</span>: {eventStatus}
           </h1>
@@ -142,7 +176,9 @@ const handleFinish = async (id) => {
           </Link>
           {/* share button */}
           <button
-            onClick={() => document.getElementById(`my_modal_${_id}`).showModal()}
+            onClick={() =>
+              document.getElementById(`my_modal_${_id}`).showModal()
+            }
             className="btn btn-sm flex justify-center items-center gap-2 border border-sky-500 "
           >
             <FaShare /> Share
@@ -151,7 +187,10 @@ const handleFinish = async (id) => {
       </div>
 
       {/* MODAL  */}
-      <dialog id={`my_modal_${_id}`} className="modal modal-bottom sm:modal-middle">
+      <dialog
+        id={`my_modal_${_id}`}
+        className="modal modal-bottom sm:modal-middle"
+      >
         <div className="modal-box">
           <h3 className="font-bold text-lg">{eventTitle}</h3>
 

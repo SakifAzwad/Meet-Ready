@@ -1,84 +1,52 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import EventCard from "@/components/EventCard/EventCard";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Events = () => {
-  // Stater for storing all event data of a user
-  const [eventData, setEventData] = useState([]);
-  const [singleEventData, setSingleEventData] = useState([]);
-  console.log(eventData);
-  // Creating event share page
-  const updatedEventData = eventData.map((event) => ({
-    ...event,
-    shareableLink: `https://meet-ready.vercel.app/event/${event._id}`,
-  }));
-
-  console.log(updatedEventData);
   // Getting user email from session so that event information can be called based on email
   const session = useSession();
   const email = session?.data?.user?.email;
 
-  // Getting event data from server based on user email
-  const getEvent = async () => {
+  //  Creating function to get event data based on email
+  const getDataByEmail = async (email) => {
+    // console.log(email)
     try {
-      const res = await fetch(`/api/createEvent?email=${email}`, {
-        cache: "no-store",
-      });
-
-      if (res.status === 500) {
-        console.log("An error ocurred please try again.");
-      }
-
-      const eventData = await res.json();
-
-      setEventData(eventData.myEvent);
+      const res = await axios.get(`/api/createEvent?email=${email}`);
+      return res.data;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 
-  // Calling getEvent function on page load
-  useEffect(() => {
-    getEvent();
-  }, []);
+  // Using tanstack query and axios data is fetched form server
 
-  //  const getEvent = async()=> {
-  //    const  email = 'infoicpasyl@gmail.com'
-  //    console.log('eimail', email)
-  //   try {
-  //     const res = await fetch(`/api/createEvent?email=${email}`,{
-  //       cache: 'no-store'
-  //     })
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["singleEventDataGet"],
+    queryFn: () => getDataByEmail(email),
+  });
 
-  //     if(res.status === 500 ){
-  //       console.log("An error ocurred please try again.")
-  //     }
+  // Rendering p tag at the time of data loading
 
-  //     const eventData = await res.json()
+  if (isLoading) {
+    return <p>Loading.........</p>;
+  }
 
-  //     setEventData(eventData.myEvent)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  //  }
+  // console.log('data', data);
+  // console.log('data array', data.myEvent);
 
-  const getSingleEvent = async (id) => {
-    try {
-      const res = await fetch(`/api/createEvent/${id}`, {
-        cache: "no-store",
-      });
+  // Updating fetched data and add meet dynamic link in it.
 
-      const singleEvent = await res.json();
-      setSingleEventData(singleEvent);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const updatedEventData = data?.myEvent?.map((event) => ({
+    ...event,
+    shareableLink: `http:localhost:3000/event/${event._id}`,
+  }));
 
-  console.log("get single data based on id", singleEventData);
+  // console.log('upadated event data', updatedEventData);
 
   return (
     <div className="flex flex-col justify-start mt-16 space-y-5">
@@ -94,25 +62,15 @@ const Events = () => {
       <h1 className="text-2xl font-semibold pl-2 border-l-2 border-purple-500">
         Events
       </h1>
-      {/* <button 
-      onClick={testApi}
-      className="btn btn-primary">Test</button>
-      <button 
-      onClick={getEvent}
-      className="btn btn-primary">Get by Email</button>
-      <button 
-      onClick={() => getSingleEvent('65b277695b8bef36e2bc0b60')}
-      className="btn btn-primary">Get Single Event</button>
-      <button 
-      onClick={() => editEvent('65b277695b8bef36e2bc0b60')}
-      className="btn btn-primary">Edit Single Event</button> */}
+
       <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
         {updatedEventData ? (
-          updatedEventData?.map((event) => <EventCard key={event._id} event={event} />)
+          updatedEventData?.map((event) => (
+            <EventCard key={event._id} event={event} />
+          ))
         ) : (
           <p>No data to show</p>
         )}
-       
       </div>
     </div>
   );

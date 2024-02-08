@@ -33,7 +33,7 @@ export const POST = async (request) =>{
     console.log(email)
     try {
       const myEvent = await CreateEvent.find({email})
-      console.log(myEvent)
+      console.log('my event', myEvent)
       return NextResponse.json({myEvent})
     } catch (error) {
       console.log('Internal server error', error)

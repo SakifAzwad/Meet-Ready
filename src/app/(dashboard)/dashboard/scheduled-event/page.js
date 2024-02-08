@@ -8,6 +8,8 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import ScheduleEvents from "@/components/ScheduledEvents/ScheduledEvent";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const ScheduledEvent = () => {
   // Getting user email from session
@@ -15,40 +17,37 @@ const ScheduledEvent = () => {
   const session = useSession()
   const email = session?.data?.user?.email
   const name = session?.data?.user?.name
-  console.log(session)
-  console.log(name)
-
-
-  // console.log(email)
+ 
   // State for storing event
 
   const [eventData, setEventData] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const getScheduledEvent = async() => {
-    console.log(email)
-    setLoading(true)
-    try {
-    const res = await fetch (`/api/event?email=${email}`, {
-      cache: "no-store", 
-    })
-    if (res.status === 500) {
-      console.log("An error ocurred please try again.");
-    }
+  // function to call api to get scheduled event
 
-    const eventData = await res.json();
-    console.log('event data', eventData)
-    setEventData(eventData?.scheduledEvent);
-    setLoading(false)
-  } catch (error) {
-      setLoading(false)
+  const getScheduledEvent = async (email) => {
+    try {
+      const res = await axios.get(`/api/event?email=${email}`)
+      return res.data
+      ;
+    } catch (error) {
+      console.log(error)
+      throw error
     }
   }
 
-  // const [eventData, setEventData] = useState(null)
+  // Using tanstack query to call getScheduledEvent function
 
+  const {data, isLoading} = useQuery({
+    queryKey:['scheduledEventGet'],
+    queryFn: () => getScheduledEvent(email),
+  })
+
+
+  console.log('data', data)
   // const getScheduledEvent = async() => {
-  //   console.log(email)
+  //   // console.log(email)
+  //   setLoading(true)
   //   try {
   //   const res = await fetch (`/api/event?email=${email}`, {
   //     cache: "no-store", 
@@ -58,16 +57,18 @@ const ScheduledEvent = () => {
   //   }
 
   //   const eventData = await res.json();
-  //   console.log(eventData)
+  //   // console.log('event data', eventData)
   //   setEventData(eventData?.scheduledEvent);
-  //   } catch (error) {
-      
+  //   setLoading(false)
+  // } catch (error) {
+  //     setLoading(false)
   //   }
   // }
 
-  useEffect(() => {
-    getScheduledEvent()
-  }, [email])
+
+  // useEffect(() => {
+  //   getScheduledEvent()
+  // }, [email])
 
   // console.log(eventData)
 
@@ -75,7 +76,7 @@ const ScheduledEvent = () => {
 
 
 
-if(loading){
+if(isLoading){
   return <p>Loading ...............</p>
 }
 
@@ -89,8 +90,8 @@ if(loading){
     <div className="my-8">
 
    {
-    loading ? (<p>Wait please. loading...</p>) : ( 
-      eventData ? ( eventData?.map((event, idx) => (
+     
+      data ? ( data?.scheduledEvent?.map((event, idx) => (
         <div key={idx} className="bg-sky-100 rounded-md mt-4 p-8">
           <div className="">
             <p className="text-slate-900 text-center font-bold mb-5">
@@ -123,7 +124,7 @@ if(loading){
         </div>
       ))) : (<p>No Scheduled Event Available.</p>)
     
-    )
+    
    }
 
     {/* {<ScheduleEvents></ScheduleEvents>} */}
