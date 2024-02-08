@@ -5,52 +5,48 @@ import InputSection from "@/components/IntervieweeEvent/InputSection";
 import TimePicker from "@/components/IntervieweeEvent/TimePicker";
 import 'react-calendar/dist/Calendar.css';
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 
 const Event = ({params}) => {
   // Getting id of the meeting
   const id = params.id
-  console.log(id)
+  // console.log(id)
 
   // Storing event data
-  const [singleEventData, setSingleEventData] = useState([])
+  // const [singleEventData, setSingleEventData] = useState([])
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
     name: "",
   });
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
 
-  const {userName, fromDate, toDate, eventDuration, dateAndTimeArray, eventTitle, meetingLink, meetingLocation
-  } = singleEventData
+ // Function for calling api with axios for getting single event data
 
-  const startDate = new Date(fromDate);
-  const endDate = new Date(toDate);
+ const getSingleEventData = async(id) => {
+  try {
+    const res = await axios.get(`/api/createEvent/${id}`)
+    return res.data
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
 
-  console.log(singleEventData)
-  
-  console.log(userName, meetingLink, meetingLocation)
-  // Getting event data from server
-  const getSingleEvent = async(id)=> {
-    setLoading(true)
-    try {
-      const res = await fetch(`/api/createEvent/${id}`,{
-        cache: 'no-store'
-      })
-  
-      const singleEvent = await res.json()
-      setSingleEventData(singleEvent.singleEvent)
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-    }
-   }
-// Calling getSingleEvent function at the time of component load
-   useEffect(()=> {
-    getSingleEvent(id)
-   },[id])
+// Using tanstack query and axios calling getSingleEventData function
+
+const {data, isLoading:loading } = useQuery({
+  queryKey:['singleDataForEventPage'],
+  queryFn: () => getSingleEventData(id)
+})
+
+// Converting date string to date format
+
+const startDate = new Date(data?.singleEvent?.fromDate);
+  const endDate = new Date(data?.singleEvent?.toDate);
 
 
   
@@ -68,6 +64,34 @@ const Event = ({params}) => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Function for posting data to the back end
+
+  const eventBookingPost = async(bookingData) => {
+    try {
+      const res = await axios.post('/api/event', bookingData)
+      return res;
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  // Using mutation function to send data
+
+  const {mutateAsync} = useMutation({
+    mutationFn: eventBookingPost,
+    onSuccess: (data) => {
+      console.log('data', data)
+      if(data.status === 200) {
+        // todo show toast
+        console.log("Booking successful")
+      } if(res.status === 500){
+        //     //todo add toast or alert
+            console.log('Error in booking. Please try again.')
+          }
+    }
+  })
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     const bookingData = {
@@ -75,39 +99,45 @@ const Event = ({params}) => {
       selectedTime,
       intervieweeEmail: formData.email,
       name: formData.name,
-      userEmail: singleEventData.email,
-      userName: singleEventData.userName,
-      eventTitle,
-      meetingLink, meetingLocation
+      userEmail: data?.singleEvent?.email,
+      userName: data?.singleEvent?.userName,
+      eventTitle: data?.singleEvent?.eventTitle,
+      meetingLink: data?.singleEvent?.meetingLink, 
+      meetingLocation: data?.singleEvent?.meetingLocation
     };
     console.log(bookingData);
     // Perform actions with bookingData, such as sending it to a backend server
+    // calling mutateAsync function.
+    mutateAsync(bookingData)
 
-    try {
-      const res = await fetch('/api/event', {
-        method: "POST",
-        headers:{
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify(bookingData)
-      })
-      if(res.status === 200){
-        //todo add toast or alert
-        console.log('Booking Successful')
-      }
-      if(res.status === 500){
-        //todo add toast or alert
-        console.log('Error in booking. Please try again.')
-      }
-    } catch (error) {
-      // todo add toast or alert
-      console.log(error, 'Error occurred in send data to server. Please try again later.')
-    }
+    // try {
+    //   const res = await fetch('/api/event', {
+    //     method: "POST",
+    //     headers:{
+    //       "Content-type": "application/json"
+    //     },
+    //     body: JSON.stringify(bookingData)
+    //   })
+    //   if(res.status === 200){
+    //     //todo add toast or alert
+    //     console.log('Booking Successful')
+    //   }
+    //   if(res.status === 500){
+    //     //todo add toast or alert
+    //     console.log('Error in booking. Please try again.')
+    //   }
+    // } catch (error) {
+    //   // todo add toast or alert
+    //   console.log(error, 'Error occurred in send data to server. Please try again later.')
+    // }
   };
 
   if(loading){
     return <p>Loading............</p>
   }
+console.log('time', data?.singleEvent?.dateAndTimeArray)
+
+console.log('selected date', selectedDate)
 
   return (
     <main className=" bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF] min-h-screen text-center flex justify-center items-center">
@@ -116,7 +146,7 @@ const Event = ({params}) => {
         {/* Meeting name */}
         <h1 className="text-3xl text-purple-800 font-bold">Scrum Meeting</h1>
         {/* Interviewer Name */}
-        <h1 className="text-xl text-purple-700 font-semibold">{eventTitle}</h1>
+        <h1 className="text-xl text-purple-700 font-semibold">{data?.singleEvent?.eventTitle}</h1>
         <div className="flex space-x-3 justify-center items-center">
           <svg
             className="h-4  text-gray-500 "
@@ -140,7 +170,7 @@ const Event = ({params}) => {
               strokeLinejoin="round"
             ></path>
           </svg>
-          <h1 className="text-gray-500">{eventDuration}</h1>
+          <h1 className="text-gray-500">{data?.singleEvent?.eventDuration}</h1>
         </div>
       </div>
       <div className="container mx-auto p-4">
@@ -158,7 +188,7 @@ const Event = ({params}) => {
             <>
               <TimePicker onSelectTime={handleTimeChange}
               selectedDate={selectedDate}
-              timeSlots={singleEventData.dateAndTimeArray}
+              timeSlots={data?.singleEvent?.dateAndTimeArray}
               />
               <InputSection onChange={handleInputChange} />
               <button type="submit" className=" mx-auto flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base">Submit</button>
@@ -168,9 +198,6 @@ const Event = ({params}) => {
                </div>
             </div>
          </div>
-         
-         
-          
         </form>
       </div>
       </div>
