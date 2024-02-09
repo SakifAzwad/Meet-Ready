@@ -31,11 +31,15 @@ const Navbar = () => {
       setIsSticky(scrollY > threshold);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    if (typeof window !== 'undefined') {
+      // Add event listener when component mounts
+      window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+      // Remove event listener when component unmounts
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
   }, []);
 
   const toggleSidebar = () => {
