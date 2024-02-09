@@ -77,12 +77,16 @@ const DashNav = () => {
             href={"/dashboard/create"}
             className="flex justify-center items-center"
           >
-          <DashNavButton className={`btn glass bg-purple-300 hover:bg-purple-400  text-lg w-full flex justify-start items-center ${pathname === "/dashboard/createNewEvent" && "bg-purple-500 "}`}>
+          <DashNavButton className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
+                isClicked && "btn glass"
+              } ${pathname === "/dashboard/create" && "bg-purple-500 "}`}>
               <FaPlus />
+              {isClicked ? "" : "Create"}
                </DashNavButton>
           </Link>
 
-          <Link href={"/dashboard/events"}>
+          <Link href={"/dashboard/events"}
+          className="flex justify-center items-center">
           <DashNavButton  className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
                 isClicked && "btn glass"
               } ${pathname === "/dashboard/events" && "bg-purple-500 "}`}>
