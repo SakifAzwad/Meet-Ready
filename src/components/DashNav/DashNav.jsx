@@ -80,10 +80,10 @@ const DashNav = () => {
 
           <DashNavButton className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
                 isClicked && "btn glass"
-              } ${pathname === "/dashboard/create" && "bg-purple-500 "}`}/>
+              } ${pathname === "/dashboard/create" && "bg-purple-500 "}`}>
               <FaPlus />
               {isClicked ? "" : "Create"}
-
+              </DashNavButton>  
           </Link>
 
           <Link href={"/dashboard/events"}
