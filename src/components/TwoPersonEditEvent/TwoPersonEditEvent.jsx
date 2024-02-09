@@ -52,8 +52,6 @@ const generateTimeSlots = (duration) => {
 };
 
 const TwoPersonEditEvent = ({ event }) => {
-  console.log("event", event);
-  // const [id, setId] = useState('')
   const [next1, setNext1] = useState(false);
   const [location, setLocation] = useState("");
   const router = useRouter();
@@ -106,7 +104,7 @@ const getDayOfWeek = (date) => {
     throw error;
   }
     }
-  
+  // Using tanstack query to post edited data
   const {data, isError, mutateAsync, isPending} = useMutation({
     mutationFn: editData,
     onSuccess:(data) => {
