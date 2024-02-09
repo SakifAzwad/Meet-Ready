@@ -1,4 +1,5 @@
 import TwoPersonEvent from '@/components/OneandOne/TwoPersonEvent';
+import { QueryProvider } from "@/utils/QueryClientProvider";
 import React from 'react';
 
 const CreateNewEvent = () => {
