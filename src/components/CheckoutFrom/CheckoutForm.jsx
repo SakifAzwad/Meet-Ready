@@ -86,8 +86,8 @@ const CheckoutForm = () => {
 
     <>
   <div>
-
     <form onSubmit={handleSubmit}>
+     <div className="text-center mx-auto"> 
      <CardElement
           options={{
             style: {
@@ -105,6 +105,7 @@ const CheckoutForm = () => {
             },
           }}
         />
+     </div>
 
       <button
         className=" btn bg-purple-400 hover:bg-purple-600"
