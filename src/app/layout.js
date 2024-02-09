@@ -1,3 +1,4 @@
+import FBMessanger from "@/components/FBMessanger/FBMessanger";
 import { CartProvider } from "@/utils/Cart/CartContext";
 import { QueryProvider } from "@/utils/QueryClientProvider";
 import AuthProvider from "@/utils/SessionProvider";
@@ -13,7 +14,12 @@ export default function RootLayout({ children }) {
       <body>
         <AuthProvider>
           <QueryProvider>
-            <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            <div>
+              {children}
+              <FBMessanger/>
+            </div>
+          </CartProvider>
           </QueryProvider>
         </AuthProvider>
       </body>
