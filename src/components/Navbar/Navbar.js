@@ -21,6 +21,7 @@ const Navbar = () => {
   const user=false;
   // const currentPath = window.location.pathname;
   // const router = useRouter();
+  const currentPath = "/";
   const [isSticky, setIsSticky] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
