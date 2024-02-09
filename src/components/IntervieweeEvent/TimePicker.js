@@ -10,11 +10,12 @@ const TimePicker = ({ onSelectTime, selectedDate, timeSlots }) => {
     if (selectedDate) {
       // Filter time slots based on the selected date
       const dateFormatted = selectedDate.toLocaleDateString('en-US');
+      
       const timeOptions = timeSlots
         .filter((slot) => slot.date === dateFormatted)
         .map((slot) => ({ value: slot.timeSlot, label: slot.timeSlot }));
 
-      setFilteredTimeOptions(timeOptions);
+        setFilteredTimeOptions(timeOptions);
     }
   }, [selectedDate, timeSlots]);
 

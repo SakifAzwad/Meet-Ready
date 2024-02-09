@@ -1,5 +1,7 @@
+
 import FBMessenger from "@/components/FBMessenger/FBMessenger";
 import { CartProvider } from "@/utils/Cart/CartContext";
+import { QueryProvider } from "@/utils/QueryClientProvider";
 import AuthProvider from "@/utils/SessionProvider";
 
 export const metadata = {
@@ -12,12 +14,18 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
+
           <CartProvider>
             <div>
               {children}
               <FBMessenger />
             </div>
           </CartProvider>
+
+          <QueryProvider>
+            <CartProvider>{children}</CartProvider>
+          </QueryProvider>
+
         </AuthProvider>
       </body>
     </html>
