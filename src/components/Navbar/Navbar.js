@@ -19,28 +19,28 @@ const Navbar = () => {
   // console.log(user)
 
   const user=false;
-  const currentPath = window.location.pathname;
-  const router = useRouter();
+  // const currentPath = window.location.pathname;
+  // const router = useRouter();
   const [isSticky, setIsSticky] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const threshold = 1;
-      setIsSticky(scrollY > threshold);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollY = window.scrollY;
+  //     const threshold = 1;
+  //     setIsSticky(scrollY > threshold);
+  //   };
 
-    if (typeof window !== 'undefined') {
-      // Add event listener when component mounts
-      window.addEventListener("scroll", handleScroll);
+  //   if (typeof window !== 'undefined') {
+  //     // Add event listener when component mounts
+  //     window.addEventListener("scroll", handleScroll);
 
-      // Remove event listener when component unmounts
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, []);
+  //     // Remove event listener when component unmounts
+  //     return () => {
+  //       window.removeEventListener("scroll", handleScroll);
+  //     };
+  //   }
+  // }, []);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
