@@ -203,7 +203,7 @@ const Navbar = () => {
             <li>
               <Link
                 className="font-normal relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
-                href="/rooms"
+                href="/features"
               >
                 Features
               </Link>
@@ -211,7 +211,7 @@ const Navbar = () => {
             <li>
               <Link
                 className="font-normal relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
-                href="/mybookings"
+                href="/pricing"
               >
                 Pricing
               </Link>
@@ -219,7 +219,7 @@ const Navbar = () => {
             <li>
               <Link
                 className="font-normal relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
-                href="/aboutus"
+                href="/about"
               >
                 About Us
               </Link>

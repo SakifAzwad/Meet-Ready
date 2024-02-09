@@ -1,7 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { cartContext } from "@/utils/Cart/CartContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 const CheckoutForm = () => {
@@ -11,6 +14,7 @@ const CheckoutForm = () => {
   const [transactionId, setTransactionId] = useState("");
   const stripe = useStripe();
   const { cart, price } = useContext(cartContext);
+  const router = useRouter()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,17 +82,23 @@ const CheckoutForm = () => {
     } else {
       console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
+
         setTransactionId(paymentIntent.id);
+        // router.push({
+        //   pathname: '/success',
+        //   query: { data: transactionId } // Convert data to string if needed
+        // });
       }
     }
   };
   return (
-
-    <>
-  <div>
-
+    
+  <div className="text-center mx-auto  p-12 h-screen bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]">
+    <h1 className="text-left pl-12 text-xl text-purple-800 font-semibold">
+      Card Number
+    </h1>
     <form onSubmit={handleSubmit}>
-     <CardElement
+     <CardElement className="lg:mx-12 "
           options={{
             style: {
               base: {
@@ -105,23 +115,31 @@ const CheckoutForm = () => {
             },
           }}
         />
+{
 
-      <button
-        className=" btn bg-purple-400 hover:bg-purple-600"
+
+}
+     
+     <button
+        className=" mt-12 w-40  hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
         type="submit"
         disabled={!stripe || !clientSecret}
       >
         Pay
       </button>
+     
+     
       <p className="text-red-500">{error}</p>
-      {transactionId && (
-        <p className="text-green-600">Your transaction id: {transactionId}</p>
-      )}
+      {transactionId ? (
+        <><img className="h-24 w-40 rounded-lg mx-auto mt-12" src="https://cdn.dribbble.com/users/11783/screenshots/3492735/media/74b79b4e206117a2fc38374584256347.gif" alt="" /><p className="text-green-600 pt-12 pb-12">Your transaction id: {transactionId}</p>
+        <Link href="/dashboard" className="mt-4 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base">
+         Back to Dashboard
+        </Link>
+        </>
+      ):(<></>)}
     </form>
   </div>
-    
-    
-    </>
+  
     
   );
 };

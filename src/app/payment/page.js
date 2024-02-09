@@ -12,7 +12,6 @@ const Payment = () => {
   };
   return (
     <div>
-      payment
       <Elements stripe={stripePromise} options={{ appearance }}>
         <CheckoutForm />
       </Elements>
