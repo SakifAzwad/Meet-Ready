@@ -35,8 +35,7 @@ const DashNav = () => {
             isClicked && "justify-center items-center"
           } flex-col relative`}
         >
-
-            {/* // <button
+          {/* // <button
             //   onClick={() => setIsClicked(false)}
             //   className="btn btn-sm absolute right-6 top-2 "
             //   >
@@ -44,17 +43,19 @@ const DashNav = () => {
             // </button> */}
 
           {isClicked ? (
-           <DashNavButton  onClick={() => setIsClicked(false)}
-           className="btn btn-sm absolute right-6 top-2 " >
-<FaArrowRight />
-          
-              </DashNavButton>
+            <DashNavButton
+              onClick={() => setIsClicked(false)}
+              className="btn btn-sm absolute right-6 top-2 "
+            >
+              <FaArrowRight />
+            </DashNavButton>
           ) : (
-        <DashNavButton onClick={() => setIsClicked(true)}
-        className="btn btn-sm absolute right-2 top-2 ">
-<FaArrowLeft />
-
-        </DashNavButton>
+            <DashNavButton
+              onClick={() => setIsClicked(true)}
+              className="btn btn-sm absolute right-2 top-2 "
+            >
+              <FaArrowLeft />
+            </DashNavButton>
           )}
 
           {isClicked ? (
@@ -77,38 +78,56 @@ const DashNav = () => {
             href={"/dashboard/create"}
             className="flex justify-center items-center"
           >
-          <DashNavButton className={`btn glass bg-purple-300 hover:bg-purple-400  text-lg w-full flex justify-start items-center ${pathname === "/dashboard/createNewEvent" && "bg-purple-500 "}`}>
-              <FaPlus /> Create
-               </DashNavButton>
-          </Link>
 
-          <Link href={"/dashboard/events"}>
-          <DashNavButton  className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
+            <DashNavButton
+              className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
                 isClicked && "btn glass"
-              } ${pathname === "/dashboard/events" && "bg-purple-500 "}`}>
-<FaLink /> {isClicked ? "" : "Events"}
-            </DashNavButton>  
+              } ${pathname === "/dashboard/create" && "bg-purple-500 "}`}
+            >
+              <FaPlus />
+              {isClicked ? "" : "Create"}
+            </DashNavButton>
+
           </Link>
 
-          <Link href={"/dashboard/scheduled-event"}>
-            <DashNavButton  className={` hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
+          <Link
+            href={"/dashboard/events"}
+            className="flex justify-center items-center"
+          >
+            <DashNavButton
+              className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
+                isClicked && "btn glass"
+              } ${pathname === "/dashboard/events" && "bg-purple-500 "}`}
+            >
+              <FaLink /> {isClicked ? "" : "Events"}
+            </DashNavButton>
+          </Link>
+
+          <Link
+            href={"/dashboard/scheduled-event"}
+            className="flex justify-center items-center"
+          >
+            <DashNavButton
+              className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
                 isClicked && "btn glass"
               } ${
                 pathname === "/dashboard/scheduled-event" && "bg-purple-500"
-              }`}>
- <FaCalendar /> {isClicked ? "" : "Scheduled Events"}
+              }`}
+            >
+              <FaCalendar /> {isClicked ? "" : "Scheduled Events"}
             </DashNavButton>
           </Link>
         </div>
 
         <div className="p-5">
 
+
        <DashNavButton onClick={() => signOut()}
             className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400">
 
             <FaArrowRightFromBracket /> Log Out
-            </DashNavButton>
-              </div>
+          </DashNavButton>
+        </div>
       </div>
 
       {/* mobile and tablet device dashboard nav */}
@@ -136,41 +155,49 @@ const DashNav = () => {
             </Link>
 
             <hr />
-          <Link href={"/dashboard/createNewEvent"}>
-              <DashNavButton className={`btn glass bg-purple-300 hover:bg-purple-400  text-lg w-full flex justify-start items-center ${pathname === "/dashboard/createNewEvent" && "bg-purple-500 "}`}>
-              <FaPlus />
-              Create
+            <Link href={"/dashboard/createNewEvent"}>
+              <DashNavButton
+                className={`btn glass bg-purple-300 hover:bg-purple-400  text-lg w-full flex justify-start items-center ${
+                  pathname === "/dashboard/createNewEvent" && "bg-purple-500 "
+                }`}
+              >
+                <FaPlus />
+                Create
               </DashNavButton>
-          </Link>
+            </Link>
 
             <hr />
             <Link href={"/dashboard/events"}>
-              <DashNavButton className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full
-                  } ${pathname === "/dashboard/events" && "bg-purple-500 "}`}>
-  <FaLink /> Events
+              <DashNavButton
+                className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full
+                  } ${pathname === "/dashboard/events" && "bg-purple-500 "}`}
+              >
+                <FaLink /> Events
               </DashNavButton>
-             
             </Link>
 
             <hr />
             <Link href={"/dashboard/scheduled-event"}>
-              <DashNavButton  className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full ${
+              <DashNavButton
+                className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full ${
                   pathname === "/dashboard/scheduled-event" && "bg-purple-500"
-                }`}>
-              <FaCalendar /> Scheduled Events
-
+                }`}
+              >
+                <FaCalendar /> Scheduled Events
               </DashNavButton>
-              
             </Link>
 
             <hr />
 
-            <DashNavButton onClick={() => signOut()}
-            className="flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400">
-            <FaArrowRightFromBracket /> Log Out
-            </DashNavButton>
-            
 
+
+            <DashNavButton
+              onClick={() => signOut()}
+              className="flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
+            >
+              <FaArrowRightFromBracket /> Log Out
+
+            </DashNavButton>
           </ul>
         </div>
       </div>
