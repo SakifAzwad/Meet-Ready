@@ -7,10 +7,13 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_PAYMENT_GATEWAY_PK);
 
 const Payment = () => {
+  const appearance = {
+    theme: 'stripe',
+  };
   return (
     <div>
       payment
-      <Elements stripe={stripePromise}>
+      <Elements stripe={stripePromise} options={{ appearance }}>
         <CheckoutForm />
       </Elements>
     </div>
