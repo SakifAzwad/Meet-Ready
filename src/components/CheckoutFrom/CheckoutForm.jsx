@@ -55,6 +55,7 @@ const CheckoutForm = () => {
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
+      
     });
 
     if (error) {
@@ -82,23 +83,28 @@ const CheckoutForm = () => {
     }
   };
   return (
+
+    <>
+  <div>
+
     <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
+     <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: '16px',
+                fontFamily: 'Arial, sans-serif',
+                color: '#424770',
+                '::placeholder': {
+                  color: '#aab7c4',
+                },
+              },
+              invalid: {
+                color: '#9e2146',
               },
             },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      />
+          }}
+        />
 
       <button
         className=" btn bg-purple-400 hover:bg-purple-600"
@@ -112,6 +118,11 @@ const CheckoutForm = () => {
         <p className="text-green-600">Your transaction id: {transactionId}</p>
       )}
     </form>
+  </div>
+    
+    
+    </>
+    
   );
 };
 

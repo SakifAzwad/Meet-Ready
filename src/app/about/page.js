@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar/Navbar";
 
 const page = () => {
     return (
-        <div>
+        <div className="bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]">
             <Navbar></Navbar>
             <AboutUs></AboutUs>
             <Footer></Footer>

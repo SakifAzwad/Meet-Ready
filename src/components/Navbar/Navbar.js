@@ -1,51 +1,46 @@
-
-import Image from "next/image";
-// import React, { useState } from "react";
-import logo from "@/assets/meetReadyLogo.png";
-
+"use client";
+// import styles from "./Navbar.module.css";
 import Link from "next/link";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import userLogo from "@/assets/userLogo.png";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { signOut } from "next-auth/react";
+import React, { useState, useEffect } from "react";
+import logo from "@/assets/meetReadyLogo.png";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Logout from "../Logout/Logout";
+// import { useFetchDataAndSetUser } from "./fetchDataAndSetUser";
 
 
-const Navbar = async ()=> {
-  
-  const session = await getServerSession(authOptions)
+const Navbar = () => {
 
-  console.log('session in navbar', session)
+  // const session = await getServerSession(authOptions)
 
-  const user = session?.user
-  console.log(user)
-  // const currentPath = window.location.pathname;
-  
-  // const [isSticky, setIsSticky] = useState(false);
-  // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const isSticky=false;
-  const isSidebarOpen=false;
-  const currentPath = '/';
-  const toggleSidebar=false;
+  // console.log('session in navbar', session)
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollY = window.scrollY;
-  //     const threshold = 1;
-  //     setIsSticky(scrollY > threshold);
-  //   };
+  // const user = session?.user
+  // console.log(user)
 
-  //   window.addEventListener("scroll", handleScroll);
+  const user=false;
+  const currentPath = window.location.pathname;
+  const router = useRouter();
+  const [isSticky, setIsSticky] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const threshold = 1;
+      setIsSticky(scrollY > threshold);
+    };
 
-  // const toggleSidebar = () => {
-  //   setIsSidebarOpen(!isSidebarOpen);
-  // };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   return (
     <nav
@@ -57,7 +52,7 @@ const Navbar = async ()=> {
         isSticky ? "fixed top-0 w-full" : ""
       } transition-colors duration-300 ease-in-out`}
     >
-      <div className={`flex items-center justify-between `}>
+      <div className={`flex items-center justify-between lg: `}>
         <div className="flex space-x-6 items-center">
           <Image
             className="py-4 ml-12 mr-4"
@@ -80,7 +75,7 @@ const Navbar = async ()=> {
             <li>
               <Link
                 className="font-normal relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
-                href="/rooms"
+                href="/features"
               >
                 Features
               </Link>
@@ -101,7 +96,6 @@ const Navbar = async ()=> {
                 About Us
               </Link>
             </li>
-            <li>{user?.name}</li>
           </ul>
         </div>
 
@@ -133,20 +127,20 @@ const Navbar = async ()=> {
             </button>
           </div>
           <div>
-          {
-              user ? (
-                <Logout/>
-             
-              ) : (
-                <Link
-                className=" mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
-                href="/login"
-              >
-                Login
-              </Link>
-             
+            {
+              user ?
+              (<Logout/>) :
+              (
+
+                <a
+              className=" ml-4 mr-12 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
+              href="/login"
+            >
+              Login
+            </a>
               )
             }
+            
           </div>
         </div>
         <button
@@ -187,9 +181,6 @@ const Navbar = async ()=> {
         </button>
       </div>
 
-
-
-{/* small screen design */}
       {isSidebarOpen && (
         <div className="lg:hidden mt-4 ">
           {/* Your sidebar content goes here */}
@@ -257,19 +248,12 @@ const Navbar = async ()=> {
             </button>
           </div>
           <div className="pb-2">
-            {
-              user ? (
-              
-<Logout />
-              ) : (
-                <Link
-                className=" mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
-                href="/login"
-              >
-                Login
-              </Link>
-              )
-            }
+            <a
+              className=" mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
+              href="/login"
+            >
+              Login
+            </a>
           </div>
         </div>
         </div>
@@ -278,6 +262,5 @@ const Navbar = async ()=> {
     </nav>
   );
 };
-
 
 export default Navbar;
