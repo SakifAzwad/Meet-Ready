@@ -15,14 +15,16 @@ import { RxAvatar } from "react-icons/rx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import mobileLogo from "@/assets/meetReadyLogoMobile.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { signOut } from "next-auth/react";
 import DashNavButton from "@/components/DashNavButton/DashNavButton";
 import UserName from "../UserName/UserName";
 import UserImage from "../UserImage/UserImage";
+import { cartContext } from "@/utils/Cart/CartContext";
 
 const DashNav = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  // const [isClicked, setIsClicked] = useState(false);
+  const {isClicked, setIsClicked} = useContext(cartContext)
   const userImage = 'https://avatars.sched.co/8/90/1938608/avatar.jpg.320x320px.jpg?499'
 
   const pathname = usePathname();

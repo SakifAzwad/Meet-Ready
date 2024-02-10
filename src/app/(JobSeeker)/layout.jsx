@@ -8,8 +8,8 @@ export const metadata = {
 
 const JobSeekerDashboardLayout = ({ children }) => {
   return (
-    <div className="flex justify-between bg-purple-100 ">
-      <DashNav/>
+    <div className="">
+      <div><DashNav/></div>
       <div className="max-w-7xl mx-auto min-h-screen">{ children }</div>
     </div>
   )
