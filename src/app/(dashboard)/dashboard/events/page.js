@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import EventCard from "@/components/EventCard/EventCard";
+import InputField from "@/components/InputField/InputField";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -43,7 +44,7 @@ const Events = () => {
 
   const updatedEventData = data?.myEvent?.map((event) => ({
     ...event,
-    shareableLink: `https://meet-ready.vercel.app/event/${event._id}`,
+    shareableLink: `http://localhost:3000/event/${event._id}`,
   }));
 
   // console.log('upadated event data', updatedEventData);
@@ -52,11 +53,17 @@ const Events = () => {
     <div className="flex flex-col justify-start mt-16 space-y-5">
       <div className="flex justify-center items-center relative border-2">
         <FaMagnifyingGlass className="text-xl absolute left-2 text-gray-600" />
-        <input
+      <InputField
+       type="text"
+       placeholder="Search your event here"
+       className="input input-bordered pl-8 font-medium text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 w-full"
+      />
+
+        {/* <input
           type="text"
           placeholder="Search your event here"
           className="input input-bordered pl-8 font-medium border-purple-300 focus:border-purple-300 w-full"
-        />
+        /> */}
       </div>
 
       <h1 className="text-2xl font-semibold pl-2 border-l-2 border-purple-500">

@@ -6,6 +6,7 @@ import logo from "@/assets/meetReadyLogo.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Logout from "../Logout/Logout";
+import InputField from "../InputField/InputField";
 // import { useFetchDataAndSetUser } from "./fetchDataAndSetUser";
 
 
@@ -106,12 +107,17 @@ const Navbar = () => {
 
         <div className="lg:flex hidden">
           <div className="relative text-gray-600">
-            <input
+          <InputField type="search"
+            name="search"
+            placeholder="Search"
+            className= "text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 h-10 px-5 pr-10 rounded-full text-sm"
+            />
+            {/* <input
               type="search"
               name="search"
               placeholder="Search"
               className="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
-            />
+            /> */}
             <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
               <svg
                 className="h-4 w-4 fill-current text-purple-900"
@@ -227,12 +233,20 @@ const Navbar = () => {
           </ul>
           <div className="lg:flex mb-4">
           <div className="relative text-gray-600">
-            <input
+            <InputField type="search"
+            name="search"
+            placeholder="Search"
+            className= "bg-white h-10 ml-12 my-4 px-5 pr-10 rounded-full text-sm text-gray-700  border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
+            />
+
+
+
+            {/* <input
               type="search"
               name="search"
               placeholder="Search"
               className="bg-white h-10 ml-12 my-4 px-5 pr-10 rounded-full text-sm focus:outline-none"
-            />
+            /> */}
             <button type="submit" className="absolute left-64  top-4 mt-3 mr-4">
               <svg
                 className="h-4 w-4 fill-current text-purple-900"

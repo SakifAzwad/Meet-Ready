@@ -98,20 +98,20 @@ const CheckoutForm = () => {
       Card Number
     </h1>
     <form onSubmit={handleSubmit}>
-     <CardElement className="lg:mx-12 "
+     <CardElement className="lg:mx-12 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 p-4 rounded-lg"
           options={{
             style: {
               base: {
-                fontSize: '16px',
-                fontFamily: 'Arial, sans-serif',
-                color: '#424770',
-                '::placeholder': {
-                  color: '#aab7c4',
-                },
+                // fontSize: '16px',
+                // fontFamily: 'Arial, sans-serif',
+                // color: '#424770',
+                // '::placeholder': {
+                //   color: '#aab7c4',
+                // },
               },
-              invalid: {
-                color: '#9e2146',
-              },
+              // invalid: {
+              //   color: '#9e2146',
+              // },
             },
           }}
         />

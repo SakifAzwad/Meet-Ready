@@ -1,4 +1,5 @@
 'use client'
+import InputField from "@/components/InputField/InputField";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -57,7 +58,18 @@ const Register = () => {
             <form class="mt-2" onSubmit={handleSubmit}>
               <div>
                 <label class="block text-gray-700">Name</label>
-                <input
+                <InputField
+                type="text"
+                name="name"
+                id=""
+                placeholder="Enter Your Name"
+                class="w-full px-4 py-3 rounded-lg  mt-2 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
+                autofocus
+                autocomplete
+                required
+                />
+
+                {/* <input
                   type="text"
                   name="name"
                   id=""
@@ -66,35 +78,36 @@ const Register = () => {
                   autofocus
                   autocomplete
                   required
-                />
+                /> */}
               </div>
 
               <div class="">
                 <label class="block text-gray-700">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  id=""
-                  placeholder="Enter Your Email"
-                  minlength="6"
-                  class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
-                focus:bg-white focus:outline-none"
-                  required
+                <InputField
+                type="email"
+                name="email"
+                id=""
+                placeholder="Enter Your Email"
+                minlength="6"
+                class="w-full px-4 py-3 rounded-lg mt-2 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
+                required
                 />
+               
               </div>
               
               <div class="">
                 <label class="block text-gray-700">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  id=""
-                  placeholder="Enter Your Password"
-                  minlength="6"
-                  class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
-                focus:bg-white focus:outline-none"
-                  required
+                <InputField
+                type="password"
+                name="password"
+                id=""
+                placeholder="Enter Your Password"
+                minlength="6"
+                class="w-full px-4 py-3 rounded-lg  mt-2 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
+                required
                 />
+                
+               
               </div>
               {/* <div class="">
                 <label class="block text-gray-700">Confirm Password</label>
