@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import InputField from "../InputField/InputField";
 
 // Function to generate options for duration select
 const generateDurationOptions = () => {
@@ -174,13 +175,20 @@ console.log(editedEventInfo)
             <p className="text-sm">
               Make A simple Title To Remember Your Event
             </p>
-            <input
+            <InputField
+            className="md:w-[380px] outline-none  h-[40px] rounded-md text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 p-2"
+            type="text"
+            name="eventTitle"
+            defaultValue={event.eventTitle}
+            required
+            />
+            {/* <input
               className="md:w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
               type="text"
               name="eventTitle"
               defaultValue={event.eventTitle}
               required
-            />
+            /> */}
           </div>
 
          
@@ -230,14 +238,24 @@ console.log(editedEventInfo)
                 </span>
               </label>
               <p className="text-sm">Make some Time For Your Meeting</p>
-              <input
+              <InputField
+              className="w-[230px] outline-none  border-slate-400 h-[40px] rounded-md text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 p-2"
+              type="date"
+              name="fromDate"
+              value={fromDate}
+              onChange={(e) => setFromDate(e.target.value)}
+              required
+              />
+
+
+              {/* <input
                 className="w-[230px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
                 type="date"
                 name="fromDate"
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
                 required
-              />
+              /> */}
             </div>
             {/* FIRST FREE DAY  */}
 
@@ -249,14 +267,22 @@ console.log(editedEventInfo)
                 </span>
               </label>
               <p className="text-sm">Make some Time For Your Meeting</p>
-              <input
+              <InputField
+              className="w-[230px] outline-none border-slate-400 h-[40px] rounded-md text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 p-2"
+              type="date"
+              name="toDate"
+              value={toDate}
+              onChange={(e) => setToDate(e.target.value)}
+              required
+              />
+              {/* <input
                 className="w-[230px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
                 type="date"
                 name="toDate"
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
                 required
-              />
+              /> */}
             </div>
 
             {/* SECOND FREE DAY  */}
@@ -349,13 +375,20 @@ console.log(editedEventInfo)
                 </span>
               </label>
               <p className="text-sm">Create Your Meeting link</p>
-              <input
+              <InputField
+               className="w-[380px]  h-[40px] rounded-md text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 p-2"
+               type="text"
+               name="meetingLink"
+               defaultValue={event.meetingLink}
+               required
+              />
+              {/* <input
                 className="w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
                 type="text"
                 name="meetingLink"
                 defaultValue={event.meetingLink}
                 required
-              />
+              /> */}
               {location === "zoom" ? (
                 <Link
                   className="btn bg-blue-500 hover:bg-blue-400 hover:text-white"
