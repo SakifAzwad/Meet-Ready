@@ -55,31 +55,25 @@ export const PATCH = async(request, {params}) => {
 export const PUT = async (request, { params }) => {
   const { id } = params;
   console.log(id)
-  const { editedEventInfo } = await request.json();
+  const editedEventInfo  = await request.json();
   console.log(editedEventInfo);
   const eventTitle = editedEventInfo.eventTitle;
-  const eventSlug = editedEventInfo.eventSlug;
   const eventDuration = editedEventInfo.eventDuration;
-  const eventLocation = editedEventInfo.eventLocation;
   const meetingLink = editedEventInfo.meetingLink;
+  const meetingLocation = editedEventInfo.meetingLocation;
   const email = editedEventInfo.email;
-  const eventDay = editedEventInfo.eventDay
-  const fromTime = editedEventInfo.fromTime
-  const toTime = editedEventInfo.toTime
-  const eventDate = editedEventInfo.eventDate
-
+const dateAndTimeArray = editedEventInfo.dateAndTimeArray;
+  const eventStatus = editedEventInfo.eventStatus;
+  const fromDate =  editedEventInfo.fromDate
+  const toDate =  editedEventInfo.toDate
+  const userName =  editedEventInfo.userName
 
   await connect();
   try {
     const res = await CreateEvent.findByIdAndUpdate(id, { eventTitle,
-      eventSlug,
       eventDuration,
-      eventLocation,
-      meetingLink,
-      email,eventDay,
-      fromTime,
-      toTime,
-      eventDate})
+      meetingLink, meetingLocation, email, dateAndTimeArray, eventStatus, fromDate, toDate, userName
+    })
     console.log('res',res)
     return new NextResponse(
       {status: 200}
