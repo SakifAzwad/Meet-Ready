@@ -1,4 +1,5 @@
 import Image from "next/image";
+import InputField from "../InputField/InputField";
 
 
 const Footer = () => {
@@ -32,8 +33,10 @@ const Footer = () => {
               <h1 className="max-w-lg text-xl font-semibold tracking-tight  xl:text-2xl ">Subscribe our newsletter to get an update.</h1>
 
               <div className="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row w-full">
-                  <input id="email" type="text" className="px-4 w-1/2 py-2 text-gray-700 bg-white border  rounded-md   focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300" placeholder="Email Address" />
-          
+                <InputField id="email" type="text" className="px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 w-1/2 " placeholder="Email Address"/>
+
+                  {/* <input id="email" type="text" className="px-4 w-1/2 py-2 text-gray-700 bg-white border  rounded-md   focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300" placeholder="Email Address" />
+           */}
                   <button
             className=" ml-4  flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
           
