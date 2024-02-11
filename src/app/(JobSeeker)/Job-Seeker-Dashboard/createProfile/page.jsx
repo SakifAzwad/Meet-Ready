@@ -1,4 +1,5 @@
 'use client'
+import DashNavButton from '@/components/DashNavButton/DashNavButton'
 import ImageUpload from '@/components/JobSeekerDashboard/ImageUpload/ImageUpload'
 import Input from '@/components/JobSeekerDashboard/Input/Input'
 import PdfUpload from '@/components/JobSeekerDashboard/PdfUpload/PdfUpload'
@@ -248,13 +249,15 @@ const CreateProfile = () => {
     <div className={`pt-10 pl-20 pr-5 ${isClicked ? 'lg:pl-24' : 'lg:pl-80'}`}>
       <h1 className='text-center text-3xl font-bold text-black'>Create your profile</h1>
    
-      {/* Input field for name, skill, email, address, dist, country, phone */}
-      <div className='mt-4 space-y-4'>
+     <form>
+       {/* Input field for name, skill, email, address, dist, country, phone */}
+       <div className='mt-4 space-y-4'>
         {/* Name input field */}
       <Input placeholder={'Your Name'}
       name='name'
       type='text'
       className='w-full md:w-3/4 lg:w-full'
+      required
       />
       {/* email */}
       <div>
@@ -275,6 +278,7 @@ const CreateProfile = () => {
             <Input
             type='text'
             name='email'
+            required
             placeholder='Type your email here'
             onKeyPress={(e) => {
               if (e.key === '@') {
@@ -294,6 +298,7 @@ const CreateProfile = () => {
       type='text'
       placeholder='Your Skill'
       className='w-full md:w-3/4 lg:w-full'
+      required
       />
       {/* address */}
         <div>
@@ -314,6 +319,7 @@ const CreateProfile = () => {
             <Input
             type='text'
             name='country'
+            required
             placeholder='Type your address here'
             onChange={(e) => {
               setAddress(e.target.value + ', ' + country)}}
@@ -359,6 +365,12 @@ const CreateProfile = () => {
       </div>
 
       </div>
+      {/* button */}
+      <div className='flex justify-center my-5'>
+        <DashNavButton className='bg-purple-500 hover:bg-purple-700 py-2 px-8 text-white rounded-lg '>Submit</DashNavButton>
+        {/* <button className='bg-purple-500 hover:bg-purple-700 py-2 px-4 rounded-lg '>Submit</button> */}
+      </div>
+     </form>
 
     </div>
   )

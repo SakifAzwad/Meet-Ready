@@ -2,7 +2,7 @@
 
 import { cartContext } from "@/utils/Cart/CartContext";
 import { UploadDropzone } from "@/utils/uploadthing";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 const ImageUpload = () => {
   const { setImage } = useContext(cartContext);
