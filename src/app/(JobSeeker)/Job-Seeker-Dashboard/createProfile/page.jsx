@@ -270,7 +270,14 @@ const CreateProfile = () => {
       console.log('You Must upload an video')
       return
     }
-    console.log(name, email, skill, country, address, phone, emailProvider, countryCode, image, pdf, video)
+    const fullEmail = email + emailProvider;
+    const fullAddress = address + ',' +  country;
+    const fullPhoneNumber = countryCode + phone;
+    const jobSeekerData = {
+      name, email:fullEmail, skill, address: fullAddress, phoneNumber: fullPhoneNumber, image, resume: pdf, selfIntro: video,
+    }
+    // console.log(name, email, skill, country, address, phone, emailProvider, countryCode, image, pdf, video, fullEmail, fullAddress, fullPhoneNumber)
+    console.log(jobSeekerData)
   }
 
 
