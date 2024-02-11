@@ -12,7 +12,6 @@ export const CartProvider =({children}) => {
   const [image, setImage] = useState('')
   const [pdf, setPdf] = useState('')
   const [video, setVideo] = useState('')
-  // console.log(cart)
   const value = {cart, setCart, price, setPrice, isClicked, setIsClicked, image, setImage, pdf, setPdf, video, setVideo}
   return (
     <cartContext.Provider

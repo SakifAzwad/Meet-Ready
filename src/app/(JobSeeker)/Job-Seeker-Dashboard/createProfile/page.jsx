@@ -235,21 +235,51 @@ const CreateProfile = () => {
   const [email, setEmail] = useState('')
   const [country, setCountry] = useState('')
   const [address, setAddress] = useState('')
+  const [countryCode, setCountryCode] = useState('')
+  const {image, pdf, video } = useContext(cartContext)
+  console.log(image, pdf, video)
 
   const TelephoneCodeDisplay = ({ country }) => {
     // Find the telephone code for the provided country
     const codeObj = telephoneCode.find(entry => Object.keys(entry)[0] === country);
     const code = codeObj ? Object.values(codeObj)[0] : 'Code not found';
-  
+    setCountryCode(code)
     return <select className=' px-2 py-[10px] rounded-lg text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300'> <option value={code}>{code}</option></select>;
   };
+
+  // Form submit function
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    const form = e.target
+    const name = form.name.value
+    const skill = form.skill.value
+    const email = form.email.value
+    // const country = form.country.value
+    const address = form.address.value
+    const phone = form.phone.value
+    if(!image){
+      console.log('You Must upload an image')
+      return
+    }
+    if(!pdf){
+      console.log('You Must upload an pdf')
+      return
+    }
+    if(!video){
+      console.log('You Must upload an video')
+      return
+    }
+    console.log(name, email, skill, country, address, phone, emailProvider, countryCode, image, pdf, video)
+  }
 
 
   return (
     <div className={`pt-10 pl-20 pr-5 ${isClicked ? 'lg:pl-24' : 'lg:pl-80'}`}>
       <h1 className='text-center text-3xl font-bold text-black'>Create your profile</h1>
    
-     <form>
+     <form onSubmit={handleSubmit}>
+
        {/* Input field for name, skill, email, address, dist, country, phone */}
        <div className='mt-4 space-y-4'>
         {/* Name input field */}
@@ -318,7 +348,7 @@ const CreateProfile = () => {
           country && (<div className='flex flex-col space-y-2 pt-2'>
             <Input
             type='text'
-            name='country'
+            name='address'
             required
             placeholder='Type your address here'
             onChange={(e) => {
@@ -367,7 +397,7 @@ const CreateProfile = () => {
       </div>
       {/* button */}
       <div className='flex justify-center my-5'>
-        <DashNavButton className='bg-purple-500 hover:bg-purple-700 py-2 px-8 text-white rounded-lg '>Submit</DashNavButton>
+        <DashNavButton className='bg-purple-500 hover:bg-purple-700 py-2 px-8 text-white rounded-lg ' type='submit'>Submit</DashNavButton>
         {/* <button className='bg-purple-500 hover:bg-purple-700 py-2 px-4 rounded-lg '>Submit</button> */}
       </div>
      </form>
