@@ -2,6 +2,7 @@
 import ImageUpload from '@/components/JobSeekerDashboard/ImageUpload/ImageUpload'
 import Input from '@/components/JobSeekerDashboard/Input/Input'
 import PdfUpload from '@/components/JobSeekerDashboard/PdfUpload/PdfUpload'
+import VideoUpload from '@/components/JobSeekerDashboard/VideoUpload/VideoUpload'
 import { cartContext } from '@/utils/Cart/CartContext'
 import { useContext, useState } from 'react'
 
@@ -350,6 +351,11 @@ const CreateProfile = () => {
       <div className='flex flex-col items-start space-y-4'>
         <h1 className='font-semibold text-black'>Upload your resume here</h1>
         <PdfUpload/>
+      </div>
+      {/* video */}
+      <div className='flex flex-col items-start space-y-4'>
+        <h1 className='font-semibold text-black'>Upload a video describing yourself in 30 seconds</h1>
+        <div className='w-full'><VideoUpload/></div>
       </div>
 
       </div>

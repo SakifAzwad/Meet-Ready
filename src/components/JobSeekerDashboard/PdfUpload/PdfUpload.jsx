@@ -6,19 +6,16 @@ import { useContext } from "react";
 
 const PdfUpload = () => {
   const {pdf, setPdf} = useContext(cartContext)
-  console.log(pdf)
   return (
     <div>
       <UploadButton 
-       className="ut-label:text-purple-700 ut-allowed-content:ut-uploading:text-purple-900 ut-button:bg-purple-400 
+       className="ut-label:text-purple-700 ut-allowed-content:ut-uploading:text-purple-900 ut-button:bg-purple-500 
        hover:ut-button:bg-purple-700 ut-button:text-white
        ut-upload-icon:text-purple-700
        "
       endpoint='pdfUploader'
       onClientUploadComplete={(res) => {
-        console.log(res)
         if (res[0].serverData.message === "Pdf Upload Complete") {
-
           setPdf(res[0].url);
         }
       }}
