@@ -1,5 +1,7 @@
 'use client'
+import ImageUpload from '@/components/JobSeekerDashboard/ImageUpload/ImageUpload'
 import Input from '@/components/JobSeekerDashboard/Input/Input'
+import PdfUpload from '@/components/JobSeekerDashboard/PdfUpload/PdfUpload'
 import { cartContext } from '@/utils/Cart/CartContext'
 import { useContext, useState } from 'react'
 
@@ -337,6 +339,21 @@ const CreateProfile = () => {
           }
         </div>
       </div>
+      {/* image, cv and video upload */}
+      <div className='space-y-4'>
+      {/* image */}
+      <div>
+        <h1 className='font-semibold text-black'>Upload your professional image here</h1>
+        <ImageUpload/>
+      </div>
+      {/* cv */}
+      <div className='flex flex-col items-start space-y-4'>
+        <h1 className='font-semibold text-black'>Upload your resume here</h1>
+        <PdfUpload/>
+      </div>
+
+      </div>
+
     </div>
   )
 }
