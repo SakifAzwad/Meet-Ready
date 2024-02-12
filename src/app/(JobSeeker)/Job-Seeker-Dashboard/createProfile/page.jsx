@@ -5,6 +5,7 @@ import Input from '@/components/JobSeekerDashboard/Input/Input'
 import PdfUpload from '@/components/JobSeekerDashboard/PdfUpload/PdfUpload'
 import VideoUpload from '@/components/JobSeekerDashboard/VideoUpload/VideoUpload'
 import { cartContext } from '@/utils/Cart/CartContext'
+import { useSession } from 'next-auth/react'
 import { useContext, useState } from 'react'
 
 const countries = [
@@ -230,6 +231,8 @@ const telephoneCode = [
 
 
 const CreateProfile = () => {
+  const session = useSession()
+  const loginEmail = session?.data?.user?.email
   const {isClicked} = useContext(cartContext)
   const [emailProvider, setEmailProvider] = useState('')
   const [email, setEmail] = useState('')
@@ -270,7 +273,14 @@ const CreateProfile = () => {
       console.log('You Must upload an video')
       return
     }
-    console.log(name, email, skill, country, address, phone, emailProvider, countryCode, image, pdf, video)
+    const newEmail = email + emailProvider;
+    const newAddress = address +", "+ country;
+    const newPhone = countryCode + phone;
+
+    const profileData = {
+      name, skill, email: newEmail, address: newAddress, phone: newPhone, image, resume:pdf, introVideo: video
+    }
+    console.log(profileData, loginEmail)
   }
 
 
