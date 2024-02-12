@@ -9,14 +9,11 @@ const RoleSetting = () => {
   const session = useSession()
   const router = useRouter()
 
-  console.log(session?.data?.user?.email)
   const email = session?.data?.user?.email
   
   const postData = async(role) => {
-    console.log('role inside postdata', role)
     try {
       const res = await axios.patch(`/api/register?email=${email}`, {role})
-      console.log('post data', res)
       return res
     } catch (error) {
       console.log(error)
