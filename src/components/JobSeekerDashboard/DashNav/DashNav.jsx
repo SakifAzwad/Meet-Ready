@@ -16,16 +16,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import mobileLogo from "@/assets/meetReadyLogoMobile.png";
 import { useContext, useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import DashNavButton from "@/components/DashNavButton/DashNavButton";
 import UserName from "../UserName/UserName";
 import UserImage from "../UserImage/UserImage";
 import { cartContext } from "@/utils/Cart/CartContext";
 
 const DashNav = () => {
-  // const [isClicked, setIsClicked] = useState(false);
   const {isClicked, setIsClicked} = useContext(cartContext)
-  const userImage = 'https://avatars.sched.co/8/90/1938608/avatar.jpg.320x320px.jpg?499'
+  const session = useSession()
+  const userImage = session?.data?.user?.image
+  console.log('name in pareent', name)
 
   const pathname = usePathname();
 
@@ -41,12 +42,7 @@ const DashNav = () => {
             isClicked && "justify-center items-center"
           } flex-col relative`}
         >
-          {/* // <button
-            //   onClick={() => setIsClicked(false)}
-            //   className="btn btn-sm absolute right-6 top-2 "
-            //   >
-              
-            // </button> */}
+          
 
           {isClicked ? (
             <DashNavButton
@@ -79,7 +75,7 @@ const DashNav = () => {
               <Image src={logo} width={"200"} height={"150"} alt="logo" />
             </Link>
           )}
-          {isClicked ? "" : <UserName/>}
+          {isClicked ? "" : <UserName />}
 
           {isClicked ? "" : <div className="flex justify-center">
           <UserImage userImage={userImage}/>
