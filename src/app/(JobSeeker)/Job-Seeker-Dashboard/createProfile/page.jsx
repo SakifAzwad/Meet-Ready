@@ -7,7 +7,6 @@ import VideoUpload from '@/components/JobSeekerDashboard/VideoUpload/VideoUpload
 import { cartContext } from '@/utils/Cart/CartContext'
 import { useSession } from 'next-auth/react'
 import { useContext, useState } from 'react'
-
 const countries = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria",
   "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
@@ -286,7 +285,7 @@ const CreateProfile = () => {
 
   return (
     <div className={`pt-10 pl-20 pr-5 ${isClicked ? 'lg:pl-24' : 'lg:pl-80'}`}>
-      <h1 className='text-center text-3xl font-bold text-black'>Create your profile</h1>
+      <h1 className='text-center text-3xl font-bold text-black '>Create your profile</h1>
    
      <form onSubmit={handleSubmit}>
 
@@ -411,7 +410,7 @@ const CreateProfile = () => {
         {/* <button className='bg-purple-500 hover:bg-purple-700 py-2 px-4 rounded-lg '>Submit</button> */}
       </div>
      </form>
-
+     
     </div>
   )
 }
