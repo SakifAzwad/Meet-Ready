@@ -37,9 +37,6 @@ const Events = () => {
     return <p>Loading.........</p>;
   }
 
-  // console.log('data', data);
-  // console.log('data array', data.myEvent);
-
   // Updating fetched data and add meet dynamic link in it.
 
   const updatedEventData = data?.myEvent?.map((event) => ({
@@ -53,17 +50,11 @@ const Events = () => {
     <div className="flex flex-col justify-start mt-16 space-y-5">
       <div className="flex justify-center items-center relative border-2">
         <FaMagnifyingGlass className="text-xl absolute left-2 text-gray-600" />
-      <InputField
-       type="text"
-       placeholder="Search your event here"
-       className="input input-bordered pl-8 font-medium text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 w-full"
-      />
-
-        {/* <input
+        <InputField
           type="text"
           placeholder="Search your event here"
-          className="input input-bordered pl-8 font-medium border-purple-300 focus:border-purple-300 w-full"
-        /> */}
+          className="input input-bordered pl-8 font-medium text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 w-full"
+        />
       </div>
 
       <h1 className="text-2xl font-semibold pl-2 border-l-2 border-purple-500">
