@@ -4,7 +4,7 @@ const Input = ({ placeholder, name, type, className, onChange, value, ...rest  }
   return (
     <div className="flex flex-col space-y-1">
       <label
-        class=" font-semibold text-base  text-black pl-1"
+        className=" font-semibold text-base  text-black pl-1"
       >
         {placeholder}
       </label>
