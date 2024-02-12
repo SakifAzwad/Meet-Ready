@@ -28,8 +28,12 @@ export const POST = async (request) => {
 
 export const GET = async (request) => {
   try {
-    
+    const email = new URL(request.url).searchParams.get("email");
+    await connect()
+    const profile = await CreateProfile.findOne({loginEmail: email})
+    return NextResponse.json({profile})
   } catch (error) {
-    
+    console.log('Internal server error', error)
+      return new NextResponse("Internal Server Error", {status: 500})
   }
 }
