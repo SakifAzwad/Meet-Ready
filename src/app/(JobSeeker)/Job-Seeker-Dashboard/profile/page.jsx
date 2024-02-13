@@ -6,7 +6,7 @@ import Input from "@/components/JobSeekerDashboard/Input/Input";
 import PdfViewer from "@/components/JobSeekerDashboard/PdfViewer/PdfViewer";
 import VideoPlayer from "@/components/JobSeekerDashboard/VideoPlayer/VideoPlayer";
 import { cartContext } from "@/utils/Cart/CartContext";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -37,10 +37,44 @@ const Profile = () => {
     queryFn: () => getMyProfile(email),
   });
 
+  // Data patch function
+
+  const publishableLink = async (publicProfile) => {
+    console.log(publicProfile)
+    try {
+      console.log(publicProfile)
+      const res = await axios.patch(`/api/jobSeeker?email=${email}`, publicProfile)
+      return res.data;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  const {mutateAsync} = useMutation({
+    mutationFn: publishableLink,
+    onSuccess:(data) => {
+      console.log(data)
+      if(data === "Publishable Link Update"){
+        toast.success("Linked saved in server.")
+      } else if (data === "Error in Link Publish"){
+        toast.error("Error occurred. Try again Later.")
+      } else if (data === "Internal Server Error"){
+        toast.error("Internal Server Error. Try agin later")
+      }
+    }
+  })
+
   // onclick handler
-  const handleClick = () => {
+  const handleClick = async () => {
+    const publicLink = `http://local-host:3000/publicProfile/${data?._id}`
+    console.log(publicLink)
     setPublicProfile(`http://local-host:3000/publicProfile/${data?._id}`);
+    mutateAsync(publicLink)
+    
   };
+
+  // publishable link copy functionality
 
   const copyToClipboard = async () => {
     try {
@@ -50,7 +84,7 @@ const Profile = () => {
     } catch (error) {
       console.error("Failed to copy:", error);
       setCopySuccess("Copy failed");
-      toast.error("Linked copied to dashboard")
+      toast.error("Copy failed")
     }
   };
 

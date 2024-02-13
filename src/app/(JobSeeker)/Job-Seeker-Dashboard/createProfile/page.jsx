@@ -502,7 +502,8 @@ const CreateProfile = () => {
       image,
       resume: pdf,
       introVideo: video,
-      loginEmail
+      loginEmail,
+      publishableLink:'',
     };
     console.log(profileData, loginEmail);
 
