@@ -94,7 +94,7 @@ const Profile = () => {
 
   console.log(data);
   return (
-    <div className={`pt-10 pl-20 pr-5 ${isClicked ? "lg:pl-24" : "lg:pl-80"}`}>
+    <div className={`py-10 pl-20 pr-5 ${isClicked ? "lg:pl-24" : "lg:pl-80"}`}>
       {/* Heading */}
       <h1 className="text-center text-3xl font-bold text-black">Profile</h1>
       {/*Name and Image*/}
@@ -137,7 +137,7 @@ const Profile = () => {
         </p>
       </div>
       {/*Other Profile Info*/}
-      <div>
+      <div className="mt-5 space-y-3">
         <p>Name: {data?.name}</p>
         <p>Email: {data?.email}</p>
         <p>Phone: {data?.phone}</p>
