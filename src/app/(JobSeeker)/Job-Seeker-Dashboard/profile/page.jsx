@@ -1,5 +1,6 @@
 "use client";
 
+import VideoPlayer from "@/components/JobSeekerDashboard/VideoPlayer/VideoPlayer";
 import { cartContext } from "@/utils/Cart/CartContext";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -80,10 +81,15 @@ const Profile = () => {
       {/*Intro Video*/}
       <div className="mt-5">
   <h2 className="text-xl font-bold text-black">Intro Video</h2>
-  <video controls className="mt-2" style={{ maxWidth: "100%" }}>
-    <source src={data?.video} type="video/avi" />
+  {data?.introVideo
+ && (<VideoPlayer video={data?.introVideo
+ }/>)}
+  {/* <video controls className="mt-2" style={{ maxWidth: "100%" }}>
+    <source src={data?.video} type="video/avi" 
+    className="w-[100%] h-[100%]"
+    />
     Your browser does not support the video tag.
-  </video>
+  </video> */}
 </div>
       {/*Resume*/}
 
