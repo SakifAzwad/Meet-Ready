@@ -685,7 +685,6 @@ const CreateProfile = () => {
         theme="light"
       />
       {/* Same as */}
-      <ToastContainer />
     </div>
   );
 };

@@ -40,6 +40,10 @@ const createProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  publishableLink: {
+    type: String,
+    required: false,
+  },
   
 });
 
