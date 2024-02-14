@@ -5,7 +5,9 @@ import {Typing, TypeAnimation } from 'react-type-animation';
 
 const Banner = () => {
     return (
-        <div className="lg:flex w-full">
+        <div className="lg:flex w-full"
+        data-testid="homeBanner"
+        >
             <div className="lg:w-1/2 lg:ml-28">
             
                     <h1 className="lg:text-5xl text-center lg:text-left text-3xl lg:pt-36 pt-12 font-semibold ">

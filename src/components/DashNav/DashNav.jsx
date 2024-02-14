@@ -24,11 +24,14 @@ const DashNav = () => {
   const pathname = usePathname();
 
   return (
-    <div>
+    <div
+    data-testid="parent"
+    >
       <div
         className={`hidden lg:flex fixed justify-between bg-purple-200 min-h-screen flex-col transition-all duration-300 ${
           isClicked ? "w-20" : "w-72"
         }`}
+
       >
         <div
           className={`p-5 space-y-5 flex ${
@@ -46,13 +49,17 @@ const DashNav = () => {
             <DashNavButton
               onClick={() => setIsClicked(false)}
               className="btn btn-sm absolute right-6 top-2 "
+              data-testid='dash-nav-button-left'
             >
-              <FaArrowRight />
+              <FaArrowRight
+              data-testid='fa-arrow-right-icon'
+              />
             </DashNavButton>
           ) : (
             <DashNavButton
               onClick={() => setIsClicked(true)}
               className="btn btn-sm absolute right-2 top-2 "
+              data-testid='dash-nav-button-right'
             >
               <FaArrowLeft />
             </DashNavButton>

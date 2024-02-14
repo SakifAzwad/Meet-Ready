@@ -4,7 +4,7 @@ import { TypeAnimation } from "react-type-animation";
 
 const Banner2 = () => {
   return (
-    <div>
+    <div data-testid="homeBanner2">
       <div>
         <h1 className="text-center py-20 text-purple-900 lg:text-5xl text-3xl font-bold">
           Setup made quick, sharing made simple
