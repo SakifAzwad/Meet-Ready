@@ -21,7 +21,7 @@ const page = () => {
   return (
   
       <>
-        <section>
+        <section data-testid='bannerPage'>
         <Swiper
           cssMode={true}
           navigation={true}
@@ -47,36 +47,7 @@ const page = () => {
             </SwiperSlide>
             ))
           }
-          {/* <SwiperSlide>
-            <Image
-            loading = 'lazy'
-            quality={100}
-              src="https://i.ibb.co/19mXW8C/laptops-593296-1280.jpg"
-              width={1200}
-              height={500}
-              alt="logo"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-            loading = 'lazy'
-               quality={100}
-              src="https://i.ibb.co/r2gm0yY/headway-5-Qg-Iuu-Bx-Kw-M-unsplash.jpg"
-              width={1200}
-              height={500}
-              alt="logo"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-            loading = 'lazy'
-               quality={100}
-              src="https://i.ibb.co/YTV9VX3/austin-distel-g-UIJ0-Ysz-Pig-unsplash.jpg"
-              width={1200}
-              height={500}
-              alt="logo"
-            />
-          </SwiperSlide> */}
+        
           
         </Swiper>
       </section>
