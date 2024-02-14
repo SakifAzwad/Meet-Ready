@@ -12,7 +12,8 @@ export const CartProvider =({children}) => {
   const [image, setImage] = useState('')
   const [pdf, setPdf] = useState('')
   const [video, setVideo] = useState('')
-  const value = {cart, setCart, price, setPrice, isClicked, setIsClicked, image, setImage, pdf, setPdf, video, setVideo}
+  const [publicProfile, setPublicProfile] = useState("")
+  const value = {cart, setCart, price, setPrice, isClicked, setIsClicked, image, setImage, pdf, setPdf, video, setVideo,publicProfile, setPublicProfile}
   return (
     <cartContext.Provider
     value={value}

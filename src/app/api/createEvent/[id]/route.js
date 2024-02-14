@@ -6,11 +6,9 @@ import { NextResponse } from "next/server";
 // single event get route
 export const GET = async (request, { params }) => {
   const { id } = params;
-  // console.log(id)
   await connect();
   try {
     const singleEvent = await CreateEvent.findById(id);
-    console.log("single event", singleEvent);
     return NextResponse.json({ singleEvent }, { status: 200 });
   } catch (error) {
     console.log("Internal server error", error);
@@ -37,9 +35,7 @@ export const DELETE = async(request, {params}) => {
 
 export const PATCH = async(request, {params}) => {
   const { id } = params;
-  console.log('id',id)
   const  eventStatus  = "Finished"
-  console.log(eventStatus)
   await connect()
   try {
     const res = await CreateEvent.findByIdAndUpdate(id,{eventStatus})
@@ -54,9 +50,7 @@ export const PATCH = async(request, {params}) => {
 // edit event put route
 export const PUT = async (request, { params }) => {
   const { id } = params;
-  console.log(id)
   const editedEventInfo  = await request.json();
-  console.log(editedEventInfo);
   const eventTitle = editedEventInfo.eventTitle;
   const eventDuration = editedEventInfo.eventDuration;
   const meetingLink = editedEventInfo.meetingLink;
@@ -74,7 +68,6 @@ const dateAndTimeArray = editedEventInfo.dateAndTimeArray;
       eventDuration,
       meetingLink, meetingLocation, email, dateAndTimeArray, eventStatus, fromDate, toDate, userName
     })
-    console.log('res',res)
     return new NextResponse(
       {status: 200}
     )

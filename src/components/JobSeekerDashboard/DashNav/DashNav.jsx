@@ -26,7 +26,6 @@ const DashNav = () => {
   const {isClicked, setIsClicked} = useContext(cartContext)
   const session = useSession()
   const userImage = session?.data?.user?.image
-  console.log('name in pareent', name)
 
   const pathname = usePathname();
 
