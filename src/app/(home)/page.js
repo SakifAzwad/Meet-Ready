@@ -13,7 +13,10 @@ export default function Home() {
     
 
 <main className="bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]">
+<div>
+  <h1>Docs</h1>
 
+</div>
 <Navbar></Navbar>
 <Banner></Banner>
 <Banner2></Banner2>

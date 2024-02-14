@@ -122,7 +122,7 @@ const PublicProfile = ({ params }) => {
       </div>
 
       {/* image */}
-      <div
+        <div
         style={{
           display: "flex",
           justifyContent: "right",
