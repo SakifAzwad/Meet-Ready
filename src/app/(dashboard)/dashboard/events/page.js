@@ -2,6 +2,7 @@
 "use client";
 import EventCard from "@/components/EventCard/EventCard";
 import InputField from "@/components/InputField/InputField";
+import Loading from "@/components/Loading/Loading";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -34,7 +35,7 @@ const Events = () => {
   // Rendering p tag at the time of data loading
 
   if (isLoading) {
-    return <p>Loading.........</p>;
+    return <Loading></Loading>;
   }
 
   // Updating fetched data and add meet dynamic link in it.
@@ -44,7 +45,7 @@ const Events = () => {
     shareableLink: `http://localhost:3000/event/${event._id}`,
   }));
 
-  // console.log('upadated event data', updatedEventData);
+  console.log('upadated event data', updatedEventData);
 
   return (
     <div className="flex flex-col justify-start mt-16 space-y-5">

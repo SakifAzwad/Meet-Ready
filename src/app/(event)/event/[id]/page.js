@@ -7,6 +7,7 @@ import 'react-calendar/dist/Calendar.css';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import Loading from "@/components/Loading/Loading";
 
 
 const Event = ({params}) => {
@@ -103,7 +104,7 @@ const startDate = new Date(data?.singleEvent?.fromDate);
   };
 
   if(isLoading){
-    return <p>Loading............</p>
+    return <Loading></Loading>
   }
 // console.log('time', data?.singleEvent?.dateAndTimeArray)
 

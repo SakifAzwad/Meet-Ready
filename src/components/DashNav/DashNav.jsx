@@ -9,6 +9,7 @@ import {
   FaCalendar,
   FaLink,
   FaPlus,
+  FaSquarePollVertical,
 } from "react-icons/fa6";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -81,6 +82,21 @@ const DashNav = () => {
             </Link>
           )}
 
+          <Link
+            href={"/dashboard"}
+            className="flex justify-center items-center"
+          >
+
+            <DashNavButton
+              className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
+                isClicked && "btn glass"
+              } ${pathname === "/dashboard" && "bg-purple-500 "}`}
+            >
+              <FaSquarePollVertical />
+              {isClicked ? "" : "Analytics"}
+            </DashNavButton>
+
+          </Link>
           <Link
             href={"/dashboard/create"}
             className="flex justify-center items-center"
