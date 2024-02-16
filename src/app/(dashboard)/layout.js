@@ -23,7 +23,7 @@ export default async function DashboardLayout({ children }) {
   }
   return (
     <html lang="en" data-theme="light">
-      <body className="flex justify-between bg-purple-100 ">
+      <body className="flex justify-between bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF] ">
         <DashNav />
         <div className="max-w-7xl mx-auto min-h-screen">{children}</div>
       </body>

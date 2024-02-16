@@ -1,4 +1,5 @@
 'use client'
+import Loading from '@/components/Loading/Loading'
 import TwoPersonEditEvent from '@/components/TwoPersonEditEvent/TwoPersonEditEvent'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
@@ -86,7 +87,7 @@ const EditEvent = ({params}) => {
 
 // console.log(singleEventData)
 if(isLoading){
-  return <p>Loading. ........</p>
+  return <Loading></Loading>
 }
   return (
 

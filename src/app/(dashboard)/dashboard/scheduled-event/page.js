@@ -10,6 +10,7 @@ import ScheduleEvents from "@/components/ScheduledEvents/ScheduledEvent";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Loading from "@/components/Loading/Loading";
 
 const ScheduledEvent = () => {
   // Getting user email from session
@@ -77,7 +78,7 @@ const ScheduledEvent = () => {
 
 
 if(isLoading){
-  return <p>Loading ...............</p>
+  return <Loading></Loading>
 }
 
 
