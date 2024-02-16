@@ -110,7 +110,9 @@ const {data, mutateAsync} = useMutation({
         <div className="absolute right-2 top-2">
           <div className="dropdown dropdown-bottom dropdown-end">
             <div tabIndex={0} role="button" className="btn m-1 btn-sm ">
-              <FaGear />
+              <FaGear 
+              data-testid='faGearIcon'
+              />
             </div>
             {/* edit, delete and complete icon  */}
             <ul
