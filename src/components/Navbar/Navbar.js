@@ -50,6 +50,7 @@ const Navbar = () => {
 
   return (
     <nav
+    data-testid="homeNavbar"
       className={`${
         isSticky
           ? "bg-purple-200"

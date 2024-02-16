@@ -1,5 +1,4 @@
 'use client'
-import { signOut } from 'next-auth/react'
 const DashNavButton = ({ onClick, className, children, icon, isAbsolute, position }) => {
   const buttonStyle = isAbsolute
     ? {
