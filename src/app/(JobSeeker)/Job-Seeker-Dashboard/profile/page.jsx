@@ -67,9 +67,9 @@ const Profile = () => {
 
   // onclick handler
   const handleClick = async () => {
-    const publicLink = `http://local-host:3000/publicProfile/${data?._id}`
+    const publicLink = `https://meet-ready.vercel.app/publicProfile/${data?._id}`
     console.log(publicLink)
-    setPublicProfile(`http://local-host:3000/publicProfile/${data?._id}`);
+    setPublicProfile(`https://meet-ready.vercel.app/publicProfile/${data?._id}`);
     mutateAsync(publicLink)
     
   };
