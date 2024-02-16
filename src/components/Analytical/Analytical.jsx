@@ -53,12 +53,12 @@ const Analytical = () => {
     },
   };
   return (
-    <div className="ml-60">
+    <div className="lg:ml-60 md:mx-0 mx-8">
       <h1 className="mt-12 text-center text-5xl text-purple-900 font-extrabold ">
         Analytical Dashboard
       </h1>
-      <div className="grid lg:grid-cols-3 grid-cols-1  mt-12  gap-x-12">
-        <div className="card  bg-purple-100 shadow-xl">
+      <div className="grid lg:grid-cols-3 grid-cols-1  mt-12  lg:gap-x-12 gap-y-4">
+        <div className=" card  bg-purple-100 shadow-xl">
           <div className="card-body">
             <div className="flex items-center gap-x-4">
               <img
@@ -98,12 +98,12 @@ const Analytical = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-full gap-x-8">
-        <div className="card bg-purple-100 mt-12 shadow-xl w-1/3  mb-8 p-8">
+      <div className="lg:flex md:w-full lg:gap-x-8">
+        <div className="card bg-purple-100 mt-12 shadow-xl lg:w-1/3  mb-8 p-8">
             <h1 className="text-center pb-4 text-2xl text-purple-900 font-semibold">Platform Used</h1>
           <Pie className="" data={data}></Pie>
         </div>
-        <div className="card bg-purple-100 mt-12 shadow-xl w-2/3  mb-8 p-8">
+        <div className="card bg-purple-100 mt-12 shadow-xl lg:w-2/3  mb-8 p-8">
             <h1 className="text-center pb-4 text-2xl text-purple-900 font-semibold">Interview Frequency</h1>
             <Bar data={data2} options={options} />
         </div>
