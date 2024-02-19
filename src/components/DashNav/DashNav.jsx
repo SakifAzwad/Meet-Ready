@@ -89,7 +89,7 @@ const DashNav = () => {
                   color: "white",
                   WebkitTextFillColor: "black",
                   WebkitTextStroke: "1.5px purple",
-                  fontSize: "38px",
+                  fontSize: "28px",
                   fontWeight: "bolder",
                 }}
               >
