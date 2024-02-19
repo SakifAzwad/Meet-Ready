@@ -28,7 +28,8 @@ const NotFound = () => {
             marginTop: "20px",
             backgroundColor: "#4CAF50",
             color: "white",
-            border: "none",
+            backgroundColor: "#8B5CF6",
+            border: "2px solid #7C3AED",
             borderRadius: "5px",
             cursor: "pointer",
           }}
