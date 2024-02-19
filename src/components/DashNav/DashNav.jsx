@@ -228,7 +228,7 @@ const DashNav = () => {
               onClick={() => signOut()}
               className="flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
             >
-              <FaArrowRightFromBracket /> Log Out
+              {isClicked? <FaArrowRightFromBracket /> : <FaArrowRightFromBracket />} Log Out
             </DashNavButton>
           </ul>
         </div>
