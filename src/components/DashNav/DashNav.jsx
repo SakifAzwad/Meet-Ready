@@ -67,7 +67,6 @@ const DashNav = () => {
             <Link href={"/"}>
               <Lottie
                 animationData={MeetLogo}
-                className="py-4 ml-12"
                 style={{
                   width: "100px",
                   height: "100px",
@@ -78,13 +77,25 @@ const DashNav = () => {
             <div className="flex items-center">
               <Lottie
                 animationData={MeetLogo}
-                className="py-4 ml-12"
                 style={{
                   width: "100px",
                   height: "100px",
                 }}
               />
-              <p className="text-3xl text-purple-500 font-bold">MeetReady</p>
+              <p className="text-center text-3xl">
+              <span
+                className="text-3xl font-black"
+                style={{
+                  color: "white",
+                  WebkitTextFillColor: "black",
+                  WebkitTextStroke: "1.5px purple",
+                  fontSize: "38px",
+                  fontWeight: "bolder",
+                }}
+              >
+                MeetReady
+              </span>
+            </p>
             </div>
           )}
 
