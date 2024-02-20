@@ -7,7 +7,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Logout from "../Logout/Logout";
 import InputField from "../InputField/InputField";
+import Lottie from "lottie-react";
 // import { useFetchDataAndSetUser } from "./fetchDataAndSetUser";
+import MeetLogo from "../../../public/Meet.json"
 
 
 const Navbar = () => {
@@ -61,13 +63,37 @@ const Navbar = () => {
     >
       <div className={`flex items-center justify-between lg: `}>
         <div className="flex space-x-6 items-center">
-          <Image
+          {/* <Image
             className="py-4 ml-12 mr-4"
             src={logo}
             width={"200"}
             height={"150"}
             alt="logo"
+          /> */}
+         <div className="flex items-center mr-4 -mt-4 ml-7"> .  
+         <Lottie
+          animationData={MeetLogo}
+          
+          style={{
+            width: "100px",
+            height: "100px",
+          }}
           />
+          <p className="mt-2">
+              <span
+                className="font-black"
+                style={{
+                  color: "white",
+                  WebkitTextFillColor: "black",
+                  WebkitTextStroke: "1.5px purple",
+                  fontSize: "32px",
+                  fontWeight: "bolder",
+                }}
+              >
+                MeetReady
+              </span>
+            </p>
+         </div>
           <ul className="hidden lg:flex text-col0 font-light justify-evenly items-center gap-x-4 text-lg menu-vertical lg:menu-horizontal px-1">
             <li
               className={currentPath === "/" ? `text-purple-800 font-bold` : ``}
