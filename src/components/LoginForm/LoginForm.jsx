@@ -5,6 +5,8 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import InputField from "../InputField/InputField";
+import Lottie from "lottie-react";
+import MeetLogo from "../../../public/Meet.json";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -40,28 +42,47 @@ const LoginForm = () => {
 
       <div className="bg-purple-100 w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12   flex items-center justify-center">
         <div className="w-full h-100">
-          <Image
-            src="https://i.ibb.co/T24b18g/meet-Ready-Logo.png"
-            className="px-12"
-            height={200}
-            width={400}
-            alt="logo"
-          />
+          <div className="flex items-center justify-center">
+            <Lottie
+              animationData={MeetLogo}
+              className="py-4"
+              style={{
+                width: "100px",
+                height: "170px",
+              }}
+            />
+            <p className="text-center text-3xl">
+              <span
+                className="text-3xl font-black"
+                style={{
+                  color: "white",
+                  WebkitTextFillColor: "black",
+                  WebkitTextStroke: "1.5px purple",
+                  fontSize: "42px",
+                  fontWeight: "bolder",
+                }}
+              >
+                MeetReady
+              </span>
+            </p>
+          </div>
 
-          <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center">
+          <h1 className="text-xl md:text-2xl font-bold leading-tight text-center">
             Log in to your account
           </h1>
 
           <form className="mt-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-gray-700">Email Address</label>
-              <InputField  type="email"
+              <InputField
+                type="email"
                 name="email"
                 id="email"
                 placeholder="Enter Email Address"
                 className="w-full px-4 py-3 rounded-lg mt-2text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
                 autoFocus
-                required/>
+                required
+              />
               {/* <input
                 type="email"
                 name="email"
@@ -76,13 +97,13 @@ const LoginForm = () => {
             <div className="mt-4">
               <label className="block text-gray-700">Password</label>
               <InputField
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Enter Password"
-              minLength="6"
-              className="w-full px-4 py-3 rounded-lg mt-2 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
-              required
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter Password"
+                minLength="6"
+                className="w-full px-4 py-3 rounded-lg mt-2 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
+                required
               />
               {/* <input
                 type="password"
