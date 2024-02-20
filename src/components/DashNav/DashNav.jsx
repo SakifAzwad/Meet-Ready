@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import logo from "@/assets/meetReadyLogo.png";
-import MeetLogo from "../../../public/Meet.json"
+import MeetLogo from "../../../public/Meet.json";
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -83,19 +83,19 @@ const DashNav = () => {
                 }}
               />
               <p className="text-center text-3xl">
-              <span
-                className="text-3xl font-black"
-                style={{
-                  color: "white",
-                  WebkitTextFillColor: "black",
-                  WebkitTextStroke: "1.5px purple",
-                  fontSize: "28px",
-                  fontWeight: "bolder",
-                }}
-              >
-                MeetReady
-              </span>
-            </p>
+                <span
+                  className="text-3xl font-black"
+                  style={{
+                    color: "white",
+                    WebkitTextFillColor: "black",
+                    WebkitTextStroke: "1.5px purple",
+                    fontSize: "28px",
+                    fontWeight: "bolder",
+                  }}
+                >
+                  MeetReady
+                </span>
+              </p>
             </div>
           )}
 
@@ -156,9 +156,17 @@ const DashNav = () => {
         </div>
 
         <div className="p-5">
+          <Link href={"/"}>
+            <DashNavButton
+              // onClick={}
+              className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
+            >
+              Go to Home
+            </DashNavButton>
+          </Link>
           <DashNavButton
             onClick={() => signOut()}
-            className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
+            className="w-full mt-2 flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
           >
             <FaArrowRightFromBracket /> Log Out
           </DashNavButton>
@@ -228,7 +236,12 @@ const DashNav = () => {
               onClick={() => signOut()}
               className="flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
             >
-              {isClicked? <FaArrowRightFromBracket /> : <FaArrowRightFromBracket />} Log Out
+              {isClicked ? (
+                <FaArrowRightFromBracket />
+              ) : (
+                <FaArrowRightFromBracket />
+              )}{" "}
+              Log Out
             </DashNavButton>
           </ul>
         </div>

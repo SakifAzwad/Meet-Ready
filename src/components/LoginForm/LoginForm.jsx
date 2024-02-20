@@ -21,6 +21,7 @@ const LoginForm = () => {
       email,
       password,
     });
+    console.log(response)
 
     if (response?.error) {
       console.log(response?.error);
