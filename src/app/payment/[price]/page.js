@@ -6,14 +6,16 @@ import { loadStripe } from "@stripe/stripe-js";
 // // todo add pk
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_PAYMENT_GATEWAY_PK);
 
-const Payment = ({amount}) => {
+const Payment = (props) => {
+    console.log(props.params.price)
+    const price = props.params.price;
   const appearance = {
     theme: 'stripe',
   };
   return (
     <div>
       <Elements stripe={stripePromise} options={{ appearance }}>
-        <CheckoutForm />
+        <CheckoutForm value={price} />
       </Elements>
     </div>
   );

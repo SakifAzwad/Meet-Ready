@@ -12,25 +12,23 @@ import Lottie from "lottie-react";
 // import { useFetchDataAndSetUser } from "./fetchDataAndSetUser";
 import MeetLogo from "../../../public/Meet.json";
 import { signOut, useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const session = useSession();
   console.log(session.data?.user);
 
-  const currentPath = "/";
+  const [currentPath, setCurrentPath] = useState("");
   const [isSticky, setIsSticky] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollY = window.scrollY;
-  //     const threshold = 1;
-  //     setIsSticky(scrollY > threshold);
-  //   };
+  const currentPathName = usePathname();
+  useEffect(() => {
+      setCurrentPath(currentPathName);
+  }, [currentPathName]);
 
   //   if (typeof window !== 'undefined') {
   //     // Add event listener when component mounts
-  //     window.addEventListener("scroll", handleScroll);
 
   //     // Remove event listener when component unmounts
   //     return () => {
@@ -57,13 +55,7 @@ const Navbar = () => {
   return (
     <nav
       data-testid="homeNavbar"
-      className={`${
-        isSticky
-          ? "bg-purple-200"
-          : "bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]"
-      } ${
-        isSticky ? "fixed top-0 w-full" : ""
-      } transition-colors duration-300 ease-in-out`}
+      className={`sticky top-0 z-50 bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]`}
     >
       <div className={`flex items-center justify-between lg: `}>
         <div className="flex space-x-6 items-center">
@@ -108,33 +100,33 @@ const Navbar = () => {
                 Home
               </a>
             </li>
-            <li>
+            <li  className={currentPath === "/features" ? `text-purple-800 font-bold` : ``}>
               <Link
-                className="font-normal relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
+                className=" relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
                 href="/features"
               >
                 Features
               </Link>
             </li>
-            <li>
+            <li  className={currentPath === "/pricing" ? `text-purple-800 font-bold` : ``}>
               <Link
-                className="font-normal relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
+                className=" relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
                 href="/pricing"
               >
                 Pricing
               </Link>
             </li>
-            <li>
+            <li  className={currentPath === "/dashboard" ? `text-purple-800 font-bold` : ``}>
               <Link
-                className="font-normal relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
+                className=" relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
                 href="/dashboard"
               >
                 Dashboard
               </Link>
             </li>
-            <li>
+            <li  className={currentPath === "/about" ? `text-purple-800 font-bold` : ``}>
               <Link
-                className="font-normal relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
+                className="relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
                 href="/about"
               >
                 About Us
@@ -179,14 +171,13 @@ const Navbar = () => {
           <div>
             {session.data?.user?.email ? (
               <div className="dropdown dropdown-end  flex justify-center items-center gap-2">
-                
                 <div
                   tabIndex={0}
                   role="button"
                   className="mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
                 >
                   <div className="w-10 ">
-                  <p className="text-wrap">{lastName}</p>
+                    <p className="text-wrap">{lastName}</p>
                   </div>
 
                   <ul
@@ -194,7 +185,9 @@ const Navbar = () => {
                     className=" mt-64 z-[1] p-2 shadow menu menu-sm dropdown-content bg-purple-400  dark:text-black dark:border-white dark:border-2 dark:border-opacity-50 dark:shadow-lg dark:ring-2 dark:ring-white dark:ring-opacity-50 dark:ring-offset-2 dark:ring-offset-white dark:ring-offset-opacity-50 dark:divide-white"
                   >
                     <li className=" rounded-lg mt-2 flex items-center justify-center text-center text-white">
-                      <p className="text-wrap">{session.data?.user?.name || ""}</p>
+                      <p className="text-wrap">
+                        {session.data?.user?.name || ""}
+                      </p>
                     </li>
                     <li className="border rounded-lg mt-2 flex items-center justify-center text-center text-white hover:bg-black dark:hover:bg-white dark:hover:text-black">
                       <Link
@@ -217,7 +210,7 @@ const Navbar = () => {
                         onClick={handleSignOut}
                         className="justify-center w-full text-center flex"
                       >
-                       LogOut
+                        LogOut
                       </button>
                     </li>
                   </ul>
@@ -358,63 +351,64 @@ const Navbar = () => {
               </button>
             </div>
             <div>
-            {session.data?.user?.email ? (
-              <div className="dropdown dropdown-end  flex justify-center items-center gap-2">
-                
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
-                >
-                  <div className="w-10 ">
-                  <p className="text-wrap">{lastName}</p>
-                  </div>
-
-                  <ul
+              {session.data?.user?.email ? (
+                <div className="dropdown dropdown-end  flex justify-center items-center gap-2">
+                  <div
                     tabIndex={0}
-                    className=" hidden mt-64 z-[1] p-2 shadow menu menu-sm dropdown-content bg-purple-400  dark:text-black dark:border-white dark:border-2 dark:border-opacity-50 dark:shadow-lg dark:ring-2 dark:ring-white dark:ring-opacity-50 dark:ring-offset-2 dark:ring-offset-white dark:ring-offset-opacity-50 dark:divide-white"
+                    role="button"
+                    className="mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
                   >
-                    <li className=" rounded-lg mt-2 flex items-center justify-center text-center text-white">
-                      <p className="text-wrap">{session.data?.user?.name || ""}</p>
-                    </li>
-                    <li className="border rounded-lg mt-2 flex items-center justify-center text-center text-white hover:bg-black dark:hover:bg-white dark:hover:text-black">
-                      <Link
-                        href={"/dashboard/profile"}
-                        className="justify-center w-full text-center flex"
-                      >
-                        Profile
-                      </Link>
-                    </li>
-                    <li className="border rounded-lg mt-2 flex items-center justify-center text-white text-center hover:bg-black dark:hover:bg-white dark:hover:text-black">
-                      <Link
-                        href={`/dashboard`}
-                        className="justify-center w-full text-center flex"
-                      >
-                        Dashboard
-                      </Link>
-                    </li>
-                    <li className="border rounded-lg mt-2 flex items-center text-white justify-center text-center hover:bg-black dark:hover:bg-white dark:hover:text-black">
-                      <button
-                        onClick={handleSignOut}
-                        className="justify-center w-full text-center flex"
-                      >
-                       LogOut
-                      </button>
-                    </li>
-                  </ul>
+                    <div className="w-10 ">
+                      <p className="text-wrap">{lastName}</p>
+                    </div>
+
+                    <ul
+                      tabIndex={0}
+                      className=" hidden mt-64 z-[1] p-2 shadow menu menu-sm dropdown-content bg-purple-400  dark:text-black dark:border-white dark:border-2 dark:border-opacity-50 dark:shadow-lg dark:ring-2 dark:ring-white dark:ring-opacity-50 dark:ring-offset-2 dark:ring-offset-white dark:ring-offset-opacity-50 dark:divide-white"
+                    >
+                      <li className=" rounded-lg mt-2 flex items-center justify-center text-center text-white">
+                        <p className="text-wrap">
+                          {session.data?.user?.name || ""}
+                        </p>
+                      </li>
+                      <li className="border rounded-lg mt-2 flex items-center justify-center text-center text-white hover:bg-black dark:hover:bg-white dark:hover:text-black">
+                        <Link
+                          href={"/dashboard/profile"}
+                          className="justify-center w-full text-center flex"
+                        >
+                          Profile
+                        </Link>
+                      </li>
+                      <li className="border rounded-lg mt-2 flex items-center justify-center text-white text-center hover:bg-black dark:hover:bg-white dark:hover:text-black">
+                        <Link
+                          href={`/dashboard`}
+                          className="justify-center w-full text-center flex"
+                        >
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li className="border rounded-lg mt-2 flex items-center text-white justify-center text-center hover:bg-black dark:hover:bg-white dark:hover:text-black">
+                        <button
+                          onClick={handleSignOut}
+                          className="justify-center w-full text-center flex"
+                        >
+                          LogOut
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center gap-8">
-                <p className="btn bg-transparent hover:bg-transparent border-none rounded-full text-4xl text-black dark:text-white cursor-pointer"></p>
-                <Link title="Login" href="/login">
-                  <button className="mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base">
-                    Login
-                  </button>
-                </Link>
-              </div>
-            )}
-          </div>
+              ) : (
+                <div className="flex items-center justify-center gap-8">
+                  <p className="btn bg-transparent hover:bg-transparent border-none rounded-full text-4xl text-black dark:text-white cursor-pointer"></p>
+                  <Link title="Login" href="/login">
+                    <button className="mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base">
+                      Login
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
