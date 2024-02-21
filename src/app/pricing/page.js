@@ -5,7 +5,7 @@ import "../globals.css";
 
 const Pricing = () => {
   return (
-    <div className="bg-purple-200">
+    <div className="bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]">
       <PlanPrice></PlanPrice>
       <PricingFooter/>
     </div>

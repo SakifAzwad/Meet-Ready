@@ -7,7 +7,7 @@ export const cartContext = createContext()
 
 export const CartProvider =({children}) => {
   const [cart, setCart] = useState([])
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState('')
   const [isClicked, setIsClicked] = useState(false);
   const [image, setImage] = useState('')
   const [pdf, setPdf] = useState('')

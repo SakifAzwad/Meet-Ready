@@ -12,27 +12,27 @@ import Lottie from "lottie-react";
 
 const PricingFooter = () => {
   return (
-    <div>
+    <div className="w-[90vw] mx-auto">
       <footer className="footer p-5 bg-base-200 text-base-content">
         <nav>
           <h6 className="footer-title">General</h6>
-          <a className="link link-hover">Branding</a>
-          <a className="link link-hover">Design</a>
-          <a className="link link-hover">Marketing</a>
-          <a className="link link-hover">Advertisement</a>
+          <a href="/pricing/#" className="link link-hover">Branding</a>
+          <a href="/pricing/#" className="link link-hover">Design</a>
+          <a href="/pricing/#" className="link link-hover">Marketing</a>
+          <a href="/pricing/#" className="link link-hover">Advertisement</a>
         </nav>
         <nav>
           <h6 className="footer-title">Use cases</h6>
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
-          <a className="link link-hover">Press kit</a>
+          <a href="/pricing/#"  className="link link-hover">About us</a>
+          <a href="/pricing/#"  className="link link-hover">Contact</a>
+          <a href="/pricing/#"  className="link link-hover">Jobs</a>
+          <a href="/pricing/#"  className="link link-hover">Press kit</a>
         </nav>
         <nav>
           <h6 className="footer-title">Company</h6>
-          <a className="link link-hover">Terms of use</a>
-          <a className="link link-hover">Privacy policy</a>
-          <a className="link link-hover">Cookie policy</a>
+          <a href="/pricing/#"  className="link link-hover">Terms of use</a>
+          <a href="/pricing/#"  className="link link-hover">Privacy policy</a>
+          <a href="/pricing/#"  className="link link-hover">Cookie policy</a>
         </nav>
         <nav>
           <div className="flex items-center">
@@ -61,14 +61,14 @@ const PricingFooter = () => {
           <a className="link link-hover">
             The simple and affordable way to book meetings online
           </a>
-          <div className="flex flex-row gap-3">
+          <div className="flex flex-row gap-4">
             <FaFacebook className="text-purple-600 text-4xl" />
             <FaTwitter className="text-purple-600 text-4xl" />
             <FaLinkedin className="text-purple-600 text-4xl" />
             <FaInstagram className="text-purple-600 text-4xl" />
           </div>
-          <button className="w-full h-16 border-2 border-sky-300 text-sky-800 font-black rounded-full hover:text-white duration-300 relative group">
-            <span className="absolute w-12 group-hover:w-[93%] duration-300 flex group-hover:justify-start rounded-full inset-2 bg-sky-300 group-hover:bg-sky-500 group-hover:duration-500 -z-10"></span>
+          <button className="w-full  hover:animate-pulse h-16 border-2 border-sky-300 text-sky-800 font-black rounded-full hover:text-black duration-300 relative group">
+            <span className=" absolute w-12 group-hover:w-[93%] duration-300 flex group-hover:justify-start rounded-full inset-2 bg-sky-300 group-hover:bg-sky-500 group-hover:duration-500 -z-10"></span>
             All System Operation
           </button>
           <select className="select select-primary w-full max-w-xs">
