@@ -8,9 +8,11 @@ import {
   FaArrowRightFromBracket,
   FaBars,
   FaCalendar,
+  FaHouseMedical,
   FaLink,
   FaPlus,
   FaSquarePollVertical,
+  FaHouse
 } from "react-icons/fa6";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -155,20 +157,19 @@ const DashNav = () => {
           </Link>
         </div>
 
-        <div className="p-5">
+        <div className="p-3">
           <Link href={"/"}>
             <DashNavButton
-              // onClick={}
               className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
             >
-              Go to Home
+              {isClicked ? <FaHouse />  : <><FaHouse /> Go to Home</>}
             </DashNavButton>
           </Link>
           <DashNavButton
             onClick={() => signOut()}
             className="w-full mt-2 flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
           >
-            <FaArrowRightFromBracket /> Log Out
+            {isClicked ? <FaArrowRightFromBracket />  : <><FaArrowRightFromBracket /> Logout</>}
           </DashNavButton>
         </div>
       </div>
@@ -240,8 +241,8 @@ const DashNav = () => {
                 <FaArrowRightFromBracket />
               ) : (
                 <FaArrowRightFromBracket />
-              )}{" "}
-              Log Out
+              )}{"Log Out"}
+              
             </DashNavButton>
           </ul>
         </div>

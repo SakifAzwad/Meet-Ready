@@ -8,10 +8,10 @@ import { FaCheck } from "react-icons/fa6";
 
 const CardPrice = ({dolar, popularity, learn, amount, time, svg}) => {
 
-    const{ cart, setCart} = useContext(cartContext)
+    const{ cart, setCart,setPrice} = useContext(cartContext)
 
     return (
-      <div className="md:w-[300px] mx-auto rounded-lg space-y-8 shadow-xl my-20 relative p-8 bg-purple-300 hover:bg-purple-800 animate-pulse text-white">
+      <div className="md:w-[300px] mx-auto rounded-lg space-y-8 shadow-xl my-20 relative p-8 bg-purple-400 hover:bg-purple-500 text-white ease-in duration-300">
         
           {/* top part  */}
           <div>
@@ -34,19 +34,19 @@ const CardPrice = ({dolar, popularity, learn, amount, time, svg}) => {
           </div>
           <div className="space-y-4">
               <div className="flex flex-row">
-                <p className="text-gray-800 text-3xl capitalize hover:text-white ">{popularity}</p>
+                <p className=" text-3xl capitalize text-white">{popularity}</p>
               <button className="btn-primary ">{learn}</button>
               </div>
               <ul className="space-y-3">
-                  <li className="flex items-center gap-2 text-sm text-sky-900 font-semibold hover:text-white">
+                  <li className="flex items-center gap-2 text-sm hover:cursor-pointer text-black font-semibold hover:text-white">
                       <FaCheck/>
                       Custom profile an more
                   </li>
-                  <li className="flex items-center gap-2 text-sm text-sky-900 font-semibold hover:text-white">
+                  <li className="flex items-center gap-2 text-sm text-black hover:cursor-pointer font-semibold hover:text-white">
                   <FaCheck/>
                       Custom emoji anywhere
                   </li>
-                  <li className="flex items-center gap-2 text-sm text-sky-900 font-semibold hover:text-white">
+                  <li className="flex items-center gap-2 text-sm text-black hover:cursor-pointer font-semibold hover:text-white">
                   <FaCheck/>
                       
                       HD video streaming
@@ -55,13 +55,13 @@ const CardPrice = ({dolar, popularity, learn, amount, time, svg}) => {
               <div className="pt-4 flex flex-col justify-center">
                   <Link href={`/cart`}>
                   <button 
-                  onClick={() => setCart(popularity)}
-                  className="w-full h-16 border-2 border-sky-300 text-sky-800 font-black rounded-full hover:text-white duration-300 relative group">
+                  onClick={() => {setCart(popularity),setPrice(amount)}}
+                  className="w-full animate-pulse  h-16 border-2 border-sky-300 text-black font-black rounded-full hover:text-white duration-300 relative group">
                       <span className="absolute w-12 group-hover:w-[93%] duration-300 flex group-hover:justify-start rounded-full inset-2 bg-sky-300 group-hover:bg-sky-500 group-hover:duration-500 -z-10"></span>
                       Buy This Plan
                   </button>
                   </Link>
-                  <p className="text-center hover:text-white">No credit card required</p>
+                  <p className="text-center text-white italic mt-2">(No credit card required)</p>
               </div>
           </div>
       </div>
