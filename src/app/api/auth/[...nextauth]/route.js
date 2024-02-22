@@ -1,9 +1,9 @@
-import CredentialsProvider from "next-auth/providers/credentials";
-import NextAuth from "next-auth/next";
-import GoogleProvider from "next-auth/providers/google";
+import User from "@/models/User";
 import connect from "@/utils/db";
 import bcrypt from "bcrypt";
-import User from "@/models/User";
+import NextAuth from "next-auth/next";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
   providers: [
@@ -55,17 +55,20 @@ export const authOptions = {
             //Todo use this when active local site http://localhost:3000/
             const role = "newUser";
             console.log("role", role);
-            const res = await fetch("http://localhost:3000/api/register", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                name,
-                email,
-                role,
-              }),
-            });
+            const res = await fetch(
+              "https://meet-ready.vercel.app/api/register",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  name,
+                  email,
+                  role,
+                }),
+              }
+            );
             console.log(res);
             if (res.ok) {
               return user;
@@ -85,7 +88,7 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
-      await connect()
+      await connect();
       const dbUser = await User.findOne({ email: token.email });
       session.user.name = token.name;
       session.user.email = token.email;

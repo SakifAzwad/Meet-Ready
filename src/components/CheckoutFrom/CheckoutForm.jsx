@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({value}) => {
   const [error, setError] = useState("");
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
@@ -15,6 +15,7 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const { cart, price } = useContext(cartContext);
   const router = useRouter()
+  console.log(value)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,7 +126,7 @@ const CheckoutForm = () => {
         type="submit"
         disabled={!stripe || !clientSecret}
       >
-        Pay
+        Pay ${value}
       </button>
      
      

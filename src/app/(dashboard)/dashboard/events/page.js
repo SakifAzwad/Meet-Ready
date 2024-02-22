@@ -42,7 +42,7 @@ const Events = () => {
 
   const updatedEventData = data?.myEvent?.map((event) => ({
     ...event,
-    shareableLink: `http://localhost:3000/event/${event._id}`,
+    shareableLink: `https://meet-ready.vercel.app/event/${event._id}`,
   }));
 
   console.log('upadated event data', updatedEventData);

@@ -1,16 +1,22 @@
 "use client";
-import Link from "next/link";
-import React from "react";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import Lottie from "lottie-react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import MeetLogo from "../../../public/Meet.json";
 import InputField from "../InputField/InputField";
+import Spinner from "../Loading/Spinner";
 
 const LoginForm = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
@@ -19,10 +25,17 @@ const LoginForm = () => {
       email,
       password,
     });
+    console.log(response);
 
     if (response?.error) {
       console.log(response?.error);
+      setLoading(false);
+      toast.error("Login Fail");
+    } else {
+      setLoading(false);
+      toast.success("Successfully Login!");
     }
+
     router.push("/dashboard");
   };
 
@@ -34,34 +47,53 @@ const LoginForm = () => {
           alt="login-image"
           height={700}
           width={500}
-          className=" w-full h-full object-cover py-12"
+          className=" w-full h-full mx-auto "
         />
       </div>
 
       <div className="bg-purple-100 w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12   flex items-center justify-center">
         <div className="w-full h-100">
-          <Image
-            src="https://i.ibb.co/T24b18g/meet-Ready-Logo.png"
-            className="px-12"
-            height={200}
-            width={400}
-            alt="logo"
-          />
+          <div className="flex items-center justify-center">
+            <Lottie
+              animationData={MeetLogo}
+              className="py-4"
+              style={{
+                width: "100px",
+                height: "170px",
+              }}
+            />
+            <p className="text-center text-3xl">
+              <span
+                className="text-3xl font-black"
+                style={{
+                  color: "white",
+                  WebkitTextFillColor: "black",
+                  WebkitTextStroke: "1.5px purple",
+                  fontSize: "42px",
+                  fontWeight: "bolder",
+                }}
+              >
+                MeetReady
+              </span>
+            </p>
+          </div>
 
-          <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center">
+          <h1 className="text-xl md:text-2xl font-bold leading-tight text-center">
             Log in to your account
           </h1>
 
           <form className="mt-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-gray-700">Email Address</label>
-              <InputField  type="email"
+              <InputField
+                type="email"
                 name="email"
                 id="email"
                 placeholder="Enter Email Address"
                 className="w-full px-4 py-3 rounded-lg mt-2text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
                 autoFocus
-                required/>
+                required
+              />
               {/* <input
                 type="email"
                 name="email"
@@ -76,13 +108,13 @@ const LoginForm = () => {
             <div className="mt-4">
               <label className="block text-gray-700">Password</label>
               <InputField
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Enter Password"
-              minLength="6"
-              className="w-full px-4 py-3 rounded-lg mt-2 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
-              required
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter Password"
+                minLength="6"
+                className="w-full px-4 py-3 rounded-lg mt-2 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
+                required
               />
               {/* <input
                 type="password"
@@ -103,13 +135,16 @@ const LoginForm = () => {
                 Forgot Password?
               </a>
             </div>
-
-            <button
-              type="submit"
-              className="w-full block bg-purple-400 hover:bg-purple-500 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
-            >
-              Log In
-            </button>
+            {!loading ? (
+              <button
+                type="submit"
+                className="w-full block bg-purple-400 hover:bg-purple-500 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
+              >
+                Log In
+              </button>
+            ) : (
+              <Spinner />
+            )}
           </form>
 
           <hr className="my-6 border-gray-300 w-full" />

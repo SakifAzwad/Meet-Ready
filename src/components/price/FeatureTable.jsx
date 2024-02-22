@@ -2,8 +2,8 @@
 
 const FeatureTable = () => {
     return (
-        <div className="overflow-x-auto">
-            <table className="table">
+        <div className="overflow-x-auto w-[90vw] mx-auto">
+            <table className="table w-[90vw] mx-auto">
                 {/* head */}
                 <thead>
                     <tr>
