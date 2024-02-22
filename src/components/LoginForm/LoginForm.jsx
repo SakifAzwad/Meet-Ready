@@ -1,18 +1,22 @@
 "use client";
-import Link from "next/link";
-import React from "react";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import InputField from "../InputField/InputField";
 import Lottie from "lottie-react";
+import { signIn } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import MeetLogo from "../../../public/Meet.json";
+import InputField from "../InputField/InputField";
+import Spinner from "../Loading/Spinner";
 
 const LoginForm = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
@@ -21,11 +25,17 @@ const LoginForm = () => {
       email,
       password,
     });
-    console.log(response)
+    console.log(response);
 
     if (response?.error) {
       console.log(response?.error);
+      setLoading(false);
+      toast.error("Login Fail");
+    } else {
+      setLoading(false);
+      toast.success("Successfully Login!");
     }
+
     router.push("/dashboard");
   };
 
@@ -37,7 +47,7 @@ const LoginForm = () => {
           alt="login-image"
           height={700}
           width={500}
-          className=" w-full h-full object-cover py-12"
+          className=" w-full h-full mx-auto "
         />
       </div>
 
@@ -125,13 +135,16 @@ const LoginForm = () => {
                 Forgot Password?
               </a>
             </div>
-
-            <button
-              type="submit"
-              className="w-full block bg-purple-400 hover:bg-purple-500 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
-            >
-              Log In
-            </button>
+            {!loading ? (
+              <button
+                type="submit"
+                className="w-full block bg-purple-400 hover:bg-purple-500 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
+              >
+                Log In
+              </button>
+            ) : (
+              <Spinner />
+            )}
           </form>
 
           <hr className="my-6 border-gray-300 w-full" />
