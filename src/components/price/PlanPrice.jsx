@@ -12,7 +12,13 @@ const PlanPrice = () => {
   return (
     <div className="items-center">
       <div>
-        <h1 className="text-center text-4xl font-bold text-amber-700">
+        <h1 className="text-center font-black text-black text-2xl md:text-3xl lg:text-5xl"
+                                        style={{
+                                            color: "black",
+                                            WebkitTextFillColor: "black",
+                                            WebkitTextStroke: "1.5px violet",
+                                            fontWeight: "bolder",
+                                        }}>
           All Plans Include A 30-Day Money Back Guarantee
         </h1>
       </div>

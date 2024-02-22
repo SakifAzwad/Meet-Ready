@@ -6,19 +6,7 @@ import React, { useContext, useEffect } from 'react'
 const Cart = () => {
   const {cart, setPrice, price} = useContext(cartContext)
   console.log(price)
- 
-//  useEffect(() => {
-//   if(cart === 'Free'){
-//     setPrice(price)
-//   }else if(cart === 'Premium'){
-//     setPrice(price)
-//   } else if (cart === "Enterprise"){
-//     setPrice(price)
-//   } else {
-//    setPrice(0)
-//   }
-//  },[cart, price,setPrice])
-// console.log('cart', cart, price)
+
   return (
     <div className='text-center mx-auto justify-center items-center h-screen  bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]'>
       

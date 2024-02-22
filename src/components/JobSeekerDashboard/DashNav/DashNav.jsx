@@ -1,15 +1,16 @@
 "use client";
 import Image from "next/image";
 import logo from "@/assets/meetReadyLogo.png";
+import MeetLogo from "../../../../public/Meet.json";
 import {
   FaArrowLeft,
   FaArrowRight,
   FaArrowRightFromBracket,
   FaBars,
   FaCalendar,
+  FaHouse,
   FaLink,
   FaPlus,
-  
 } from "react-icons/fa6";
 import { RxAvatar } from "react-icons/rx";
 import Link from "next/link";
@@ -21,11 +22,12 @@ import DashNavButton from "@/components/DashNavButton/DashNavButton";
 import UserName from "../UserName/UserName";
 import UserImage from "../UserImage/UserImage";
 import { cartContext } from "@/utils/Cart/CartContext";
+import Lottie from "lottie-react";
 
 const DashNav = () => {
-  const {isClicked, setIsClicked} = useContext(cartContext)
-  const session = useSession()
-  const userImage = session?.data?.user?.image
+  const { isClicked, setIsClicked } = useContext(cartContext);
+  const session = useSession();
+  const userImage = session?.data?.user?.image;
 
   const pathname = usePathname();
 
@@ -41,8 +43,6 @@ const DashNav = () => {
             isClicked && "justify-center items-center"
           } flex-col relative`}
         >
-          
-
           {isClicked ? (
             <DashNavButton
               onClick={() => setIsClicked(false)}
@@ -61,30 +61,53 @@ const DashNav = () => {
 
           {isClicked ? (
             <Link href={"/"}>
-              <Image
-                src={mobileLogo}
-                width={"40"}
-                height={"150"}
-                alt="logo"
-                className="mt-2"
+              <Lottie
+                animationData={MeetLogo}
+                style={{
+                  width: "100px",
+                  height: "100px",
+                }}
               />
             </Link>
           ) : (
-            <Link href={"/"}>
-              <Image src={logo} width={"200"} height={"150"} alt="logo" />
-            </Link>
+            <div className="flex items-center">
+              <Lottie
+                animationData={MeetLogo}
+                style={{
+                  width: "100px",
+                  height: "100px",
+                }}
+              />
+              <p className="text-center text-3xl">
+                <span
+                  className="text-3xl font-black"
+                  style={{
+                    color: "white",
+                    WebkitTextFillColor: "black",
+                    WebkitTextStroke: "1.5px purple",
+                    fontSize: "28px",
+                    fontWeight: "bolder",
+                  }}
+                >
+                  MeetReady
+                </span>
+              </p>
+            </div>
           )}
           {isClicked ? "" : <UserName />}
 
-          {isClicked ? "" : <div className="flex justify-center">
-          <UserImage userImage={userImage}/>
-            </div>}
+          {isClicked ? (
+            ""
+          ) : (
+            <div className="flex justify-center">
+              <UserImage userImage={userImage} />
+            </div>
+          )}
 
           <Link
             href={"/Job-Seeker-Dashboard/createProfile"}
             className="flex justify-center items-center"
           >
-
             <DashNavButton
               className={`flex justify-start items-center hover:bg-purple-400 text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300 w-full  ${
                 isClicked && "btn glass"
@@ -93,7 +116,6 @@ const DashNav = () => {
               <FaPlus />
               {isClicked ? "" : "Create Profile"}
             </DashNavButton>
-
           </Link>
 
           <Link
@@ -125,19 +147,34 @@ const DashNav = () => {
           </Link>
         </div>
 
-        <div className="p-5">
-
-
-       <DashNavButton onClick={() => signOut()}
-            className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400">
-
-            <FaArrowRightFromBracket /> Log Out
+        <div className="p-3">
+          <Link href={"/"}>
+            <DashNavButton className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400">
+              {isClicked ? (
+                <FaHouse />
+              ) : (
+                <>
+                  <FaHouse /> Go to Home
+                </>
+              )}
+            </DashNavButton>
+          </Link>
+          <DashNavButton
+            onClick={() => signOut()}
+            className="w-full mt-2 flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
+          >
+            {isClicked ? (
+              <FaArrowRightFromBracket />
+            ) : (
+              <>
+                <FaArrowRightFromBracket /> Logout
+              </>
+            )}
           </DashNavButton>
         </div>
       </div>
 
       {/* mobile and tablet device dashboard nav */}
-
 
       <div className="drawer flex lg:hidden">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -163,21 +200,22 @@ const DashNav = () => {
             </Link>
 
             <hr />
-              
-              {/* USER NAME */}
 
-           <UserName/>
+            {/* USER NAME */}
 
-              {/* USER IMAGE */}
+            <UserName />
 
-           <div className="flex justify-center">
-          <UserImage userImage={userImage}/>
+            {/* USER IMAGE */}
+
+            <div className="flex justify-center">
+              <UserImage userImage={userImage} />
             </div>
 
             <Link href={"/Job-Seeker-Dashboard/createProfile"}>
               <DashNavButton
                 className={`btn glass bg-purple-300 hover:bg-purple-400  text-lg w-full flex justify-start items-center ${
-                  pathname === "/Job-Seeker-Dashboard/createProfile" && "bg-purple-500 "
+                  pathname === "/Job-Seeker-Dashboard/createProfile" &&
+                  "bg-purple-500 "
                 }`}
               >
                 <FaPlus />
@@ -208,20 +246,22 @@ const DashNav = () => {
 
             <hr />
 
-
-
             <DashNavButton
               onClick={() => signOut()}
               className="flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
             >
-              <FaArrowRightFromBracket /> Log Out
-
+              {isClicked ? (
+                <FaArrowRightFromBracket />
+              ) : (
+                <FaArrowRightFromBracket />
+              )}
+              {"Log Out"}
             </DashNavButton>
           </ul>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default DashNav
+export default DashNav;
