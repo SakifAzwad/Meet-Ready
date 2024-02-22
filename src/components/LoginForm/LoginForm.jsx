@@ -7,6 +7,7 @@ import Image from "next/image";
 import InputField from "../InputField/InputField";
 import Lottie from "lottie-react";
 import MeetLogo from "../../../public/Meet.json";
+import LoginAnimation from '../../assets/LoginAnimation.json'
 
 const LoginForm = () => {
   const router = useRouter();
@@ -32,13 +33,7 @@ const LoginForm = () => {
   return (
     <section className="flex flex-col md:flex-row h-screen items-center">
       <div className="bg-purple-300 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
-        <Image
-          src="https://i.ibb.co/nLK1vKw/12146011-Wavy-Gen-01-Single-07.png"
-          alt="login-image"
-          height={700}
-          width={500}
-          className=" w-full h-full object-cover py-12"
-        />
+        <Lottie style={{height:'90vh', marginTop:'90px'}}  animationData={LoginAnimation} />
       </div>
 
       <div className="bg-purple-100 w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12   flex items-center justify-center">
@@ -84,15 +79,6 @@ const LoginForm = () => {
                 autoFocus
                 required
               />
-              {/* <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Enter Email Address"
-                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-                autoFocus
-                required
-              /> */}
             </div>
 
             <div className="mt-4">
@@ -106,15 +92,6 @@ const LoginForm = () => {
                 className="w-full px-4 py-3 rounded-lg mt-2 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
                 required
               />
-              {/* <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Enter Password"
-                minLength="6"
-                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500                focus:bg-white focus:outline-none"
-                required
-              /> */}
             </div>
 
             <div className="text-right mt-2">
