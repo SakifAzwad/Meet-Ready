@@ -457,12 +457,12 @@ const CreateProfile = () => {
       if (data === "Profile data saved") {
         toast.success("Profile created successfully");
         router.push("/Job-Seeker-Dashboard/profile");
-      }else if(data === "Profile Exist"){
-        toast.error("You already created Profile.")
-        router.push("/Job-Seeker-Dashboard/profile")
-      } else{
-        toast.error("An error occurred. Try again.")
-        router.push("/Job-Seeker-Dashboard")
+      } else if (data === "Profile Exist") {
+        toast.error("You already created Profile.");
+        router.push("/Job-Seeker-Dashboard/profile");
+      } else {
+        toast.error("An error occurred. Try again.");
+        router.push("/Job-Seeker-Dashboard");
       }
     },
   });
@@ -478,14 +478,17 @@ const CreateProfile = () => {
     const address = form.address.value;
     const phone = form.phone.value;
     if (!image) {
+      toast.error("You Must upload an image.");
       console.log("You Must upload an image");
       return;
     }
     if (!pdf) {
+      toast.error("You Must upload an pdf");
       console.log("You Must upload an pdf");
       return;
     }
     if (!video) {
+      toast.error("You Must upload an video");
       console.log("You Must upload an video");
       return;
     }
@@ -503,7 +506,7 @@ const CreateProfile = () => {
       resume: pdf,
       introVideo: video,
       loginEmail,
-      publishableLink:'',
+      publishableLink: "",
     };
     console.log(profileData, loginEmail);
 
@@ -681,7 +684,6 @@ const CreateProfile = () => {
         autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
-       
         pauseOnHover
         theme="light"
       />

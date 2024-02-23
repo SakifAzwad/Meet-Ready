@@ -29,16 +29,16 @@ const ImageUpload = () => {
                   animate__animated
                   animate__fadeInUp
                   animate__faster
-                `
+                `,
               },
               hideClass: {
                 popup: `
                   animate__animated
                   animate__fadeOutDown
                   animate__faster
-                `
+                `,
               },
-              background: 'rgb(216 180 254)',
+              background: "rgb(216 180 254)",
               color: "white",
               timerProgressBar: true,
               iconColor: "rgb(126 34 206)",
@@ -51,12 +51,12 @@ const ImageUpload = () => {
         onUploadError={(error) => {
           Swal.fire({
             title: "Error",
-            text: `error.message`,
+            text: `${error.message}`,
             icon: "error",
             showConfirmButton: false,
             timer: 5000,
             position: "top-end",
-            background: 'rgb(216 180 254)',
+            background: "rgb(216 180 254)",
             color: "red",
             timerProgressBar: true,
             iconColor: "rgb(126 34 206)",
