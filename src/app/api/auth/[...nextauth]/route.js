@@ -55,20 +55,17 @@ export const authOptions = {
             //Todo use this when active local site http://localhost:3000/
             const role = "newUser";
             console.log("role", role);
-            const res = await fetch(
-              "https://meet-ready.vercel.app/api/register",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  name,
-                  email,
-                  role,
-                }),
-              }
-            );
+            const res = await fetch("http://localhost:3000/api/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name,
+                email,
+                role,
+              }),
+            });
             console.log(res);
             if (res.ok) {
               return user;
