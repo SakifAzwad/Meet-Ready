@@ -21,7 +21,6 @@ const JobSeekerDashboardLayout = async ({ children }) => {
   }
   return (
     <div className="">
-      <div><DashNav/></div>
       <div className="max-w-7xl mx-auto min-h-screen">{ children }</div>
     </div>
   )
