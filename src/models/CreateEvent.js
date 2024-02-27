@@ -60,5 +60,5 @@ const createEventSchema = new mongoose.Schema({
 
 
 const CreateEvent =
-  models.CreateEvent || mongoose.model("CreateEvent", createEventSchema);
+  models?.CreateEvent || mongoose.model("CreateEvent", createEventSchema);
 export default CreateEvent;

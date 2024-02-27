@@ -21,10 +21,21 @@ export default async function DashboardLayout({ children }) {
   }
   return (
     <html lang="en" data-theme="light">
-      <body className="flex justify-between bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF] ">
-        <DashNav />
-        <div className="max-w-7xl mx-auto min-h-screen">{children}</div>
-      </body>
+      <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
+        <div>
+          <DashNav />
+        </div>
+        <div
+          style={{
+            flex: 1,
+            overflowY: "auto",
+          }}
+          className="lg:px-20"
+        >
+          {/* Content area */}
+          {children}
+        </div>
+      </div>
     </html>
   );
 }
