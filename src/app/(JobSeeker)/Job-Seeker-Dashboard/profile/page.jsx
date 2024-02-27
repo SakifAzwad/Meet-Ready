@@ -12,6 +12,8 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useState } from "react";
+import LoadingAnimation from '../../../../assets/LoadingAnimation.json'
+import Lottie from "lottie-react";
 
 const Profile = () => {
   const session = useSession();
@@ -89,7 +91,9 @@ const Profile = () => {
   };
 
   if (!email || isLoading) {
-    return <p>Loading.......</p>;
+    return <div className="flex items-center justify-center">
+      <Lottie animationData={LoadingAnimation} color="purple" style={{width: '500px', height: '80vh'}}/>
+    </div>
   }
 
   console.log(data);

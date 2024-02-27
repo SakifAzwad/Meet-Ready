@@ -3,6 +3,7 @@ import { CartProvider } from "@/utils/Cart/CartContext";
 import { QueryProvider } from "@/utils/QueryClientProvider";
 import AuthProvider from "@/utils/SessionProvider";
 import { Toaster } from "react-hot-toast";
+import './globals.css'
 
 export const metadata = {
   title: "MeetReady",
