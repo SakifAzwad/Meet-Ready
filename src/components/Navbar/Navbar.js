@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const currentPathName = usePathname();
   useEffect(() => {
-      setCurrentPath(currentPathName);
+    setCurrentPath(currentPathName);
   }, [currentPathName]);
 
   //   if (typeof window !== 'undefined') {
@@ -57,7 +57,7 @@ const Navbar = () => {
       data-testid="homeNavbar"
       className={`sticky top-0 z-50 bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]`}
     >
-      <div className={`flex items-center justify-between lg: `}>
+      <div className={`flex items-center justify-between `}>
         <div className="flex space-x-6 items-center">
           {/* <Image
             className="py-4 ml-12 mr-4"
@@ -74,7 +74,18 @@ const Navbar = () => {
                 height: "90px",
               }}
             />
-            <p className="mt-2">
+            <div className="container">
+              <span>M</span>
+              <span>E</span>
+              <span>E</span>
+              <span>T</span>
+              <span>R</span>
+              <span>E</span>
+              <span>A</span>
+              <span>D</span>
+              <span>Y</span>
+            </div>
+            {/*  <p className="mt-2">
               <span
                 className="font-black"
                 style={{
@@ -87,52 +98,74 @@ const Navbar = () => {
               >
                 MeetReady
               </span>
-            </p>
+            </p> */}
           </div>
-          <ul className="hidden lg:flex text-col0 font-light justify-evenly items-center gap-x-4 text-lg menu-vertical lg:menu-horizontal px-1">
-            <li
-              className={currentPath === "/" ? `text-purple-800 font-bold` : ``}
-            >
-              <a
-                className="relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
-                href="/"
+          <div>
+            <ul className="hidden lg:flex text-col0 font-light justify-evenly items-center gap-x-4 text-lg menu-vertical lg:menu-horizontal px-1">
+              <li
+                className={
+                  currentPath === "/" ? `text-purple-800 font-bold` : ``
+                }
               >
-                Home
-              </a>
-            </li>
-            <li  className={currentPath === "/features" ? `text-purple-800 font-bold` : ``}>
-              <Link
-                className=" relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
-                href="/features"
+                <a
+                  className="relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
+                  href="/"
+                >
+                  Home
+                </a>
+              </li>
+              <li
+                className={
+                  currentPath === "/features" ? `text-purple-800 font-bold` : ``
+                }
               >
-                Features
-              </Link>
-            </li>
-            <li  className={currentPath === "/pricing" ? `text-purple-800 font-bold` : ``}>
-              <Link
-                className=" relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
-                href="/pricing"
+                <Link
+                  className=" relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
+                  href="/features"
+                >
+                  Features
+                </Link>
+              </li>
+              <li
+                className={
+                  currentPath === "/pricing" ? `text-purple-800 font-bold` : ``
+                }
               >
-                Pricing
-              </Link>
-            </li>
-            <li  className={currentPath === "/dashboard" ? `text-purple-800 font-bold` : ``}>
-              <Link
-                className=" relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
-                href="/dashboard"
+                <Link
+                  className=" relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
+                  href="/pricing"
+                >
+                  Pricing
+                </Link>
+              </li>
+              <li
+                className={
+                  currentPath === "/dashboard"
+                    ? `text-purple-800 font-bold`
+                    : ``
+                }
               >
-                Dashboard
-              </Link>
-            </li>
-            <li  className={currentPath === "/about" ? `text-purple-800 font-bold` : ``}>
-              <Link
-                className="relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
-                href="/about"
+                <Link
+                  className=" relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
+                  href="/dashboard"
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li
+                className={
+                  currentPath === "/about" ? `text-purple-800 font-bold` : ``
+                }
               >
-                About Us
-              </Link>
-            </li>
-          </ul>
+                <Link
+                  className="relative after:bg-purple-500 after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer"
+                  href="/about"
+                >
+                  About Us
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="lg:flex hidden">

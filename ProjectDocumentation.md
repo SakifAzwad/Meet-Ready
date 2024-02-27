@@ -7,6 +7,24 @@
 - The live link of the project is https://meet-ready.vercel.app/
 - Below I will describe my contribution to the project.
 
+### Feature Implementation
+
+1. Stripe payment backend part and frontend integration but not frontend design. (1 feature)
+
+2. Full CRUD operation for employer dashboard routes. (2 features)
+
+3. Backend part of event confirmation page. (1 feature)
+
+4. Email sending functionality.(1 feature)
+
+5. Full CRUD operation for job seeker routes including frontend design. (2 features)
+
+6. Full implementation of Facebook messenger chat option. (1 feature)
+
+7. Role based authentication with next auth.(Not counted as feature)
+
+
+
 ### Authentication
 - I was responsible for implementing the authentication part of the project. I worked on both the frontend and backend part of auth related functionality.
 - I used next-auth. I implemented Credential Provider and Google Provider for registration and login.
@@ -27,15 +45,10 @@
 
 ### Front end design
 - I created an edit-event route and designed the page.
-
-### Front end Design adjustment
-
-- In the dashboard navbar I changed the button color to theme color.
-- In the create-event route I implemented the DRY principle in rendering options of a select input. I also changed the design structure of the page to integrate the functionality with the server more smoothly. I also applied some conditional logic here. First one is when the user selects a date from a date range that time a new row will appear for each date that will show the date, relevant day and a time select dropdown. Rows for date,day and time can be increased or decreased by just changing the date from the date field. Second one is the value in time select dropdown list will change dynamically based on the duration selected in the duration dropdown list.
-- In our scheduled-even route I changed the card background color and added some extra field in the card.
-
-- I changed the input field in navbar, footer, editEvent, createEvent page and used single InputField component. 
-
+- Job seeker profile page. 
+- Job seeker public profile page. 
+- Cart page. 
+- Payment page.
 - I implemented facebook messenger features in our page. 
 
 - I created Job-Seeker-Dashboard route and its layout page.
@@ -49,6 +62,16 @@
 - I designed the role setting page that will be used for role setting for new user. 
 
 - I designed ImageUpload, PdfUpload, VideoUpload, UserImage, UserName component for using in create-profile page. 
+
+### Front end Design adjustment
+
+- In the dashboard navbar I changed the button color to theme color.
+- In the create-event route I implemented the DRY principle in rendering options of a select input. I also changed the design structure of the page to integrate the functionality with the server more smoothly. I also applied some conditional logic here. First one is when the user selects a date from a date range that time a new row will appear for each date that will show the date, relevant day and a time select dropdown. Rows for date,day and time can be increased or decreased by just changing the date from the date field. Second one is the value in time select dropdown list will change dynamically based on the duration selected in the duration dropdown list.
+- In our scheduled-even route I changed the card background color and added some extra field in the card.
+
+- I changed the input field in navbar, footer, editEvent, createEvent page and used single InputField component. 
+
+
 
 ### Api creation at the backend
 - Post route for event creation. This route will get data from the create-event page and save it to the database. For this is written CreateEvent schema also.
@@ -66,6 +89,14 @@
 - I created patch route for role setting inside the api/register route.
 
 - I created api/uploadthing route for image, pdf and video posting. 
+
+- I created the post route for sending jobseeker data to database. 
+
+- I created the get route for getting information for job seeker profile page. 
+
+- I created patch route for updating the publishable link from the profile page of job seeker. 
+
+- I created the get route for sending data to public profile page. 
 
 ### CRUD operation in the frontend
 - In the register route I created a handleSubmit function that takes register form data and posts it to the '/api/register' route. Using the useRouter hook I also redirected users to the login page once registration is successful.
@@ -87,4 +118,9 @@
 - In the event page I fetched data from the server based on event id and store in the state. I also send booking data to the server using a post request. I also populated the data received from server to the ui.
 
 - I changed all the api calling from fetch to tanstack and axios.
+
+
+### Other
+
+- I implemented automatic email sending after confirmation from the job seeker. 
 

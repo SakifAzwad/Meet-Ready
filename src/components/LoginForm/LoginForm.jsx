@@ -65,7 +65,18 @@ const LoginForm = () => {
                 height: "170px",
               }}
             />
-            <p className="text-center text-3xl">
+            <div className="container">
+              <span>M</span>
+              <span>E</span>
+              <span>E</span>
+              <span>T</span>
+              <span>R</span>
+              <span>E</span>
+              <span>A</span>
+              <span>D</span>
+              <span>Y</span>
+            </div>
+            {/* <p className="text-center text-3xl">
               <span
                 className="text-3xl font-black"
                 style={{
@@ -78,7 +89,7 @@ const LoginForm = () => {
               >
                 MeetReady
               </span>
-            </p>
+            </p> */}
           </div>
 
           <h1 className="text-xl md:text-2xl font-bold leading-tight text-center">
