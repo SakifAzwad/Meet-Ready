@@ -1,10 +1,5 @@
 const EventCreatingForm = () => {
-  return (
-    <>
-      {/* old Form */}
-      {/* update Form */}
-    </>
-  );
+  return <></>;
 };
 
 export default EventCreatingForm;
