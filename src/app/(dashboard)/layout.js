@@ -22,7 +22,7 @@ export default async function DashboardLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
       <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
-        <div>
+        <div className="lg:w-72">
           <DashNav />
         </div>
         <div
@@ -30,7 +30,7 @@ export default async function DashboardLayout({ children }) {
             flex: 1,
             overflowY: "auto",
           }}
-          className="lg:px-20"
+          className="md:px-10"
         >
           {/* Content area */}
           {children}
