@@ -121,7 +121,7 @@ const ScheduledEvent = () => {
                       <CgProfile />
                     </span>{" "}
                     Interviewer:{" "}
-                    <span className="text-normal font-normal">
+                    <span className="text-normal font-normal text-purple-500">
                       {event?.name}
                     </span>
                   </p>
