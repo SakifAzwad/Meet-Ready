@@ -1,6 +1,5 @@
 import DashNav from "@/components/JobSeekerDashboard/DashNav/DashNav";
-
-import JobSeekerDashboardLayout from "../../layout";
+import Layout from "../layout";
 
 export const metadata = {
   title: "MeetReady || CreateProfile",
@@ -8,9 +7,9 @@ export const metadata = {
 };
 function layout({ children }) {
   return (
-    <JobSeekerDashboardLayout withNavbar={false}>
+    <Layout withNavbar={false}>
       {children}
-    </JobSeekerDashboardLayout>
+    </Layout>
   );
 }
 
