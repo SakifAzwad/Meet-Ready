@@ -4,6 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import toast from "react-hot-toast";
 import {
   FaCheck,
   FaClipboard,
@@ -35,7 +36,7 @@ const EventCard = ({ event }) => {
       meetLinkRef.current.select();
       navigator.clipboard.writeText(meetLinkRef.current.value);
       // Optionally, you can provide feedback to the user
-      alert("Link copied to clipboard!");
+      toast.success('Link copied to clipboard!')
     }
   };
 
