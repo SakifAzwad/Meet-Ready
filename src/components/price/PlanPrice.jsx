@@ -4,21 +4,23 @@ import FeatureTable from "./FeatureTable";
 import CarouselAppointment from "./CallosalApointment";
 
 const PlanPrice = () => {
-    const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(true);
 
   const handleButtonClick = () => {
-    setIsChecked(!isChecked); 
+    setIsChecked(!isChecked);
   };
   return (
     <div className="items-center">
       <div>
-        <h1 className="text-center font-black text-black text-2xl md:text-3xl lg:text-5xl"
-                                        style={{
-                                            color: "black",
-                                            WebkitTextFillColor: "black",
-                                            WebkitTextStroke: "1.5px violet",
-                                            fontWeight: "bolder",
-                                        }}>
+        <h1
+          className="text-center font-black text-black text-2xl md:text-3xl lg:text-5xl"
+          style={{
+            color: "black",
+            WebkitTextFillColor: "black",
+            WebkitTextStroke: "1.5px violet",
+            fontWeight: "bolder",
+          }}
+        >
           All Plans Include A 30-Day Money Back Guarantee
         </h1>
       </div>
@@ -44,8 +46,16 @@ const PlanPrice = () => {
           </div>
           <div className="form-control w-52">
             <label className="cursor-pointer label">
-              <button className="py-2 w-40 h-16 px-6 mb-4 mt-6 text-sky-700 shadow-lg rounded-lg before:block before:-left-1 before:-top-1 before:bg-sky-700 before:absolute before:h-0 before:w-0 before:hover:w-[100%] before:hover:h-[100%]  before:duration-500 before:-z-40 after:block after:-right-1 after:-bottom-1 after:bg-sky-700 after:absolute after:h-0 after:w-0 after:hover:w-[100%] after:hover:h-[100%] after:duration-500 after:-z-40 bg-white relative inline-block">
-                Save 20%
+              <button className="py-2 w-40 h-16 px-6 mb-4 mt-6 rounded-lg before:block before:-left-1 before:-top-1 before:bg-sky-700 before:absolute before:h-0 before:w-0 before:hover:w-[100%] before:hover:h-[100%]  before:duration-500 before:-z-40 after:block after:-right-1 after:-bottom-1 after:bg-sky-700 after:absolute after:h-0 after:w-0 after:hover:w-[100%] after:hover:h-[100%] after:duration-500 after:-z-40 bg-white relative inline-block">
+                <span
+                  className={
+                    isChecked
+                      ? "text-red-500 font-bold text-xl"
+                      : "text-black font-bold text-xl"
+                  }
+                >
+                  Save 20%
+                </span>
               </button>
             </label>
           </div>

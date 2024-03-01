@@ -60,6 +60,7 @@ const CardPrice = ({dolar, popularity, learn, amount, time, svg}) => {
                       <span className="absolute w-12 group-hover:w-[93%] duration-300 flex group-hover:justify-start rounded-full inset-2 bg-sky-300 group-hover:bg-sky-500 group-hover:duration-500 -z-10"></span>
                       Buy This Plan
                   </button>
+                  
                   </Link>
                   <p className="text-center text-white italic mt-2">(No credit card required)</p>
               </div>

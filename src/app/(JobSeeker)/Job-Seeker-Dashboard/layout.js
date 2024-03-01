@@ -1,7 +1,8 @@
 
 import Navbar from "@/components/Navbar/Navbar";
 import '../../globals.css';
-import DashNav from "@/components/DashNav/DashNav";
+import DashNav from "@/components/JobSeekerDashboard/DashNav/DashNav";
+
 
 
 

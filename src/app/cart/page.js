@@ -1,28 +1,37 @@
-'use client'
-import { cartContext } from '@/utils/Cart/CartContext';
-import Link from 'next/link';
-import React, { useContext, useEffect } from 'react'
+"use client";
+import { cartContext } from "@/utils/Cart/CartContext";
+import Link from "next/link";
+import React, { useContext, useEffect } from "react";
 
 const Cart = () => {
-  const {cart, setPrice, price} = useContext(cartContext)
-  console.log(price)
+  const { cart, setPrice, price } = useContext(cartContext);
+  console.log(price);
 
   return (
-    <div className='text-center mx-auto justify-center items-center h-screen  bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]'>
-      
-      <p className='text-purple-800 text-5xl lg:pt-36 pb-12 '> {cart} Package</p>
-    <p className='text-purple-800 text-3xl pb-12'>Price: ${price}</p>
-    {
-      cart.length ? 
-    <Link href={`/payment/${price}` }>
-    <button 
-     className=' hover:bg-purple-500 disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"'>Proceed to Pay</button>
-    </Link> : <button 
-    disabled={!cart.length}
-    className='btn '>Pay</button>
-    }
+    <div className="text-center mx-auto justify-center items-center h-screen  bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF]">
+      <p className="text-purple-800 text-5xl lg:pt-36 pb-12 ">
+        {" "}
+        {cart} Package
+      </p>
+      <p className="text-purple-800 text-3xl pb-12">Price: ${price}</p>
+      {cart.length ? (
+        <Link href={`/payment/${price}`}>
+          <button className="text-xl w-60 rounded-lg font-bold h-16 text-white bg-purple-700 overflow-hidden relative z-10 group hover:text-black transition duration-500 ease-in-out">
+            Proceed to Pay
+            <span className="bg-purple-700 group-hover:scale-125 scale-0  delay-50 w-36 h-36 rounded-full absolute mx-auto my-auto inset-0 -z-10 transition duration-500 ease-in-out"></span>
+            <span className="bg-purple-600 group-hover:scale-125 scale-0  delay-100 w-32 h-32 rounded-full absolute mx-auto my-auto inset-0 -z-10 transition duration-500 ease-in-out"></span>
+            <span className="bg-purple-500 group-hover:scale-125 scale-0  delay-200 w-28 h-28 rounded-full absolute mx-auto my-auto inset-0 -z-10 transition duration-500 ease-in-out"></span>
+            <span className="bg-purple-400 group-hover:scale-125 scale-0  delay-300 w-24 h-24 rounded-full absolute mx-auto my-auto inset-0 -z-10 transition duration-500 ease-in-out"></span>
+            <span className="bg-purple-400 group-hover:scale-125 scale-0  delay-400 w-20 h-20 rounded-full absolute mx-auto my-auto inset-0 -z-10 transition duration-500 ease-in-out"></span>
+          </button>
+        </Link>
+      ) : (
+        <button disabled={!cart.length} className="btn ">
+          Pay
+        </button>
+      )}
     </div>
   );
-}
+};
 
-export default Cart
+export default Cart;
