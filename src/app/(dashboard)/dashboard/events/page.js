@@ -6,7 +6,6 @@ import Loading from "@/components/Loading/Loading";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { use, useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Events = () => {
@@ -45,16 +44,16 @@ const Events = () => {
     shareableLink: `https://meet-ready.vercel.app/event/${event._id}`,
   }));
 
-  console.log('upadated event data', updatedEventData);
+  console.log("upadated event data", updatedEventData);
 
   return (
-    <div className="flex flex-col justify-start mt-16 space-y-5">
-      <div className="flex justify-center items-center relative border-2">
-        <FaMagnifyingGlass className="text-xl absolute left-2 text-gray-600" />
+    <div className="flex flex-col justify-start mt-16 space-y-5 px-8 md:px-2 lg:px-0">
+      <div className="flex justify-center items-center relative ">
+        <FaMagnifyingGlass className="text-lg absolute left-3 text-gray-600" />
         <InputField
           type="text"
-          placeholder="Search your event here"
-          className="input input-bordered pl-8 font-medium text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 w-full"
+          placeholder="Search event..."
+          className="input input-bordered pl-10 font-medium text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 w-full"
         />
       </div>
 
@@ -62,13 +61,13 @@ const Events = () => {
         Events
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 ">
         {updatedEventData ? (
           updatedEventData?.map((event) => (
             <EventCard key={event._id} event={event} />
           ))
         ) : (
-          <p>No data to show</p>
+          <p className="text-2xl text-center font-semibold">No data to show</p>
         )}
       </div>
     </div>

@@ -12,7 +12,7 @@ const CreateEvent = () => {
       </h1>
 
       <div className="flex md:flex-row justify-center gap-8 items-center flex-col">
-        <div className="relative md:w-96 md:h-96 bg-purple-100 w-full border-2 shadow-lg px-6 rounded-md ">
+        <div className="relative md:w-96 h-full md:h-96 bg-purple-100 w-full border-2 shadow-lg px-6 rounded-md ">
           <Lottie style={{ height: "150px" }} animationData={MeetAnimation} />
           <h1 className="text-2xl font-semibold text-center mb-4 text-black">
             One-on-One
@@ -22,21 +22,22 @@ const CreateEvent = () => {
             sales executives, realtors, HR consultants
           </p>
 
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <Link href={"/dashboard/createNewEvent"}>
-              <button className="text-lg py-2 px-4 rounded-md before:block before:absolute hover:before:bg-pink-300 before:w-0 before:h-0 hover:before:h-20 hover:before:w-40 before:-bottom-2 before:-right-2 before:duration-500 before:rounded-xl before:-z-10 relative inline-block transform  font-medium bg-transparent border-2 overflow-hidden border-purple-900 duration-500">
-                Visit Page
-              </button>
-            </Link>
-          </div>
+          <Link
+            className="md:absolute bottom-8 pl-24 md:pl-0 left-1/2 transform -translate-x-1/2"
+            href={"/dashboard/createNewEvent"}
+          >
+            <button className="text-lg py-2 px-4 rounded-md before:block before:absolute hover:before:bg-pink-300 before:w-0 before:h-0 hover:before:h-20 hover:before:w-40 before:-bottom-2 before:-right-2 before:duration-500 before:rounded-xl before:-z-10 relative inline-block transform  font-medium bg-transparent border-2 overflow-hidden border-purple-900 duration-500">
+              Visit Page
+            </button>
+          </Link>
         </div>
 
-        <div className="relative md:w-96 md:h-96 bg-purple-100 w-full border-2 shadow-lg px-6 rounded-md">
+        <div className="relative md:w-96 h-full md:h-96 bg-purple-100 w-full border-2 shadow-lg px-6 rounded-md">
           <Lottie
             style={{ height: "120px", marginTop: "10px" }}
             animationData={GroupMeet}
           />
-          <h1 className="text-2xl font-semibold text-center mt-4 text-black">
+          <h1 className="text-2xl font-semibold text-center my-4 text-black">
             Group Sessions
           </h1>
           <p className="h-[80px]">
@@ -44,13 +45,14 @@ const CreateEvent = () => {
             yoga classes, virtual events.
           </p>
 
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <Link href={"/dashboard/teamEvent"}>
-              <button className="text-lg py-2 px-4 rounded-md before:block before:absolute hover:before:bg-pink-300 before:w-0 before:h-0 hover:before:h-20 hover:before:w-40 before:-bottom-2 before:-right-2 before:duration-500 before:rounded-xl before:-z-10 relative inline-block transform  font-medium bg-transparent border-2 overflow-hidden border-purple-900 duration-500">
-                Visit Page
-              </button>
-            </Link>
-          </div>
+          <Link
+            className="md:absolute pl-24 md:pl-0 bottom-8 left-1/2 transform -translate-x-1/2"
+            href={"/dashboard/teamEvent"}
+          >
+            <button className="text-lg py-2 px-4 rounded-md before:block before:absolute hover:before:bg-pink-300 before:w-0 before:h-0 hover:before:h-20 hover:before:w-40 before:-bottom-2 before:-right-2 before:duration-500 before:rounded-xl before:-z-10 relative inline-block transform  font-medium bg-transparent border-2 overflow-hidden border-purple-900 duration-500 ">
+              Visit Page
+            </button>
+          </Link>
         </div>
       </div>
     </div>
