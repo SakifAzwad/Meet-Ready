@@ -66,6 +66,7 @@ const TwoPersonEvent = () => {
   // State to store selected event duration
   const [eventDuration, setEventDuration] = useState("");
   const queryClient = useQueryClient();
+  const [meetLinks, setMeetLinks] = useState([]);
 
   // Function to generate an array of dates between two dates
   const getDatesInRange = (start, end) => {
@@ -163,6 +164,34 @@ const TwoPersonEvent = () => {
   const eHandle = (event) => {
     setLocation(event.target.value);
   };
+
+  const handleGoogleMeetLink = async () => {
+    try {
+      const response = await axios.get("/meetLink.json");
+      const meetLinks = response?.data; 
+      if (!Array.isArray(meetLinks) || meetLinks.length === 0) {
+        console.error("Meet links data is not valid.");
+        return null;
+      }
+      const shuffledMeetLinks = shuffleArray(meetLinks);
+      const randomMeetLink = shuffledMeetLinks[0];
+      const meetingLink = randomMeetLink?.link;
+      console.log(meetingLink);
+      setMeetLinks(meetingLink);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  };
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  
+  
 
   return (
     <>
@@ -308,6 +337,7 @@ const TwoPersonEvent = () => {
                 className={`border outline-none  p-2 rounded-md  ${
                   location ? "w-5/6" : "w-full"
                 }`}
+                value={meetLinks}
                 type="text"
                 name="meetingLink"
                 placeholder={"https://meet.example.com/late-night-meet"}
@@ -326,13 +356,13 @@ const TwoPersonEvent = () => {
               )}
 
               {location === "meet" ? (
-                <Link
+                <button
                   className="w-1/6 border flex justify-center items-center border-purple-500 p-2 text-blue-500"
-                  href="https://meet.google.com/ "
+                  onClick={handleGoogleMeetLink}
                   target="_blank"
                 >
                   Create
-                </Link>
+                </button>
               ) : (
                 ""
               )}
