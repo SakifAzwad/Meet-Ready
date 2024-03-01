@@ -5,7 +5,7 @@ export function middleware(request) {
 
   const isPublicPath = path === "/login" || path === "/register";
 
-  // TODO active this when using live site
+  // // TODO active this when using live site
   const token =
     request.cookies.get("__Secure-next-auth.session-token")?.value || "";
 
