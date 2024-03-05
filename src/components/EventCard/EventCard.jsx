@@ -4,6 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import toast from "react-hot-toast";
 import {
   FaCheck,
   FaClipboard,
@@ -35,7 +36,7 @@ const EventCard = ({ event }) => {
       meetLinkRef.current.select();
       navigator.clipboard.writeText(meetLinkRef.current.value);
       // Optionally, you can provide feedback to the user
-      alert("Link copied to clipboard!");
+      toast.success('Link copied to clipboard!')
     }
   };
 
@@ -45,74 +46,84 @@ const EventCard = ({ event }) => {
 
   const deleteEvent = async (id) => {
     try {
-      const res = await axios.delete(`/api/createEvent/${id}`)
-      return res.data
+      const res = await axios.delete(`/api/createEvent/${id}`);
+      return res.data;
     } catch (error) {
-      console.log(error)
-      throw error
+      console.log(error);
+      throw error;
     }
-  }
+  };
 
   // Tanstack query is used to call deleteEvent function
 
-  const {mutateAsync: deleteMutateAsync} = useMutation({
+  const { mutateAsync: deleteMutateAsync } = useMutation({
     mutationFn: deleteEvent,
     onSuccess: (data) => {
-      console.log(data)
-      if(data === 'Item Deleted' ){
-      // Todo toast should be shown
-        queryClient.invalidateQueries(['singleEventDataGet'])
+      console.log(data);
+      if (data === "Item Deleted") {
+        // Todo toast should be shown
+        queryClient.invalidateQueries(["singleEventDataGet"]);
       }
-    }
-  })
+    },
+  });
 
   const handleDelete = async (id) => {
     // Todo a alert should be shown that the user is sure something like that
     // calling mutateAsync function
-    deleteMutateAsync(id)
-    
+    deleteMutateAsync(id);
   };
 
   // Finish functionality---------
 
   // Creating function to update the status of an event
-  const updateEventStatus = async(id) => {
+  const updateEventStatus = async (id) => {
     try {
-      const res = await axios.patch(`/api/createEvent/${id}`)
+      const res = await axios.patch(`/api/createEvent/${id}`);
       return res;
     } catch (error) {
-      console.log(error)
-    throw error;
+      console.log(error);
+      throw error;
     }
-  }
+  };
 
-// Using tanstack query and axios to send patch request
+  // Using tanstack query and axios to send patch request
 
-const {data, mutateAsync} = useMutation({
-  mutationFn: updateEventStatus,
-  onSuccess: (data) => {
-    if(data.status === 200){
-      // Todo implement toast
-    // toast.success('Lead successfully updated!');
-    queryClient.invalidateQueries(['singleEventDataGet'])
-    }
-  }
-})
+  const { data, mutateAsync } = useMutation({
+    mutationFn: updateEventStatus,
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        // Todo implement toast
+        // toast.success('Lead successfully updated!');
+        queryClient.invalidateQueries(["singleEventDataGet"]);
+      }
+    },
+  });
 
-// Onclick handler
+  // Onclick handler
   const handleFinish = async (id) => {
-       mutateAsync(id)
+    mutateAsync(id);
   };
 
   return (
-    <div>
-      <div className="border-t-2 w-72 relative border-purple-500 bg-white p-5 rounded-md space-y-3">
-        <div className="absolute right-2 top-2">
-          <div className="dropdown dropdown-bottom dropdown-end">
-            <div tabIndex={0} role="button" className="btn m-1 btn-sm ">
-              <FaGear 
-              data-testid='faGearIcon'
-              />
+    <>
+      <div className="border border-t-2  shadow-purple-500 border-t-purple-500 bg-white p-6 rounded-md space-y-3 hover:shadow-md">
+        <div className="flex justify-between relative">
+          <div>
+            <h1 className="text-xl font-medium">{eventTitle}</h1>
+            <h1 className="text-base font-extralight">
+              {eventDuration}, One-on-One
+            </h1>
+            <h1 className="text-base font-extralight">
+              {fromTime}, {eventDate}
+            </h1>
+            <h1 className="text-base font-extralight">
+              <span className="font-semibold">Status</span>: {eventStatus}
+            </h1>
+          </div>
+          {/* dropdown */}
+          <div className="absolute dropdown dropdown-bottom dropdown-end right-0">
+            <div tabIndex={0} role="button" className="">
+              <FaGear />
             </div>
             {/* edit, delete and complete icon  */}
             <ul
@@ -152,18 +163,7 @@ const {data, mutateAsync} = useMutation({
           </div>
         </div>
         {/* Card body */}
-        <div>
-          <h1 className="text-xl font-medium">{eventTitle}</h1>
-          <h1 className="text-base font-extralight">
-            {eventDuration}, One-on-One
-          </h1>
-          <h1 className="text-base font-extralight">
-            {fromTime}, {eventDate}
-          </h1>
-          <h1 className="text-base font-extralight">
-            <span className="font-semibold">Status</span>: {eventStatus}
-          </h1>
-        </div>
+
         <hr />
 
         {/* open and share button */}
@@ -172,7 +172,7 @@ const {data, mutateAsync} = useMutation({
           <Link
             target="_blank"
             href={meetingLink}
-            className="btn btn-sm flex justify-center items-center gap-2 border border-purple-500"
+            className="px-2 py-1 font-medium rounded-md border border-purple-500 hover:bg-purple-500 hover:text-white hover:shadow-md"
           >
             Open
           </Link>
@@ -181,7 +181,7 @@ const {data, mutateAsync} = useMutation({
             onClick={() =>
               document.getElementById(`my_modal_${_id}`).showModal()
             }
-            className="btn btn-sm flex justify-center items-center gap-2 border border-sky-500 "
+            className="px-2 py-1 flex font-medium justify-center items-center gap-2 border rounded-md hover:text-white hover:bg-purple-500 hover:shadow-md border-purple-500"
           >
             <FaShare /> Share
           </button>
@@ -224,7 +224,7 @@ const {data, mutateAsync} = useMutation({
           </div>
         </div>
       </dialog>
-    </div>
+    </>
   );
 };
 

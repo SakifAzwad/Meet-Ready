@@ -131,7 +131,7 @@ const DashNav = () => {
             </DashNavButton>
           </Link>
 
-          <Link
+          {/* <Link
             href={"/dashboard/scheduled-event"}
             className="flex justify-center items-center"
           >
@@ -144,7 +144,7 @@ const DashNav = () => {
             >
               <FaCalendar /> {isClicked ? "" : "Scheduled Events"}
             </DashNavButton>
-          </Link>
+          </Link> */}
         </div>
 
         <div className="p-3">

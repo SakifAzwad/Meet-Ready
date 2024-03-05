@@ -3,7 +3,7 @@ import Lottie from "lottie-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import MeetLogo from "../../../public/Meet.json";
 import LoginAnimation from "../../assets/LoginAnimation.json";
@@ -14,6 +14,45 @@ const LoginForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isClick, setIsClick] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [buttonPosition, setButtonPosition] = useState('right');
+  const buttonRef = useRef(null);
+  const [formFilled, setFormFilled] = useState(false);
+
+  const rangeRef = useRef(null);
+  
+
+  const handleMouseMove = (e) => {
+    if (!formFilled) {
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      if (
+        (buttonPosition === 'left' && mouseX > buttonRect.left - 30 && mouseX < buttonRect.right) ||
+        (buttonPosition === 'right' && mouseX < buttonRect.right + 30 && mouseX > buttonRect.left)
+      ) {
+        setButtonPosition((prevPosition) => (prevPosition === 'left' ? 'right' : 'left'));
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [buttonPosition, formFilled]);
+
+  useEffect(() => {
+    if(email && password){
+      setFormFilled(true)
+    }
+  },[email, password])
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +93,9 @@ const LoginForm = () => {
         />
       </div>
 
-      <div className="bg-purple-100 w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12   flex items-center justify-center">
+      <div 
+      id="range"
+      className="bg-purple-100 w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12   flex items-center justify-center">
         <div className="w-full h-100">
           <div className="flex items-center justify-center">
             <Lottie
@@ -85,7 +126,9 @@ const LoginForm = () => {
             Log in to your account
           </h1>
 
-          <form className="mt-6" onSubmit={handleSubmit}>
+          <form 
+          
+          className="mt-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-gray-700">Email Address</label>
               <InputField
@@ -93,6 +136,8 @@ const LoginForm = () => {
                 name="email"
                 id="email"
                 placeholder="Enter Email Address"
+                value={email}
+              onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg mt-2text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
                 autoFocus
                 required
@@ -107,6 +152,8 @@ const LoginForm = () => {
                 id="password"
                 placeholder="Enter Password"
                 minLength="6"
+                value={password}
+              onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg mt-2 text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
                 required
               />
@@ -120,7 +167,8 @@ const LoginForm = () => {
                 Forgot Password?
               </a>
             </div>
-            {!loading ? (
+           {
+            formFilled ? ( !loading ? (
               <button
                 type="submit"
                 className="w-full block bg-purple-400 hover:bg-purple-500 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
@@ -129,7 +177,19 @@ const LoginForm = () => {
               </button>
             ) : (
               <Spinner />
-            )}
+            )) : (
+              <div className="h-20">
+                 <button
+              type="submit"
+              ref={buttonRef}
+              style={{ position: "absolute", bottom: 130, [buttonPosition]: 100, transition: "left 0.5s, right 0.5s" }}
+              className=" block bg-purple-400 hover:bg-purple-500 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-4"
+            >
+              Log In
+            </button>
+              </div>
+            )
+           }
           </form>
 
           <hr className="my-6 border-gray-300 w-full" />

@@ -66,6 +66,7 @@ const TwoPersonEvent = () => {
   // State to store selected event duration
   const [eventDuration, setEventDuration] = useState("");
   const queryClient = useQueryClient();
+  const [meetLinks, setMeetLinks] = useState([]);
 
   // Function to generate an array of dates between two dates
   const getDatesInRange = (start, end) => {
@@ -164,256 +165,235 @@ const TwoPersonEvent = () => {
     setLocation(event.target.value);
   };
 
-  return (
-    <div className="my-10">
-      <form onSubmit={formHandler}>
-        <div className={`${next1 ? "hidden" : "block"} spacey-y-10`}>
-          {/* EVENT TITLE */}
+  const handleGoogleMeetLink = async () => {
+    try {
+      const response = await axios.get("/meetLink.json");
+      const meetLinks = response?.data; 
+      if (!Array.isArray(meetLinks) || meetLinks.length === 0) {
+        console.error("Meet links data is not valid.");
+        return null;
+      }
+      const shuffledMeetLinks = shuffleArray(meetLinks);
+      const randomMeetLink = shuffledMeetLinks[0];
+      const meetingLink = randomMeetLink?.link;
+      console.log(meetingLink);
+      setMeetLinks(meetingLink);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  };
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  
+  
 
-          <div className="">
-            <label className="label">
-              <span className="label-text font-semibold text-black text-xl">
-                Event Title
-              </span>
+  return (
+    <>
+      <div className="max-w-7xl py-10">
+        <form
+          onSubmit={formHandler}
+          className="flex flex-col  xl:w-2/3 space-y-10 pt-6 px-6 md:px-12  mx-auto"
+        >
+          <h2 className="text-3xl text-start font-semibold">
+            Create Your Event
+          </h2>
+          {/* Title */}
+          <div className="flex justify-center w-full mx-auto">
+            <label className="w-4/12 md:w-4/12" htmlFor="">
+              <h2 className="font-medium">Your Event title</h2>
             </label>
-            <p className="text-sm">
-              Make A simple Title To Remember Your Event
-            </p>
             <InputField
-              className="md:w-[380px] outline-none h-[40px] rounded-md text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 p-2"
+              className="border outline-none  p-2 rounded-md w-8/12 md:w-8/12"
               type="text"
               name="eventTitle"
+              placeholder={"Late Night Meeting"}
               required
             />
-            {/* <input
-              className="md:w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
-              type="text"
-              name="eventTitle"
-              required
-            /> */}
           </div>
-
-          {/* EVENT DURATION */}
-          <div className="">
-            <div className="space-y-3 my-7">
-              <label className="label">
-                <span className="label-text font-semibold text-black text-xl">
-                  Duration (minutes)
-                </span>
-              </label>
-              <p className="text-sm">
-                Setup the duration, capacity, and optional pricing of your
-                meetings.
-              </p>
-              <select
-                defaultValue=""
-                name="eventDuration"
-                className="select select-bordered w-full  md:w-[380px] "
-                onChange={(e) => setEventDuration(e.target.value)}
-                required
-              >
-                <option disabled value="">
-                  Select Duration
-                </option>
-                {generateDurationOptions()}
-              </select>
-            </div>
-          </div>
-
-          <div className="my-6  ">
-            {/* AVAILABLE DAYS */}
-            <label className="label">
-              <span className="label-text font-semibold text-black text-xl">
-                Daily availability
-              </span>
+          {/* Duration */}
+          <div className="flex justify-center w-full mx-auto">
+            <label className="w-4/12 md:w-4/12" htmlFor="">
+              <h2 className="font-medium">Duration</h2>
             </label>
-            <p className="text-sm">Set your availability during the week.</p>
-
-            <div className="">
-              {/* AVAILABLE DAYS AND TIMES */}
-
-              <div className=" "></div>
-              {/* first time ends */}
-            </div>
-
-            <div className="flex md:flex-row flex-col gap-3 items-center">
-              {/* FIRST FREE DAY */}
-
-              <div className="">
-                <label className="label">
-                  <span className="label-text font-semibold text-black text-xl">
-                    Pick Your Free Days (From)
-                  </span>
-                </label>
-                <p className="text-sm">Make some Time For Your Meeting</p>
-                <InputField
-                  className="w-[230px] outline-none border-slate-400 h-[40px] rounded-md text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 p-2"
-                  type="date"
-                  name="fromDate"
-                  onChange={(e) => setFromDate(e.target.value)}
-                  required
-                />
-                {/* <input
-                className="w-[230px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
+            <select
+              defaultValue=""
+              name="eventDuration"
+              className="select select-bordered  p-2 rounded-md w-8/12 md:w-8/12"
+              onChange={(e) => setEventDuration(e.target.value)}
+              required
+            >
+              <option disabled value="">
+                Select Duration
+              </option>
+              {generateDurationOptions()}
+            </select>
+          </div>
+          {/* date from */}
+          <div className="flex justify-center w-full mx-auto">
+            <label className="w-4/12 md:w-4/12" htmlFor="">
+              <h2 className="font-medium">
+                Select a Date
+                <br />
+                <span className="text-sm font-normal text-gray-400">{`(From)`}</span>
+              </h2>
+            </label>
+            <div className="flex gap-6 justify-center items-center w-8/12 md:w-8/12">
+              <InputField
+                className="border outline-none  p-2 rounded-md w-8/12 md:w-8/12"
                 type="date"
                 name="fromDate"
                 onChange={(e) => setFromDate(e.target.value)}
                 required
-              /> */}
-              </div>
-              {/* FIRST FREE DAY  */}
-
-              {/* SECOND FREE DAY  */}
-              <div className="">
-                <label className="label">
-                  <span className="label-text font-semibold text-black text-xl">
-                    Pick Your Free Days (To)
-                  </span>
-                </label>
-                <p className="text-sm">Make some Time For Your Meeting</p>
-                <InputField
-                  className="w-[230px] outline-none  h-[40px] rounded-md text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 p-2"
-                  type="date"
-                  name="toDate"
-                  onChange={(e) => setToDate(e.target.value)}
-                  required
-                />
-
-                {/* <input
-                className="w-[230px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
+              />
+              <h2 className="font-medium">To</h2>
+              <InputField
+                className="border outline-none  p-2 rounded-md  w-8/12 md:w-8/12"
                 type="date"
                 name="toDate"
                 onChange={(e) => setToDate(e.target.value)}
                 required
-              /> */}
-              </div>
-
-              {/* SECOND FREE DAY  */}
-            </div>
-            {/* set time for each day */}
-            <div>
-              <label className="label-text font-semibold text-black text-xl">
-                Selected Date Range
-              </label>
-              <div className="text-sm space-y-3 my-3">
-                {fromDate && toDate
-                  ? getDatesInRange(fromDate, toDate).map((date, index) => (
-                      <div key={index} className="flex items-center">
-                        <p>{`Date: ${date.toLocaleDateString()} (${getDayOfWeek(
-                          date
-                        )})`}</p>
-
-                        {/* Dropdown for time slots based on selected event duration */}
-                        {eventDuration && (
-                          <label className="ml-4">
-                            <span className="label-text font-semibold text-black text-xl">
-                              Select Time Slot
-                            </span>
-                            <select
-                              defaultValue=""
-                              name="timeSlot"
-                              className="select select-bordered w-full"
-                              required
-                            >
-                              <option disabled value="">
-                                Select Time Slot
-                              </option>
-                              {generateTimeSlots(eventDuration).map(
-                                (slot, index) => (
-                                  <option key={index} value={slot}>
-                                    {slot}
-                                  </option>
-                                )
-                              )}
-                            </select>
-                          </label>
-                        )}
-                      </div>
-                    ))
-                  : "Please select dates"}
-              </div>
-            </div>
-
-            {/* location */}
-
-            <div className="">
-              <label className="label">
-                <span className="label-text font-semibold text-black text-xl">
-                  Event Location
-                </span>
-              </label>
-              <select
-                className="select select-bordered select-xl w-[250px] my-3 max-w-xs"
-                onChange={eHandle}
-                name="location"
-                value={location}
-                required
-                // defaultValue="default"
-              >
-                <option value="" disabled>
-                  Select Your Location
-                </option>
-                <option value={"meet"}>Google Meet</option>
-                <option value={"zoom"}>Zoom</option>
-              </select>
-            </div>
-            {/* meeting link */}
-            <div className="space-y-5">
-              <div className="">
-                <label className="label">
-                  <span className="label-text font-semibold text-black text-xl">
-                    Booking Form
-                  </span>
-                </label>
-                <p className="text-sm">Create Your Meeting link</p>
-                <InputField
-                  className="w-[380px] outline-none  h-[40px] rounded-md text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 p-2"
-                  type="text"
-                  name="meetingLink"
-                  required
-                />
-
-                {/* <input
-                className="w-[380px] outline-none border border-slate-400 h-[40px] rounded-md hover:border-blue-400 p-2"
-                type="text"
-                name="meetingLink"
-                required
-              /> */}
-                {location === "zoom" ? (
-                  <Link
-                    className="btn bg-blue-500 hover:bg-blue-400 hover:text-white"
-                    href="https://zoom.us/"
-                    target="_blank"
-                  >
-                    Create Zoom Link
-                  </Link>
-                ) : (
-                  ""
-                )}
-
-                {location === "meet" ? (
-                  <Link
-                    className="btn bg-blue-500 hover:bg-blue-400 hover:text-white"
-                    href="https://meet.google.com/ "
-                    target="_blank"
-                  >
-                    Create Meet Link
-                  </Link>
-                ) : (
-                  ""
-                )}
-              </div>
+              />
             </div>
           </div>
-          {/* create event button */}
-          <div className="">
-            <button className="border-2 text-xl text-sky-700 w-[230px] rounded-md h-[45px] border-pink-300 hover:before:bg-pink-300 before:w-full before:h-0 hover:before:h-full hover:before:-z-10 hover:before:absolute before:absolute relative before:top-0 hover:before:left-0 before:duration-500 hover:text-white transform origin-top before:block">
+          {/* time slot */}
+          <div className="w-full justify-center  space-y-10 mx-auto">
+            {fromDate && toDate
+              ? getDatesInRange(fromDate, toDate).map((date, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-center w-full mx-auto"
+                  >
+                    <label className="w-4/12 md:w-4/12" htmlFor="">
+                      <h2 className="font-medium">
+                        Select Time Slot
+                        <br />
+                        <p className="text-sm font-normal text-gray-400">{`Date: ${date.toLocaleDateString()} (${getDayOfWeek(
+                          date
+                        )})`}</p>
+                      </h2>
+                    </label>
+
+                    {/* Dropdown for time slots based on selected event duration */}
+                    {eventDuration && (
+                      <select
+                        defaultValue=""
+                        name="timeSlot"
+                        className="select select-bordered  p-2 rounded-md w-8/12 md:w-8/12"
+                        required
+                      >
+                        <option disabled value="">
+                          Select Time Slot
+                        </option>
+                        {generateTimeSlots(eventDuration).map((slot, index) => (
+                          <option key={index} value={slot}>
+                            {slot}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  </div>
+                ))
+              : "Please select dates"}
+          </div>
+
+          {/* Event Location */}
+          <div className="flex justify-center  w-full mx-auto">
+            <label className="w-4/12 md:w-4/12 " htmlFor="">
+              <h2 className="font-medium">Event Location</h2>
+            </label>
+            <select
+              className="select select-bordered p-1.5 rounded-md w-8/12 md:w-8/12"
+              onChange={eHandle}
+              name="location"
+              value={location}
+              required
+              // defaultValue="default"
+            >
+              <option value="" disabled>
+                Select Your Location
+              </option>
+              <option value={"meet"}>Google Meet</option>
+              <option value={"zoom"}>Zoom</option>
+            </select>
+          </div>
+          {/* Booking Form */}
+          <div className="flex justify-center  w-full mx-auto">
+            <label className="w-4/12 md:w-4/12" htmlFor="">
+              <h2 className="font-medium">
+                Booking Form <br />
+                <span className="text-sm font-normal text-gray-400">
+                  create meeting link
+                </span>
+              </h2>
+            </label>
+            <div className="flex justify-between items-center gap-2 w-8/12 md:w-8/12">
+              <InputField
+                className={`border outline-none  p-2 rounded-md  ${
+                  location ? "w-5/6" : "w-full"
+                }`}
+                value={meetLinks}
+                type="text"
+                name="meetingLink"
+                placeholder={"https://meet.example.com/late-night-meet"}
+                required
+              />
+              {location === "zoom" ? (
+                <Link
+                  className="w-1/6 border flex justify-center items-center border-purple-500 p-2 text-blue-500"
+                  href="https://zoom.us/"
+                  target="_blank"
+                >
+                  Create
+                </Link>
+              ) : (
+                ""
+              )}
+
+              {location === "meet" ? (
+                <button
+                  className="w-1/6 border flex justify-center items-center border-purple-500 p-2 text-blue-500"
+                  onClick={handleGoogleMeetLink}
+                  target="_blank"
+                >
+                  Create
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+          {/* Button */}
+          <hr className="w-full" />
+          <div>
+            <button
+              type="submit"
+              className=" flex gap-2 bg-purple-400 hover:bg-purple-500 focus:bg-indigo-400 text-white font-medium rounded px-4 py-2 "
+            >
+              {isPending && (
+                <svg
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="mr-2 animate-spin"
+                  viewBox="0 0 1792 1792"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"></path>
+                </svg>
+              )}
               Confirm Event
             </button>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+      {/* Old Form */}
+    </>
   );
 };
 
