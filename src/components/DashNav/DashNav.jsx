@@ -12,7 +12,7 @@ import {
   FaLink,
   FaPlus,
   FaSquarePollVertical,
-  FaHouse
+  FaHouse,
 } from "react-icons/fa6";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -40,13 +40,6 @@ const DashNav = () => {
             isClicked && "justify-center items-center"
           } flex-col relative`}
         >
-          {/* // <button
-            //   onClick={() => setIsClicked(false)}
-            //   className="btn btn-sm absolute right-6 top-2 "
-            //   >
-              
-            // </button> */}
-
           {isClicked ? (
             <DashNavButton
               onClick={() => setIsClicked(false)}
@@ -76,29 +69,31 @@ const DashNav = () => {
               />
             </Link>
           ) : (
-            <div className="flex items-center">
-              <Lottie
-                animationData={MeetLogo}
-                style={{
-                  width: "100px",
-                  height: "100px",
-                }}
-              />
-              <p className="text-center text-3xl">
-                <span
-                  className="text-3xl font-black"
+            <Link href={"/"}>
+              <div className="flex items-center">
+                <Lottie
+                  animationData={MeetLogo}
                   style={{
-                    color: "white",
-                    WebkitTextFillColor: "black",
-                    WebkitTextStroke: "1.5px purple",
-                    fontSize: "28px",
-                    fontWeight: "bolder",
+                    width: "100px",
+                    height: "100px",
                   }}
-                >
-                  MeetReady
-                </span>
-              </p>
-            </div>
+                />
+                <p className="text-center text-3xl">
+                  <span
+                    className="text-3xl font-black"
+                    style={{
+                      color: "white",
+                      WebkitTextFillColor: "black",
+                      WebkitTextStroke: "1.5px purple",
+                      fontSize: "28px",
+                      fontWeight: "bolder",
+                    }}
+                  >
+                    MeetReady
+                  </span>
+                </p>
+              </div>
+            </Link>
           )}
 
           <Link
@@ -159,17 +154,27 @@ const DashNav = () => {
 
         <div className="p-3">
           <Link href={"/"}>
-            <DashNavButton
-              className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
-            >
-              {isClicked ? <FaHouse />  : <><FaHouse /> Go to Home</>}
+            <DashNavButton className="w-full flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400">
+              {isClicked ? (
+                <FaHouse />
+              ) : (
+                <>
+                  <FaHouse /> Go to Home
+                </>
+              )}
             </DashNavButton>
           </Link>
           <DashNavButton
             onClick={() => signOut()}
             className="w-full mt-2 flex justify-start items-center text-lg font-semibold gap-3 duration-500 btn glass bg-purple-300  hover:bg-purple-400"
           >
-            {isClicked ? <FaArrowRightFromBracket />  : <><FaArrowRightFromBracket /> Logout</>}
+            {isClicked ? (
+              <FaArrowRightFromBracket />
+            ) : (
+              <>
+                <FaArrowRightFromBracket /> Logout
+              </>
+            )}
           </DashNavButton>
         </div>
       </div>
@@ -241,8 +246,8 @@ const DashNav = () => {
                 <FaArrowRightFromBracket />
               ) : (
                 <FaArrowRightFromBracket />
-              )}{"Log Out"}
-              
+              )}
+              {"Log Out"}
             </DashNavButton>
           </ul>
         </div>
