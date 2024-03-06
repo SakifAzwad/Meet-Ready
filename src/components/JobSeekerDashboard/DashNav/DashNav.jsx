@@ -70,7 +70,8 @@ const DashNav = () => {
               />
             </Link>
           ) : (
-            <div className="flex items-center">
+            <Link href={"/"}>
+              <div className="flex items-center">
               <Lottie
                 animationData={MeetLogo}
                 style={{
@@ -93,6 +94,7 @@ const DashNav = () => {
                 </span>
               </p>
             </div>
+            </Link>
           )}
           {isClicked ? "" : <UserName />}
 

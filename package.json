@@ -21,6 +21,7 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.1",
+    "chat.js": "^1.0.2",
     "js": "^0.1.0",
     "jsonwebtoken": "^9.0.2",
     "lottie-react": "^2.4.0",

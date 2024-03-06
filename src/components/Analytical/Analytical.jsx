@@ -2,6 +2,30 @@
 import "chart.js/auto";
 import { Bar, Pie } from "react-chartjs-2";
 const Analytical = () => {
+ // Getting user email from session so that event information can be called based on email
+ const session = useSession();
+ const email = session?.data?.user?.email;
+console.log('email in alalytical', email)
+ //  Creating function to get event data based on email
+ const getDataByEmail = async (email) => {
+   console.log(email)
+   try {
+     const res = await axios.get(`/api/createEvent?email=${email}`);
+     return res.data;
+   } catch (error) {
+     throw error;
+   }
+ };
+
+ // Using tanstack query and axios data is fetched form server
+
+ const { data: emailData, isLoading, isError } = useQuery({
+   queryKey: ["singleEventDataGet"],
+   queryFn: () => getDataByEmail(email),
+ });
+
+
+console.log('data in analytical', emailData)
   const data = {
     labels: ["Google Meet", "Zoom", "Others"],
     datasets: [
