@@ -16,7 +16,7 @@ const Banner = () => {
         <h1 className="pt-12 text-2xl text-center lg:text-left">
           Focus on What Matters Most, <br></br> Leave Scheduling to Us
         </h1>
-        <div className="lg:ml-0 ml-32 mt-8">
+        <div className="lg:ml-0  mt-8 flex items-center justify-center lg:justify-start">
           <HoverButton />
         </div>
       </div>
