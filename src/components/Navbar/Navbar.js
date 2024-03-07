@@ -1,22 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-// import styles from "./Navbar.module.css";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import logo from "@/assets/meetReadyLogo.png";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import Logout from "../Logout/Logout";
 import InputField from "../InputField/InputField";
 import Lottie from "lottie-react";
-// import { useFetchDataAndSetUser } from "./fetchDataAndSetUser";
 import MeetLogo from "../../../public/Meet.json";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const session = useSession();
-  console.log(session.data?.user);
+  // console.log(session.data?.user);
 
   const [currentPath, setCurrentPath] = useState("");
   const [isSticky, setIsSticky] = useState(false);
@@ -27,15 +21,6 @@ const Navbar = () => {
       setCurrentPath(currentPathName);
   }, [currentPathName]);
 
-  //   if (typeof window !== 'undefined') {
-  //     // Add event listener when component mounts
-
-  //     // Remove event listener when component unmounts
-  //     return () => {
-  //       window.removeEventListener("scroll", handleScroll);
-  //     };
-  //   }
-  // }, []);
 
   const name = session.data?.user?.name || "";
   let lastName = "";
@@ -59,13 +44,6 @@ const Navbar = () => {
     >
       <div className={`flex items-center justify-between lg: `}>
         <div className="flex space-x-6 items-center">
-          {/* <Image
-            className="py-4 ml-12 mr-4"
-            src={logo}
-            width={"200"}
-            height={"150"}
-            alt="logo"
-          /> */}
           <div className="flex items-center mr-4 -mt-4 ml-7">
             <Lottie
               animationData={MeetLogo}
@@ -143,12 +121,6 @@ const Navbar = () => {
               placeholder="Search"
               className="text-gray-700 bg-white border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300 h-10 px-5 pr-10 rounded-full text-sm"
             />
-            {/* <input
-              type="search"
-              name="search"
-              placeholder="Search"
-              className="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
-            /> */}
             <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
               <svg
                 className="h-4 w-4 fill-current text-purple-900"
@@ -176,13 +148,13 @@ const Navbar = () => {
                   role="button"
                   className="mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
                 >
-                  <div className="w-10 ">
+                  <div>
                     <p className="text-wrap">{lastName}</p>
                   </div>
 
                   <ul
                     tabIndex={0}
-                    className=" mt-64 z-[1] p-2 shadow menu menu-sm dropdown-content bg-purple-400  dark:text-black dark:border-white dark:border-2 dark:border-opacity-50 dark:shadow-lg dark:ring-2 dark:ring-white dark:ring-opacity-50 dark:ring-offset-2 dark:ring-offset-white dark:ring-offset-opacity-50 dark:divide-white"
+                    className=" mt-64 z-[1] w-64 rounded-lg p-2 shadow menu menu-sm dropdown-content bg-purple-400  dark:text-black dark:border-white dark:border-2 dark:border-opacity-50 dark:shadow-lg dark:ring-2 dark:ring-white dark:ring-opacity-50 dark:ring-offset-2 dark:ring-offset-white dark:ring-offset-opacity-50 dark:divide-white"
                   >
                     <li className=" rounded-lg mt-2 flex items-center justify-center text-center text-white">
                       <p className="text-wrap">
@@ -313,7 +285,7 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <div className="lg:flex mb-4">
+          <div className="lg:flex">
             <div className="relative text-gray-600">
               <InputField
                 type="search"
@@ -321,13 +293,6 @@ const Navbar = () => {
                 placeholder="Search"
                 className="bg-white h-10 ml-12 my-4 px-5 pr-10 rounded-full text-sm text-gray-700  border focus:border-purple-400 dark:focus:border-purple-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-purple-300"
               />
-
-              {/* <input
-              type="search"
-              name="search"
-              placeholder="Search"
-              className="bg-white h-10 ml-12 my-4 px-5 pr-10 rounded-full text-sm focus:outline-none"
-            /> */}
               <button
                 type="submit"
                 className="absolute left-64  top-4 mt-3 mr-4"
@@ -358,7 +323,7 @@ const Navbar = () => {
                     role="button"
                     className="mx-12 mb-4 flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none  rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  bg-purple-400 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base"
                   >
-                    <div className="w-10 ">
+                    <div>
                       <p className="text-wrap">{lastName}</p>
                     </div>
 
