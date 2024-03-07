@@ -1,7 +1,9 @@
+import Link from "next/link";
 import "./Button.css";
 const HoverButton = () => {
   return (
-    <button className="Button">
+    <Link href="/dashboard">
+      <button className="Button">
       <span className="text">Get Started</span>
       <div className="svg-wrapper-1">
         <div className="svg-wrapper">
@@ -19,6 +21,7 @@ const HoverButton = () => {
         </div>
       </div>
     </button>
+    </Link>
   );
 };
 

@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 const RoleSetting = () => {
   // Getting user email from session
@@ -29,13 +30,16 @@ const RoleSetting = () => {
 // todo show toast
       if(data.data === "User role updated to jobSeeker"){
         // todo show toast
+        toast.success('User role updated to jobSeeker')
         router.push('/Job-Seeker-Dashboard')
       }else if(data.data === "User role updated to employer"){
-        // todo show toast
+        // complete
+        toast.success('User role updated to employer')
         router.push('/dashboard')
       } else{
         // todo show toast
-        console.log("An error occurred")
+        toast.error('An error occurred')
+        // console.log("An error occurred")
       }
     }
   })

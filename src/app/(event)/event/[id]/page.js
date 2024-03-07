@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Loading from "@/components/Loading/Loading";
+import toast from "react-hot-toast";
 
 
 const Event = ({params}) => {
@@ -76,11 +77,11 @@ const startDate = new Date(data?.singleEvent?.fromDate);
     onSuccess: (data) => {
       console.log('data', data)
       if(data.status === 200) {
-        // todo show toast
-        console.log("Booking successful")
+        // done
+        toast.success('Booking successful')
       } if(data.status === 500){
-        //     //todo add toast or alert
-            console.log('Error in booking. Please try again.')
+        //done
+            toast.error('Error in booking. Please try again.')
           }
     }
   })
@@ -99,16 +100,12 @@ const startDate = new Date(data?.singleEvent?.fromDate);
       meetingLocation: data?.singleEvent?.meetingLocation
     };
 
-    // calling mutateAsync function.
     mutateAsync(bookingData)
   };
 
   if(isLoading){
     return <Loading></Loading>
   }
-// console.log('time', data?.singleEvent?.dateAndTimeArray)
-
-// console.log('selected date', selectedDate)
 
   return (
     <main className=" bg-gradient-to-r from-[#E7F1FE] via-[#ECF0FE] to-[#F5EEFF] min-h-screen text-center flex justify-center items-center">
